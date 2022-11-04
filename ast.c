@@ -1,6 +1,7 @@
 #include "def.h"
 #include "parser.tab.h"
 
+
 struct ASTNode * mknode(int num,int kind,int pos,...){
     struct ASTNode *T=(struct ASTNode *)calloc(sizeof(struct ASTNode),1);
     int i=0;
@@ -15,6 +16,9 @@ struct ASTNode * mknode(int num,int kind,int pos,...){
     return T;
 }
 
+void semantic_Analysis0(struct ASTNode *T) {
+    
+}
 
 void display(struct ASTNode *T,int indent)
 {//对抽象语法树的先根遍历
