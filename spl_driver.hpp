@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <initializer_list>
 
+#include "ast.hpp"
 #include "scanner.hpp"
 #include "parser.tab.hpp"
 
