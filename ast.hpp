@@ -30,8 +30,24 @@ namespace SPL {
         std::variant<unsigned int, float, char> value;
         vector<Node*> children;
         
-        Node(string type);
-        Node(string type, Scan_Info *info);
+        Node(string type){this.type=type;};
+        Node(string type, Scan_Info *info) : type{type} {
+        line_no = info->line_no;
+        std::string lexeme = info->lexeme;
+        switch (this->leaf_type) {
+            case token::INT:
+                value = (unsigned int)std::stoul(lexeme, nullptr, 0);
+                break;
+            case token::FLOAT:
+                value = std::stof(lexeme, nullptr);
+                break;
+            case token::CHAR:
+                value = trim(lexeme, "'").c_str()[0];
+                break;
+            default:
+                break;
+            }
+        }
         
     };
     
