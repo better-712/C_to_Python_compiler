@@ -56,7 +56,7 @@
 %token <Scan_Info *> LINE_COMMENT
 %token <Scan_Info *> ERROR
 
-%type<Node *>Program ExtDefList
+%type<Node *>Program ExtDefList ExtDef ExtDecList Specifier StructSpecifier VarDec FunDec VarList ParamDec CompSt StmtList Stmt DefList Def DecList Dec Exp Args
 
 %nonassoc ERROR
 %right ASSIGN
