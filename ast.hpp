@@ -35,6 +35,13 @@ namespace SPL {
         line_no = info->line_no;
         value = info->lexeme;
         }
+        Node(std::string type, Node *n1) : type{type} {
+        children.push_back(n1);
+        }
+        Node(std::string type, Node *n1,Node *n2) : type{type} {
+        children.push_back(n1);
+        children.push_back(n2);
+        }
     };
     
     void print_ast(Node *node, int level = 0);
