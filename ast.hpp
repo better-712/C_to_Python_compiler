@@ -42,7 +42,7 @@ namespace SPL {
         children.push_back(n1);
         children.push_back(n2);
         }
-        Node(Node *n0, Node *n1,Node *n2) : {
+        Node(Node *n0, Node *n1,Node *n2) {
         std::cout<<"????????"<<std::endl;
         }
         Node(std::string type, Node *n1,Node *n2,Node *n3) : type{type} {
