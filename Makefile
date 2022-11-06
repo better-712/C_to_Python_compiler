@@ -1,5 +1,5 @@
 
-SRCS = main.cpp scanner.yy.cpp parser.tab.cpp spl_driver.cpp utils.cpp ast.cpp
+SRCS = main.cpp scanner.yy.cpp parser.tab.cpp spl_driver.cpp ast.cpp
 
 TESTS = test/test_1_r01.spl test/test_1_r02.spl
 
