@@ -26,6 +26,7 @@ namespace SPL {
 
         void parse(const char *filename);
         void set_root(SPL::Node *node);
+        SPL::Node *get_root();
 
 
     private:
