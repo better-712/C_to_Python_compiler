@@ -3,7 +3,8 @@
 //
 
 #include "ast.hpp"
-
+#include <iostream>
+#include <fstream>
 namespace SPL {
     
     void print_ast(Node *node, int level) {
@@ -11,6 +12,9 @@ namespace SPL {
             return;
         }
 
+        std::ofstream outfile;
+        outfile.open("out.txt",std::ios::trunc);
+            
         std::cout << std::string(2 * level, ' ')<< node->type <<" ("<<std::to_string(node->line_no)<<")"<< std::endl;
 
         for (auto &child: node->children) {
