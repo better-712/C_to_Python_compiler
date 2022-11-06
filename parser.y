@@ -11,6 +11,7 @@
 
       class SPL_Driver;
       class SPL_Scanner;
+      class Node;
       
    }
 
@@ -27,14 +28,11 @@
 
     #define LOCAL1
 
-    /* include for all driver functions */
     #include "spl_driver.hpp"
+    #include "ast.hpp"
 
-    /* include for all AST functions */
-    
-
-#undef yylex
-#define yylex scanner.yylex
+    #undef yylex
+    #define yylex scanner.yylex
 
 }
 
@@ -76,7 +74,11 @@
 %%
 
 /* High-level definition */
-Program : ExtDefList{std::cout << "Program -> (ExtDefList)" << std::endl;}
+Program : ExtDefList{
+std::cout << "Program -> (ExtDefList)" << std::endl;
+$$=new Node("Program");
+driver.set_root($$);
+}
 ExtDefList : ExtDef ExtDefList{std::cout << "ExtDefList - > (ExtDef ExtDefList)" << std::endl;}
     | %empty{std::cout << "ExtDefList - > (%empty)" << std::endl;}
 ExtDef : Specifier ExtDecList SEMI{std::cout << "ExtDef - > (Specifier ExtDecList SEMI)" << std::endl;}
