@@ -11,7 +11,7 @@ namespace SPL {
             return;
         }
 
-        std::cout << std::string(2 * level, ' ')<< node->type <<" ("<<std::to_string(line_no)<<")"<< std::endl;
+        std::cout << std::string(2 * level, ' ')<< node->type <<" ("<<std::to_string(node->line_no)<<")"<< std::endl;
 
         for (auto &child: node->children) {
             print_ast(child, level + 1);
