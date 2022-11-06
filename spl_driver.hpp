@@ -24,6 +24,7 @@ namespace SPL {
         virtual ~SPL_Driver();
 
         void parse(const char *filename);
+        void set_root(SPL::Node *node);
 
 
     private:
