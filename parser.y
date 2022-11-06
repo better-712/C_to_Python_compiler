@@ -56,6 +56,7 @@
 %token <Scan_Info *> LINE_COMMENT
 %token <Scan_Info *> ERROR
 
+%type<Node *>Program
 
 %nonassoc ERROR
 %right ASSIGN
