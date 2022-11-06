@@ -76,7 +76,7 @@
 
 /* High-level definition */
 Program : ExtDefList{
-$$=new Node($1);
+$$=new Node("Program",$1);
 driver.set_root($$);
 }
 ExtDefList : ExtDef ExtDefList{$$=new Node("ExtDefList",new Node("empty"),new Node("test"));}
