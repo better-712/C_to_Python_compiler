@@ -40,7 +40,7 @@ namespace SPL {
         // Method body created by flex in scanner.yy.cpp
 
         
-        }
+        
 
     private:
         /* yyval ptr */
