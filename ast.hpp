@@ -13,7 +13,6 @@
 #include <algorithm>
 #include <variant>
 #include "parser.tab.hpp"
-#include "utils.hpp"
 #include "scanner.hpp"
 
 namespace SPL {
