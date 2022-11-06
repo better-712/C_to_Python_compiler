@@ -36,9 +36,11 @@ namespace SPL {
         value = info->lexeme;
         }
         Node(std::string type, Node *n1) : type{type} {
+        line_no = n1->line_no;
         children.push_back(n1);
         }
         Node(std::string type, Node *n1,Node *n2) : type{type} {
+        line_no = n1->line_no;
         children.push_back(n1);
         children.push_back(n2);
         }
@@ -46,17 +48,20 @@ namespace SPL {
         std::cout<<"????????"<<std::endl;
         }
         Node(std::string type, Node *n1,Node *n2,Node *n3) : type{type} {
+        line_no = n1->line_no;
         children.push_back(n1);
         children.push_back(n2);
         children.push_back(n3);
         }
         Node(std::string type, Node *n1,Node *n2,Node *n3,Node *n4) : type{type} {
+        line_no = n1->line_no;
         children.push_back(n1);
         children.push_back(n2);
         children.push_back(n3);
         children.push_back(n4);
         }
         Node(std::string type, Node *n1,Node *n2,Node *n3,Node *n4,Node *n5) : type{type} {
+        line_no = n1->line_no;
         children.push_back(n1);
         children.push_back(n2);
         children.push_back(n3);
@@ -64,6 +69,7 @@ namespace SPL {
         children.push_back(n5);
         }
         Node(std::string type, Node *n1,Node *n2,Node *n3,Node *n4,Node *n5,Node *n6) : type{type} {
+        line_no = n1->line_no;
         children.push_back(n1);
         children.push_back(n2);
         children.push_back(n3);
@@ -72,6 +78,7 @@ namespace SPL {
         children.push_back(n6);
         }
         Node(std::string type, Node *n1,Node *n2,Node *n3,Node *n4,Node *n5,Node *n6,Node *n7) : type{type} {
+        line_no = n1->line_no;
         children.push_back(n1);
         children.push_back(n2);
         children.push_back(n3);
