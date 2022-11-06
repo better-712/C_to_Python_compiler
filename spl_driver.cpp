@@ -39,5 +39,8 @@ namespace SPL {
         parser->parse();
         
     }
+    void set_root(SPL::Node *node){
+        root = node;
+    }
 
 }
