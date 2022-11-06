@@ -68,7 +68,7 @@ MULTI_LINE_COMMENT      \/\*[^*]*\*+(?:[^/*][^*]*\*+)*\/
 
 {ILLEGAL_HEX_INT} {
 	//std::cout << "ILLEGAL_HEX_INT" << std::endl;
-	add_error(new Scan_Info(std::string(yytext), yylineno));
+	
 	yylval->build<Scan_Info*>(new Scan_Info(std::string("0"), yylineno));
     return token::INT;
 }
@@ -87,7 +87,7 @@ MULTI_LINE_COMMENT      \/\*[^*]*\*+(?:[^/*][^*]*\*+)*\/
 
 {ILLEGAL_HEX_CHAR} {
 	//std::cout << "{ILLEGAL_HEX_CHAR}" << std::endl;
-	add_error(new Scan_Info(std::string(yytext), yylineno));
+	
 	yylval->build<Scan_Info*>(new Scan_Info(std::string("'o'"), yylineno));
     return token::CHAR;
 }
@@ -142,7 +142,7 @@ int|float|char {        // reserved type
 
 {ILLEGAL_ID} {
 	//std::cout << "ILLEGAL_ID" << std::endl;
-	add_error(new Scan_Info(std::string(yytext), yylineno));
+	
     yylval->build<Scan_Info*>(new Scan_Info(std::string("id"), yylineno));
     return token::ID;
 }
@@ -279,7 +279,7 @@ int|float|char {        // reserved type
 
 . {
 	//std::cout << "OTHER" << std::endl;
-	add_error(new Scan_Info(std::string(yytext), yylineno));
+	
     yylval->build<Scan_Info*>(new Scan_Info(std::string(yytext), yylineno));
     return token::ERROR;
 }
