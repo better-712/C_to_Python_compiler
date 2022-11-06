@@ -15,5 +15,5 @@ using std::cout, std::endl;
 int main(const int argc, const char **argv) {
     SPL::SPL_Driver driver;
     driver.parse(argv[1]);
-    
+    SPL::print_ast(driver.get_root());
 }
