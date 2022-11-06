@@ -76,15 +76,14 @@
 
 /* High-level definition */
 Program : ExtDefList{
-std::cout << "Program -> (ExtDefList)" << std::endl;
 $$=new Node("Program");
 driver.set_root($$);
 }
-ExtDefList : ExtDef ExtDefList{std::cout << "ExtDefList - > (ExtDef ExtDefList)" << std::endl;}
-    | %empty{std::cout << "ExtDefList - > (%empty)" << std::endl;}
-ExtDef : Specifier ExtDecList SEMI{std::cout << "ExtDef - > (Specifier ExtDecList SEMI)" << std::endl;}
-    | Specifier SEMI{std::cout << "ExtDef - > (Specifier SEMI)" << std::endl;}
-    | Specifier FunDec CompSt{std::cout << "ExtDef - > (Specifier FunDec CompSt)" << std::endl;}
+ExtDefList : ExtDef ExtDefList{$$=new Node("ExtDefList",new Node("empty"),new Node("test"));}
+    | %empty{$$=new Node("empty");}
+ExtDef : Specifier ExtDecList SEMI{}
+    | Specifier SEMI{}
+    | Specifier FunDec CompSt{}
 ExtDecList : VarDec{std::cout << "ExtDecList - > (VarDec)" << std::endl;}
     | VarDec COMMA ExtDecList{std::cout << "ExtDecList - > (VarDec COMMA ExtDecList)" << std::endl;}
 
