@@ -7,17 +7,15 @@
 namespace SPL {
     
     void print_ast(Node *node, int level) {
-        std::cout << node->type<<std::endl;
-//         if (node->is_empty()) {
-//             return;
-//         }
+        if (node->type.compare("empty") == 0) {
+            return;
+        }
 
-//         std::cout << std::string(2 * indent_level, ' ') // Indent format
-//                   << node->to_string() << std::endl;
+        std::cout << std::string(2 * level, ' ')<< node->type <<" ("<<std::to_string(line_no)<<")"<< std::endl;
 
-//         for (auto &child: node->get_child()) {
-//             print_ast(child, indent_level + 1);
-//         }
+        for (auto &child: node->children) {
+            print_ast(child, level + 1);
+        }
         
     }
     
