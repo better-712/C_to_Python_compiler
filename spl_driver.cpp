@@ -39,8 +39,11 @@ namespace SPL {
         parser->parse();
         
     }
-    void set_root(SPL::Node *node){
+    void SPL_Driver::set_root(Node *node){
         root = node;
+    }
+    Node* SPL_Driver::get_root(){
+        return root;
     }
 
 }
