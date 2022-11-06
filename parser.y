@@ -76,9 +76,28 @@
 %%
 
 /* High-level definition */
-Program
-  : RB {std::cout<<"rbrbrbrb"<<std::endl;}
-
+list:INT{std::cout<<"hhhhhhhhhh"<<std::endl;}
+    |FLOAT
+    |CHAR
+    |TYPE
+    |ID
+    |STRUCT
+    |IF
+    |ELSE
+    |WHILE
+    |RETURN
+    |ASSIGN
+    |DOT
+    |SEMI
+    |COMMA
+    |LP
+    |RP
+    |LC
+    |RC
+    |LB
+    |RB
+    |AND
+    |OR
 %%
 
 void SPL::SPL_Parser::error(const location_type &l, const std::string &err_message){
