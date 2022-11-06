@@ -13,7 +13,7 @@ namespace SPL {
         }
 
         std::ofstream outfile;
-        outfile.open("out.txt",std::ios::trunc);
+        outfile.open("out.txt",std::ios::ate);
             
         outfile << std::string(2 * level, ' ')<< node->type <<" ("<<std::to_string(node->line_no)<<")"<< std::endl;
 
