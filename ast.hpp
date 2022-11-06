@@ -26,11 +26,11 @@ namespace SPL {
     class Node {
     public:
         int line_no = INT32_MAX;
-        string type;
-        string value;
-        vector<Node*> children;
+        std::string type;
+        std::string value;
+        std::vector<Node*> children;
         
-        Node(std::string type){this.type=type;}
+        Node(std::string type){this->type=type;}
         Node(std::string type, Scan_Info *info) : type{type} {
         line_no = info->line_no;
         value = info->lexeme;
