@@ -56,7 +56,7 @@
 %token <Scan_Info *> LINE_COMMENT
 %token <Scan_Info *> ERROR
 
-%type<Node *>Program
+%type<Node *>Program ExtDefList
 
 %nonassoc ERROR
 %right ASSIGN
@@ -76,7 +76,7 @@
 
 /* High-level definition */
 Program : ExtDefList{
-$$=new Node("Program");
+$$=new Node($1);
 driver.set_root($$);
 }
 ExtDefList : ExtDef ExtDefList{$$=new Node("ExtDefList",new Node("empty"),new Node("test"));}
