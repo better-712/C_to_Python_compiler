@@ -109,6 +109,7 @@ StmtList : Stmt StmtList{$$ = new Node("StmtList",$1,$2);}
 Stmt : Exp SEMI{$$ = new Node("Stmt",$1,new Node("SEMI",$2));}
     | CompSt{$$ = new Node("Stmt",$1);}
     | RETURN Exp SEMI{$$ = new Node("Stmt",new Node("RETURN",$1),$2,new Node("SEMI",$3));}
+    | RETURN Exp %prec ERROR{driver.add_syntax_error(";", $1);$$ = new Node("error");}
     | IF LP Exp RP Stmt{$$ = new Node("Stmt",new Node("IF",$1),new Node("LP",$2),$3,new Node("RP",$4),$5);}
     | IF LP Exp RP Stmt ELSE Stmt{$$ = new Node("Stmt",new Node("IF",$1),new Node("LP",$2),$3,new Node("RP",$4),$5,new Node("ELSE",$6),$7);}
     | WHILE LP Exp RP Stmt{$$ = new Node("Stmt",new Node("WHILE",$1),new Node("LP",$2),$3,new Node("RP",$4),$5);}
