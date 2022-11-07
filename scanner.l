@@ -279,9 +279,9 @@ int|float|char {        // reserved type
 
 . {
 	std::cout << "OTHER" << yylineno<< std::endl;
-	
-    yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
-    return token::ERROR;
+	add_error(new Scan_Info(std::string(yytext), yylineno));
+    	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
+    	return token::ERROR;
 }
 
 %%
