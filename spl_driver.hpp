@@ -29,7 +29,9 @@ namespace SPL {
         SPL::Node *get_root();
         
         void add_syntax_error(std::string lexeme, Scan_Info *info);
-
+        
+        std::vector<Error *> *get_errors();
+        void print_errors();
 
     private:
         void parse_helper(std::istream &is);
