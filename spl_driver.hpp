@@ -39,7 +39,7 @@ namespace SPL {
         SPL::SPL_Parser *parser = nullptr;
         SPL::SPL_Scanner *scanner = nullptr;
         SPL::Node *root = nullptr;
-        std::vector<Error *> syntax_errors;
+        std::vector<Error *> *syntax_errors;
     };
 
     
