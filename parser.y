@@ -117,7 +117,6 @@ Stmt : Exp SEMI{$$ = new Node("Stmt",$1,new Node("SEMI",$2));}
 
 /* local definition */
 DefList : Def DefList{$$ = new Node("DefList",$1,$2);}
-    | Def Stmt DefList{driver.add_syntax_error("specifier", $2);$$ = new Node("DefList");}
     | %empty{$$ = new Node("empty");}
 Def : Specifier DecList SEMI{$$ = new Node("Def",$1,$2,new Node("SEMI",$3));}
 DecList : Dec{$$ = new Node("DecList",$1);}
@@ -127,6 +126,7 @@ Dec : VarDec{$$ = new Node("Dec",$1);}
 
 /* Expression */
 Exp : Exp ASSIGN Exp{$$ = new Node("Exp",$1,new Node("ASSIGN",$2),$3);}
+    | Exp ERROR Exp{$$ = new Node("Exp");}
     | Exp AND Exp{$$ = new Node("Exp",$1,new Node("AND",$2),$3);}
     | Exp OR Exp{$$ = new Node("Exp",$1,new Node("OR",$2),$3);}
     | Exp LT Exp{$$ = new Node("Exp",$1,new Node("LT",$2),$3);}
