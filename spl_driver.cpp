@@ -56,7 +56,7 @@ namespace SPL {
         if (scanner->lexical_errors->empty()) {
             return syntax_errors;
         } else if (syntax_errors->empty()) {
-            return scanner->get_errors();
+            return scanner->lexical_errors;
         }
 
         auto *all_errors = new std::vector<Error *>(scanner->lexical_errors->begin(),
