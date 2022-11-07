@@ -142,7 +142,7 @@ int|float|char {        // reserved type
 
 {ILLEGAL_ID} {
 	std::cout << "ILLEGAL_ID" <<yylineno<<  std::endl;
-	
+	add_lexical_error(new Scan_Info(std::string(yytext), yylineno));
     yylval->build<Scan_Info*>(new Scan_Info(std::string("id"), yylineno));
     return token::ID;
 }
