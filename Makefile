@@ -1,7 +1,7 @@
 
 SRCS = main.cpp scanner.yy.cpp parser.tab.cpp spl_driver.cpp ast.cpp
 
-splc: $(SRCS)
+bin/splc: $(SRCS)
 	g++ -g -std=c++17 $(SRCS) -o $@
 
 scanner.yy.cpp: scanner.l
@@ -13,5 +13,5 @@ parser.tab.cpp: parser.y
 clean:
 	rm -rf scanner.yy.cpp
 	rm -rf parser.tab.cpp parser.tab.hpp stack.hh location.hh
-	rm -rf splc
+	rm -rf bin/splc
 
