@@ -16,7 +16,7 @@ namespace SPL {
         outfile.open("out.txt",std::ios::app);
         
         if(!node->value.empty())
-            outfile << std::string(2 * level, ' ')<< node->type <<": "<<node->value<< std::endl;
+            outfile << std::string(2 * level, ' ')<< node->type <<"  "<<node->value<< std::endl;
         else 
             outfile << std::string(2 * level, ' ')<< node->type <<" ("<<std::to_string(node->line_no)<<")"<< std::endl;
 
