@@ -127,6 +127,7 @@ Dec : VarDec{$$ = new Node("Dec",$1);}
 
 /* Expression */
 Exp : Exp ASSIGN Exp{$$ = new Node("Exp",$1,new Node("ASSIGN",$2),$3);}
+    | Exp ERROR Exp {$$ = new Node("Exp");}
     | Exp AND Exp{$$ = new Node("Exp",$1,new Node("AND",$2),$3);}
     | Exp OR Exp{$$ = new Node("Exp",$1,new Node("OR",$2),$3);}
     | Exp LT Exp{$$ = new Node("Exp",$1,new Node("LT",$2),$3);}
