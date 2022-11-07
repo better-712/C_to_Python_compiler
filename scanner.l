@@ -279,7 +279,7 @@ int|float|char {        // reserved type
 
 . {
 	std::cout << "OTHER" << yylineno<< std::endl;
-	add_error(new Scan_Info(std::string(yytext), yylineno));
+	add_lexical_error(new Scan_Info(std::string(yytext), yylineno));
     	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
     	return token::ERROR;
 }
