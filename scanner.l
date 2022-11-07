@@ -68,7 +68,7 @@ MULTI_LINE_COMMENT      \/\*[^*]*\*+(?:[^/*][^*]*\*+)*\/
 
 {ILLEGAL_HEX_INT} {
 	std::cout << "ILLEGAL_HEX_INT" <<yylineno<<  std::endl;
-	
+	add_lexical_error(new Scan_Info(std::string(yytext), yylineno));
 	yylval->build<Scan_Info*>(new Scan_Info(std::string("0"), yylineno));
     return token::INT;
 }
@@ -87,7 +87,7 @@ MULTI_LINE_COMMENT      \/\*[^*]*\*+(?:[^/*][^*]*\*+)*\/
 
 {ILLEGAL_HEX_CHAR} {
 	std::cout << "{ILLEGAL_HEX_CHAR}" <<yylineno<<  std::endl;
-	
+	add_lexical_error(new Scan_Info(std::string(yytext), yylineno));
 	yylval->build<Scan_Info*>(new Scan_Info(std::string("'o'"), yylineno));
     return token::CHAR;
 }
