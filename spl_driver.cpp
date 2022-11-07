@@ -71,7 +71,7 @@ namespace SPL {
     }
     
     void SPL_Driver::print_errors() {
-        for (const auto &error: get_errors()) {
+        for (const auto &error: *get_errors()) {
             std::cout << error->to_string() << std::endl;
         }
     }
