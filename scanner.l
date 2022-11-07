@@ -46,8 +46,6 @@ ILLEGAL_HEX_CHAR        '\\x[0-9A-Za-z]*'
 
 FLOAT                   {DIGIT}+"."{DIGIT}*
 
-LINE_COMMENT            \/\/[^\n\r]*(\n|\r\n|\r)?
-MULTI_LINE_COMMENT      \/\*[^*]*\*+(?:[^/*][^*]*\*+)*\/
 
 %%
 %{          /** Code executed at the beginning of yylex **/
@@ -267,11 +265,6 @@ int|float|char {        // reserved type
     return yytext[0] == '[' ? token::LB : token::RB;
 }
 
-{LINE_COMMENT}|{MULTI_LINE_COMMENT} {
-	//yylval->build<Scan_Info*>(new Scan_Info(std::string(yytext), yylineno));
-    return token::LINE_COMMENT;
-   
-}
 
 [ \r\t\n]+ {
     /* Eat up one-line_no comments */
