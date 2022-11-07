@@ -12,13 +12,13 @@ namespace SPL {
             return;
         }
 
-        std::ofstream outfile;
-        outfile.open("out.txt",std::ios::app);
+        //std::ofstream outfile;
+        //outfile.open("out.txt",std::ios::app);
         
         if(!node->value.empty())
-            outfile << std::string(2 * level, ' ')<< node->type <<"  "<<node->value<< std::endl;
+            std::cout << std::string(2 * level, ' ')<< node->type <<"  "<<node->value<< std::endl;
         else 
-            outfile << std::string(2 * level, ' ')<< node->type <<" ("<<std::to_string(node->line_no)<<")"<< std::endl;
+            std::cout << std::string(2 * level, ' ')<< node->type <<" ("<<std::to_string(node->line_no)<<")"<< std::endl;
 
         for (auto &child: node->children) {
             print_ast(child, level + 1);
