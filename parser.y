@@ -98,6 +98,8 @@ VarDec : ID{$$ = new Node("VarDec",new Node("ID",$1));}
     | VarDec LB INT RB{$$ = new Node("VarDec",$1,new Node("LB",$2),new Node("INT",$3),new Node("RB",$4));}
 FunDec : ID LP VarList RP{$$ = new Node("FunDec",new Node("ID",$1),new Node("LP",$2),$3,new Node("RP",$4));}
     | ID LP RP{$$ = new Node("FunDec",new Node("ID",$1),new Node("LP",$2),new Node("RP",$3));}
+    | ID LP %prec ERROR {driver.add_syntax_error(")", $1);$$ = new Node("FunDec");}
+    | ID LP VarList %prec ERROR {driver.add_syntax_error(")", $1);$$ = new Node("FunDec");}
 VarList : ParamDec COMMA VarList{$$ = new Node("VarList",$1,new Node("COMMA",$2),$3);}
     | ParamDec{$$ = new Node("VarList",$1);}
 ParamDec : Specifier VarDec{$$ = new Node("ParamDec",$1,$2);}
@@ -148,6 +150,7 @@ Exp : Exp ASSIGN Exp{$$ = new Node("Exp",$1,new Node("ASSIGN",$2),$3);}
     | INT{$$ = new Node("Exp",new Node("INT",$1));}
     | FLOAT{$$ = new Node("Exp",new Node("FLOAT",$1));}
     | CHAR{$$ = new Node("Exp",new Node("CHAR",$1));}
+    | ERROR{$$ = new Node("Exp");}
 Args : Exp COMMA Args{"Args",$$ = new Node($1,new Node("COMMA",$2),$3);}
     | Exp{$$ = new Node("Args",$1);}
 
