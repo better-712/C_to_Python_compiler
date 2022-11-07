@@ -61,15 +61,11 @@ namespace SPL {
             return scanner->lexical_errors;
         }
 
-        auto *all_errors = new std::vector<Error *>(scanner->lexical_errors->begin(),
-                                                    scanner->lexical_errors->end());
+        std::vector<Error *> *all = new std::vector<Error *>(scanner->lexical_errors->begin(),scanner->lexical_errors->end());
+        all->insert(all->end(), syntax_errors->begin(), syntax_errors->end());
+        std::sort(all->begin(), all->end(),[](Error *a, Error *b) { return a->info->line_no < b->info->line_no; });
 
-        all_errors->insert(all_errors->end(), syntax_errors->begin(), syntax_errors->end());
-
-        std::sort(all_errors->begin(), all_errors->end(),
-                  [](Error *a, Error *b) { return a->info->line_no < b->info->line_no; });
-
-        return all_errors;
+        return all;
     }
     
     void SPL_Driver::print_errors() {
