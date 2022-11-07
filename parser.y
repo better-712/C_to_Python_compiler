@@ -120,6 +120,7 @@ Stmt : Exp SEMI{$$ = new Node("Stmt",$1,new Node("SEMI",$2));}
 DefList : Def DefList{$$ = new Node("DefList",$1,$2);}
     | %empty{$$ = new Node("empty");}
 Def : Specifier DecList SEMI{$$ = new Node("Def",$1,$2,new Node("SEMI",$3));}
+    | Specifier DecList %prec ERROR{driver.add_syntax_error(",", $1);$$ = new Node("Def");}
 DecList : Dec{$$ = new Node("DecList",$1);}
     | Dec COMMA DecList{$$ = new Node("DecList",$1,new Node("COMMA",$2),$3);}
 Dec : VarDec{$$ = new Node("Dec",$1);}
