@@ -35,9 +35,11 @@ namespace SPL {
         delete (parser);
         
         parser = new SPL_Parser(*scanner, *this);
-
-        parser->parse();
-        
+        try {
+            parser->parse();
+        } catch (const SPL_Parser::syntax_error &e) {
+            std::cout<<"haha"<<std::endl;
+        }
     }
     void SPL_Driver::set_root(Node *node){
         root = node;
