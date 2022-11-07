@@ -15,7 +15,7 @@ using std::cout, std::endl;
 int main(const int argc, const char **argv) {
     SPL::SPL_Driver driver;
     driver.parse(argv[1]);
-    if(!dirver.get_errors().empty())
+    if(!dirver.get_errors()->empty())
         dirver.print_errors();
     else
         SPL::print_ast(driver.get_root());
