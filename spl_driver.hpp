@@ -27,6 +27,8 @@ namespace SPL {
         void parse(const char *filename);
         void set_root(SPL::Node *node);
         SPL::Node *get_root();
+        
+        void add_syntax_error(std::string lexeme, Scan_Info *info);
 
 
     private:
@@ -35,6 +37,7 @@ namespace SPL {
         SPL::SPL_Parser *parser = nullptr;
         SPL::SPL_Scanner *scanner = nullptr;
         SPL::Node *root = nullptr;
+        std::vector<Error *> *syntax_errors;
     };
 
     
