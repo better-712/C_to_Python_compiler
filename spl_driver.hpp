@@ -30,7 +30,7 @@ namespace SPL {
         
         void add_syntax_error(std::string lexeme, Scan_Info *info);
         
-        std::vector<Error *> *syntax_errors=new std::vector<Error *>(){};
+        std::vector<Error *> *syntax_errors=new std::vector<Error *>{};
         std::vector<Error *> *get_errors();
         void print_errors();
 
