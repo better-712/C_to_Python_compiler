@@ -105,6 +105,7 @@ ParamDec : Specifier VarDec{$$ = new Node("ParamDec",$1,$2);}
 
 /* statement */
 CompSt : LC DefList StmtList RC{$$ = new Node("CompSt",new Node("LC",$1),$2,$3,new Node("RC",$4));}
+    |LC DefList StmtList %prec ERROR{driver.add_syntax_error("}", $3);$$= new Node("CompSt");}
 StmtList : Stmt StmtList{$$ = new Node("StmtList",$1,$2);}
     | %empty{$$=new Node("empty");}
 Stmt : Exp SEMI{$$ = new Node("Stmt",$1,new Node("SEMI",$2));}
@@ -144,7 +145,9 @@ Exp : Exp ASSIGN Exp{$$ = new Node("Exp",$1,new Node("ASSIGN",$2),$3);}
     | MINUS Exp{$$ = new Node("Exp",new Node("MINUS",$1),$2);}
     | NOT Exp{$$ = new Node("Exp",new Node("NOT",$1),$2);}
     | ID LP Args RP{$$ = new Node("Exp",new Node("ID",$1),new Node("LP",$2),$3,new Node("RP",$4));}
+    | ID LP Args %prec ERROR{driver.add_syntax_error(")", $1);$$= new Node("error");}
     | ID LP RP{$$ = new Node("Exp",new Node("ID",$1),new Node("LP",$2),new Node("RP",$3));}
+    | ID LP %prec ERROR{driver.add_syntax_error(")", $1);$$= new Node("error");}
     | Exp LB Exp RB{$$ = new Node("Exp",$1,new Node("LB",$2),$3,new Node("RB",$4));}
     | Exp DOT ID{$$ = new Node("Exp",$1,new Node("DOT",$2),new Node("ID",$3));}
     | ID{$$ = new Node("Exp",new Node("ID",$1));}
