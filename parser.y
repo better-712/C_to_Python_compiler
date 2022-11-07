@@ -98,6 +98,7 @@ VarDec : ID{$$ = new Node("VarDec",new Node("ID",$1));}
     | VarDec LB INT RB{$$ = new Node("VarDec",$1,new Node("LB",$2),new Node("INT",$3),new Node("RB",$4));}
 FunDec : ID LP VarList RP{$$ = new Node("FunDec",new Node("ID",$1),new Node("LP",$2),$3,new Node("RP",$4));}
     | ID LP RP{$$ = new Node("FunDec",new Node("ID",$1),new Node("LP",$2),new Node("RP",$3));}
+    | ID LP %prec ERROR{driver.add_syntax_error(")", $1);$$= new Node("FunDec");}
 VarList : ParamDec COMMA VarList{$$ = new Node("VarList",$1,new Node("COMMA",$2),$3);}
     | ParamDec{$$ = new Node("VarList",$1);}
 ParamDec : Specifier VarDec{$$ = new Node("ParamDec",$1,$2);}
