@@ -68,7 +68,7 @@ namespace SPL {
         };
 
         std::string to_string() override {
-            if(info->lexeme.compare("specifier")
+            if(info->lexeme.compare("specifier")==0)
                return "Error type B at Line " + std::to_string(info->line_no) +": Missing " + info->lexeme;
                 
             return "Error type B at Line " + std::to_string(info->line_no) +
