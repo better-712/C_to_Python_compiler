@@ -1,0 +1,8 @@
+int test5() 
+{
+    int a = 0xff;
+    while(a < 10){
+        a = a * 2;
+    }
+    return a;
+}
