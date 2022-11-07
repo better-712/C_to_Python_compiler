@@ -15,7 +15,7 @@ namespace SPL {
         std::ofstream outfile;
         outfile.open("out.txt",std::ios::app);
         
-        if(node->value1..empty())
+        if(node->value.compare("INT")==0||node->value.compare("FLOAT")==0||node->value.compare("CHAR")==0||node->value.compare("TYPE")==0||node->value.compare("ID")==0)
             outfile << std::string(2 * level, ' ')<< node->type <<" ("<<std::to_string(node->line_no)<<")"<< std::endl;
         else  outfile << std::string(2 * level, ' ')<< node->type <<": "<<node->value<< std::endl;
 
