@@ -59,8 +59,8 @@ namespace SPL {
             return scanner->get_errors();
         }
 
-        auto *all_errors = new std::vector<Error *>(scanner->get_errors()->begin(),
-                                                    scanner->get_errors()->end());
+        auto *all_errors = new std::vector<Error *>(scanner->lexical_errors->begin(),
+                                                    scanner->lexical_errors->end());
 
         all_errors->insert(all_errors->end(), syntax_errors->begin(), syntax_errors->end());
 
