@@ -149,6 +149,7 @@ Exp : Exp ASSIGN Exp{$$ = new Node("Exp",$1,new Node("ASSIGN",$2),$3);}
     | INT{$$ = new Node("Exp",new Node("INT",$1));}
     | FLOAT{$$ = new Node("Exp",new Node("FLOAT",$1));}
     | CHAR{$$ = new Node("Exp",new Node("CHAR",$1));}
+    | ERROR{$$ = new Node("Exp");}
 Args : Exp COMMA Args{"Args",$$ = new Node($1,new Node("COMMA",$2),$3);}
     | Exp{$$ = new Node("Args",$1);}
 
