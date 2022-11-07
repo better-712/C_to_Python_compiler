@@ -29,6 +29,7 @@ namespace SPL {
         SPL::Node *get_root();
         
         void add_syntax_error(std::string lexeme, Scan_Info *info);
+        void add_syntax_error(std::string lexeme, Node *info);
         
         std::vector<Error *> *syntax_errors=new std::vector<Error *>{};
         std::vector<Error *> *get_errors();
