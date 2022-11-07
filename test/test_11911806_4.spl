@@ -1,0 +1,6 @@
+float test4(){
+int a=0;
+if(a>0){return 3;}
+else if(a==0){return 2;}
+else {return 1;}
+}
