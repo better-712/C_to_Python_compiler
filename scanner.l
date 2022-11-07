@@ -55,38 +55,38 @@ MULTI_LINE_COMMENT      \/\*[^*]*\*+(?:[^/*][^*]*\*+)*\/
 %}
 
 {DECIMAL_INT} {
-	std::cout << "DECIMAL_INT" <<yylineno<< std::endl;
+	//std::cout << "DECIMAL_INT" <<yylineno<< std::endl;
     yylval->build<Scan_Info*>(new Scan_Info(std::string(yytext), yylineno));
     return token::INT;
 }
 
 {HEX_INT} {
-	std::cout << "HEX_INT" << yylineno<< std::endl;
+	//std::cout << "HEX_INT" << yylineno<< std::endl;
     yylval->build<Scan_Info*>(new Scan_Info(std::string(yytext), yylineno));
     return token::INT;
 }
 
 {ILLEGAL_HEX_INT} {
-	std::cout << "ILLEGAL_HEX_INT" <<yylineno<<  std::endl;
+	//std::cout << "ILLEGAL_HEX_INT" <<yylineno<<  std::endl;
 	add_lexical_error(new Scan_Info(std::string(yytext), yylineno));
 	yylval->build<Scan_Info*>(new Scan_Info(std::string("0"), yylineno));
     return token::INT;
 }
 
 {DECIMAL_INT_OVERFLOW} {
-	std::cout << "DECIMAL_INT_OVERFLOW" <<yylineno<<  std::endl;
+	//std::cout << "DECIMAL_INT_OVERFLOW" <<yylineno<<  std::endl;
     printf("Error type INT at Line %d: int range overflow(%s is more than 2^32 - 1)\n",
            yylineno, yytext);
 }
 
 {CHAR}|{HEX_CHAR} {
-	std::cout << "{CHAR}|{HEX_CHAR}" << yylineno<< std::endl;
+	//std::cout << "{CHAR}|{HEX_CHAR}" << yylineno<< std::endl;
 	yylval->build<Scan_Info*>(new Scan_Info(std::string(yytext), yylineno));
     return token::CHAR;
 }
 
 {ILLEGAL_HEX_CHAR} {
-	std::cout << "{ILLEGAL_HEX_CHAR}" <<yylineno<<  std::endl;
+	//std::cout << "{ILLEGAL_HEX_CHAR}" <<yylineno<<  std::endl;
 	add_lexical_error(new Scan_Info(std::string(yytext), yylineno));
 	yylval->build<Scan_Info*>(new Scan_Info(std::string("'o'"), yylineno));
     return token::CHAR;
@@ -99,49 +99,49 @@ MULTI_LINE_COMMENT      \/\*[^*]*\*+(?:[^/*][^*]*\*+)*\/
 }
 
 int|float|char {        // reserved type
-	std::cout << "int|float|char" << yylineno<< std::endl;
+	//std::cout << "int|float|char" << yylineno<< std::endl;
     yylval->build<Scan_Info*>(new Scan_Info(std::string(yytext), yylineno));
     return token::TYPE;
 }
 
 "struct" {             // reserved key word
-	std::cout << "struct" << yylineno<< std::endl;
+	//std::cout << "struct" << yylineno<< std::endl;
     yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
     return token::STRUCT;
 }
 
 "if" {             // reserved key word
-	std::cout << "if" <<yylineno<<  std::endl;
+	//std::cout << "if" <<yylineno<<  std::endl;
     yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
     return token::IF;
 }
 
 "else" {             // reserved key word
-	std::cout << "else" << yylineno<< std::endl;
+	//std::cout << "else" << yylineno<< std::endl;
     yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
     return token::ELSE;
 }
 
 "while" {             // reserved key word
-	std::cout << "while" << yylineno<< std::endl;
+	//std::cout << "while" << yylineno<< std::endl;
     yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
     return token::WHILE;
 }
 
 "return" {             // reserved key word
-	std::cout << "return" <<yylineno<<  std::endl;
+	//std::cout << "return" <<yylineno<<  std::endl;
     yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
     return token::RETURN;
 }
 
 {ID} {
-	std::cout << "ID" << yylineno<< std::endl;
+	//std::cout << "ID" << yylineno<< std::endl;
     yylval->build<Scan_Info*>(new Scan_Info(std::string(yytext), yylineno));
     return token::ID;
 }
 
 {ILLEGAL_ID} {
-	std::cout << "ILLEGAL_ID" <<yylineno<<  std::endl;
+	//std::cout << "ILLEGAL_ID" <<yylineno<<  std::endl;
 	add_lexical_error(new Scan_Info(std::string(yytext), yylineno));
     yylval->build<Scan_Info*>(new Scan_Info(std::string("id"), yylineno));
     return token::ID;
@@ -154,123 +154,123 @@ int|float|char {        // reserved type
 }
 
 ";" {
-	std::cout << "SEMI" <<yylineno<<  std::endl;
+	//std::cout << "SEMI" <<yylineno<<  std::endl;
 	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
 	return token::SEMI;
 }
 
 "," {
-	std::cout << "COMMA" <<yylineno<<  std::endl;
+	//std::cout << "COMMA" <<yylineno<<  std::endl;
 	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
 	return token::COMMA;
 }
 
 "==" {
-	std::cout << "EQ" << yylineno<< std::endl;
+	//std::cout << "EQ" << yylineno<< std::endl;
 	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
 	return token::EQ;
 }
 
 "=" {
-	std::cout << "ASSIGN" <<yylineno<<  std::endl;
+	//std::cout << "ASSIGN" <<yylineno<<  std::endl;
 	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
 	return token::ASSIGN;
 }
 
 "<=" {
-	std::cout << "LE" << yylineno<< std::endl;
+	//std::cout << "LE" << yylineno<< std::endl;
 	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
     return token::LE;
 }
 
 "<" {
-	std::cout << "LT" << yylineno<< std::endl;
+	//std::cout << "LT" << yylineno<< std::endl;
 	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
     return token::LT;
 }
 
 ">=" {
-	std::cout << "GE" <<yylineno<<  std::endl;
+	//std::cout << "GE" <<yylineno<<  std::endl;
 	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
     return token::GE;
 }
 
 ">" {
-	std::cout << "GT" <<yylineno<<  std::endl;
+	//std::cout << "GT" <<yylineno<<  std::endl;
 	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
     return token::GT;
 }
 
 "!=" {
-	std::cout << "NE" << yylineno<< std::endl;
+	//std::cout << "NE" << yylineno<< std::endl;
 	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
     return token::NE;
 }
 
 "!" {
-	std::cout << "NOT" << yylineno<< std::endl;
+	//std::cout << "NOT" << yylineno<< std::endl;
 	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
     return token::NOT;
 }
 
 "+" {
-	std::cout << "PLUS" << yylineno<< std::endl;
+	//std::cout << "PLUS" << yylineno<< std::endl;
 	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
 	return token::PLUS;
 }
 
 "-" {
-	std::cout << "MINUS" <<yylineno<<  std::endl;
+	//std::cout << "MINUS" <<yylineno<<  std::endl;
 	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
 	return token::MINUS;
 }
 
 "*" {
-	std::cout << "MUL" << yylineno<< std::endl;
+	//std::cout << "MUL" << yylineno<< std::endl;
 	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
 	return token::MUL;
 }
 
 "/" {
-	std::cout << "DIV" <<yylineno<<  std::endl;
+	//std::cout << "DIV" <<yylineno<<  std::endl;
 	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
 	return token::DIV;
 }
 
 "&&" {
-	std::cout << "AND" << yylineno<< std::endl;
+	//std::cout << "AND" << yylineno<< std::endl;
 	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
 	return token::AND;
 }
 
 "||" {
-	std::cout << "OR" <<yylineno<<  std::endl;
+	//std::cout << "OR" <<yylineno<<  std::endl;
 	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
 	return token::OR;
 }
 
 "("|")" {
-	std::cout << "LPRP" << yylineno<< std::endl;
+	//std::cout << "LPRP" << yylineno<< std::endl;
 	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
 	return yytext[0] == '(' ? token::LP : token::RP;
 }
 
 "{"|"}" {
-    std::cout << "LCRC" << yylineno<< std::endl;
+    //std::cout << "LCRC" << yylineno<< std::endl;
     yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
     return yytext[0] == '{' ? token::LC : token::RC;
 }
 
 "["|"]" {
-    std::cout << "LBRB" << yylineno<< std::endl;
+   // std::cout << "LBRB" << yylineno<< std::endl;
     yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
     return yytext[0] == '[' ? token::LB : token::RB;
 }
 
 {LINE_COMMENT}|{MULTI_LINE_COMMENT} {
-	yylval->build<Scan_Info*>(new Scan_Info(std::string(yytext), yylineno));
-    //return token::LINE_COMMENT;
-    /* Eat up one-line_no comments */
+	//yylval->build<Scan_Info*>(new Scan_Info(std::string(yytext), yylineno));
+    return token::LINE_COMMENT;
+   
 }
 
 [ \r\t\n]+ {
@@ -278,7 +278,7 @@ int|float|char {        // reserved type
 }
 
 . {
-	std::cout << "OTHER" << yylineno<< std::endl;
+	//std::cout << "OTHER" << yylineno<< std::endl;
 	add_lexical_error(new Scan_Info(std::string(yytext), yylineno));
     	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
     	return token::ERROR;
