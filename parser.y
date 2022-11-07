@@ -98,8 +98,6 @@ VarDec : ID{$$ = new Node("VarDec",new Node("ID",$1));}
     | VarDec LB INT RB{$$ = new Node("VarDec",$1,new Node("LB",$2),new Node("INT",$3),new Node("RB",$4));}
 FunDec : ID LP VarList RP{$$ = new Node("FunDec",new Node("ID",$1),new Node("LP",$2),$3,new Node("RP",$4));}
     | ID LP RP{$$ = new Node("FunDec",new Node("ID",$1),new Node("LP",$2),new Node("RP",$3));}
-    | ID LP %prec ERROR {driver.add_syntax_error(")", $1);$$ = new Node("FunDec");}
-    | ID LP VarList %prec ERROR {driver.add_syntax_error(")", $1);$$ = new Node("FunDec");}
 VarList : ParamDec COMMA VarList{$$ = new Node("VarList",$1,new Node("COMMA",$2),$3);}
     | ParamDec{$$ = new Node("VarList",$1);}
 ParamDec : Specifier VarDec{$$ = new Node("ParamDec",$1,$2);}
@@ -111,17 +109,16 @@ StmtList : Stmt StmtList{$$ = new Node("StmtList",$1,$2);}
 Stmt : Exp SEMI{$$ = new Node("Stmt",$1,new Node("SEMI",$2));}
     | CompSt{$$ = new Node("Stmt",$1);}
     | RETURN Exp SEMI{$$ = new Node("Stmt",new Node("RETURN",$1),$2,new Node("SEMI",$3));}
-    | RETURN Exp %prec ERROR{driver.add_syntax_error(";", $1);$$ = new Node("error");}
+    | RETURN Exp %prec ERROR{driver.add_syntax_error(";", $1);$$= new Node("error");}
     | IF LP Exp RP Stmt{$$ = new Node("Stmt",new Node("IF",$1),new Node("LP",$2),$3,new Node("RP",$4),$5);}
     | IF LP Exp RP Stmt ELSE Stmt{$$ = new Node("Stmt",new Node("IF",$1),new Node("LP",$2),$3,new Node("RP",$4),$5,new Node("ELSE",$6),$7);}
     | WHILE LP Exp RP Stmt{$$ = new Node("Stmt",new Node("WHILE",$1),new Node("LP",$2),$3,new Node("RP",$4),$5);}
 
 /* local definition */
 DefList : Def DefList{$$ = new Node("DefList",$1,$2);}
+    | Def Stmt DefList{driver.add_syntax_error("specifier", $2);$$ = new Node("DefList");}
     | %empty{$$ = new Node("empty");}
 Def : Specifier DecList SEMI{$$ = new Node("Def",$1,$2,new Node("SEMI",$3));}
-    | Specifier DecList %prec ERROR{driver.add_syntax_error(",", $1);$$ = new Node("Def");}
-    
 DecList : Dec{$$ = new Node("DecList",$1);}
     | Dec COMMA DecList{$$ = new Node("DecList",$1,new Node("COMMA",$2),$3);}
 Dec : VarDec{$$ = new Node("Dec",$1);}
@@ -129,7 +126,6 @@ Dec : VarDec{$$ = new Node("Dec",$1);}
 
 /* Expression */
 Exp : Exp ASSIGN Exp{$$ = new Node("Exp",$1,new Node("ASSIGN",$2),$3);}
-    | Exp ERROR Exp {$$ = new Node("Exp");}
     | Exp AND Exp{$$ = new Node("Exp",$1,new Node("AND",$2),$3);}
     | Exp OR Exp{$$ = new Node("Exp",$1,new Node("OR",$2),$3);}
     | Exp LT Exp{$$ = new Node("Exp",$1,new Node("LT",$2),$3);}
@@ -153,7 +149,6 @@ Exp : Exp ASSIGN Exp{$$ = new Node("Exp",$1,new Node("ASSIGN",$2),$3);}
     | INT{$$ = new Node("Exp",new Node("INT",$1));}
     | FLOAT{$$ = new Node("Exp",new Node("FLOAT",$1));}
     | CHAR{$$ = new Node("Exp",new Node("CHAR",$1));}
-    | ERROR{$$ = new Node("Exp");}
 Args : Exp COMMA Args{"Args",$$ = new Node($1,new Node("COMMA",$2),$3);}
     | Exp{$$ = new Node("Args",$1);}
 
