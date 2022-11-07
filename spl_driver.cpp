@@ -50,7 +50,9 @@ namespace SPL {
     void SPL_Driver::add_syntax_error(std::string lexeme, Scan_Info *info) {
         syntax_errors->push_back(new Syntax_Error(lexeme, info->line_no));
     }
-    
+    void SPL_Driver::add_syntax_error(std::string lexeme, Node *info) {
+        syntax_errors->push_back(new Syntax_Error(lexeme, info->line_no));
+    }
     
     std::vector<Error *> *SPL_Driver::get_errors() {
         std::cout << "lexical errors: " << scanner->lexical_errors->size() << std::endl;
