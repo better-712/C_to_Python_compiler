@@ -153,6 +153,6 @@ Args : Exp COMMA Args{"Args",$$ = new Node($1,new Node("COMMA",$2),$3);}
 %%
 
 void SPL::SPL_Parser::error(const location_type &l, const std::string &err_message){
-    std::cerr << "Auto parser error! " << l.begin << ": unknown " << err_message << std::endl;
+    std::cerr << "Parser error occur! " << l.begin << ": message " << err_message << std::endl;
     throw SPL_Parser::syntax_error(l, err_message);
 }
