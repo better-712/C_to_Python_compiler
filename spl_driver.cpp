@@ -12,12 +12,7 @@
 
 namespace SPL {
 
-    SPL_Driver::~SPL_Driver() {
-        delete (scanner);
-        scanner = nullptr;
-        delete (parser);
-        parser = nullptr;
-    }
+    SPL_Driver::~SPL_Driver() {}
 
     void SPL_Driver::parse(const char *filename) {
         assert(filename != nullptr);
@@ -28,11 +23,8 @@ namespace SPL {
     
 
     void SPL_Driver::parse_helper(std::istream &is) {
-        delete (scanner);
-        
+       
         scanner = new SPL_Scanner(&is);
-        
-        delete (parser);
         
         parser = new SPL_Parser(*scanner, *this);
         try {
