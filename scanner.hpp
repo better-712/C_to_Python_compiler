@@ -89,7 +89,7 @@ namespace SPL {
         // YY_DECL defined in scanner.l
         // Method body created by flex in scanner.yy.cpp
         
-        std::vector<Error *> *lexical_errors = nullptr;
+        std::vector<Error *> *lexical_errors = new std::vector<Error *>(){};
         void add_lexical_error(Scan_Info *info) {
             lexical_errors->push_back(new Lexical_Error(info));
         };
