@@ -50,7 +50,7 @@ namespace SPL {
     }
     
     
-    std::vector<Error *> SPL_Driver::get_errors() {
+    std::vector<Error *> *SPL_Driver::get_errors() {
 //        std::cout << "lexical errors: " << scanner->get_errors()->size() << std::endl;
 //        std::cout << "syntax errors: " << syntax_errors->size() << std::endl;
         if (scanner->lexical_errors->empty()) {
