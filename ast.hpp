@@ -89,6 +89,7 @@ namespace SPL {
     };
     
     void print_ast(Node *node, int level = 0);
+    void visit_node(Node *node);
 }
     
 #endif //__AST_HPP__
