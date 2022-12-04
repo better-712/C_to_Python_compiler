@@ -26,4 +26,24 @@ namespace SPL {
         
     }
     
+    void visit_node(Node *node) {
+        if (node->type.compare("empty") == 0) {
+            return;
+        }
+        if (node->type.compare("Def") == 0) {
+            std::vector<Node*> children=node->children;
+            for(auto iter=children.begin();iter!=children.end();iter++)
+            {
+                if(iter==children.begin())
+                    std::cout <<"Specifier: "<<iter->type<<std::endl;
+                else print_ast(iter,0);
+            }     
+        }
+        
+        for (auto &child: node->children) {
+            visit_node(child);
+        }
+        
+    }
+    
 }
