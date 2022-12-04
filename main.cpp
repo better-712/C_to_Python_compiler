@@ -17,6 +17,7 @@ int main(const int argc, const char **argv) {
     driver.parse(argv[1]);
     if(!driver.get_errors()->empty())
         driver.print_errors();
+//         SPL::print_ast(driver.get_root());
     else
-        SPL::print_ast(driver.get_root());
+        SPL::visit_node(driver.get_root());
 }
