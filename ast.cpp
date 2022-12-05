@@ -36,12 +36,25 @@ namespace SPL {
     class Variable_Entry : public Entry {
     public:
         Variable_Entry(std::string name, std::string type, int line_no){
-        this->name = name;
-        this->line_no = line_no;
-        this->type = type;
-    }
+            this->name = name;
+            this->line_no = line_no;
+            this->type = type;
+        }
         
     };
+    
+    class Function_Entry : public Entry {
+    public:
+        std::vector<std::string> parameters;
+        Function_Entry(std::string return_type, std::string id, int line_no, std::vector<std::string> parameters){
+            this->parameters = parameters;
+            this->name = id;
+            this->line_no = line_no;
+            this->type = return_type;
+        }
+        
+    };   
+        
     
     
     std::unordered_map<std::string, Entry *> Symbol_Table;
@@ -59,21 +72,21 @@ namespace SPL {
     
     
     
-    std::vector<std::string>* get_Def(Node *node){
-        std::cout <<"var: "<<node->children.front()->children.front()->children.front()->value<<std::endl;
+//     std::vector<std::string>* get_Def(Node *node){
+//         std::cout <<"var: "<<node->children.front()->children.front()->children.front()->value<<std::endl;
         
-        auto *decs = new std::vector<Node *>{};
-        decs->push_back(node->children.front());
-        Node *list=node->children.back();
-        while(list->type.compare("DecList") == 0){
-            decs->push_back(list->children.front());
-            list=list->children.back();
-        }
-        auto *vars = new std::vector<std::string>{};
-        for(auto iter=decs->begin();iter!=decs->end();iter++)
-            vars->push_back((*iter)->children.front()->children.front()->value);
-        return vars;      
-    }
+//         auto *decs = new std::vector<Node *>{};
+//         decs->push_back(node->children.front());
+//         Node *list=node->children.back();
+//         while(list->type.compare("DecList") == 0){
+//             decs->push_back(list->children.front());
+//             list=list->children.back();
+//         }
+//         auto *vars = new std::vector<std::string>{};
+//         for(auto iter=decs->begin();iter!=decs->end();iter++)
+//             vars->push_back((*iter)->children.front()->children.front()->value);
+//         return vars;      
+//     }
     
     std::vector<Node *>* list_to_element(Node *node){
         auto *decs = new std::vector<Node *>{};
@@ -124,6 +137,22 @@ namespace SPL {
                 for(auto iter=var->begin();iter!=var->end();iter++){
                     Variable_Entry *var=new Variable_Entry(*iter,specifier,children[0]->line_no);
                     insert(var);
+                }
+                
+            }
+            if(children[1]->type.compare("FunDec") == 0){
+                
+                
+                if(children[1]->children[2]->type.compare("VarList") == 0){
+                    std::vector<Node*>  *params =list_to_element(children[1]);
+                    auto *var = new std::vector<std::string>{};
+                    for(auto iter=params->begin();iter!=params->end();iter++)
+                        var->push_back((*iter)->children.end()->children.front()->value);
+                
+                    for(auto iter=var->begin();iter!=var->end();iter++){
+                        Variable_Entry *var=new Variable_Entry(*iter,specifier,children[0]->line_no);
+                        insert(var);
+                    }
                 }
                 
             }
