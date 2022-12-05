@@ -31,16 +31,16 @@ namespace SPL {
     public:
         std::string name;
         int line_no = -1;
+        std::string type;
     };
     class Variable_Entry : public Entry {
     public:
-        Variable_Symbol(std::string name, std::string type, int line_no){
+        Variable_Entry(std::string name, std::string type, int line_no){
         this->name = name;
-        this->line_no = type->line_no;
+        this->line_no = line_no;
         this->type = type;
     }
-
-        std::string type;
+        
     };
     
     
@@ -49,6 +49,12 @@ namespace SPL {
         std::cout <<"entry name: "<<entry->name<<std::endl;
         std::cout <<"entry type "<<entry->type<<std::endl;
         std::cout <<"entry line_no "<<entry->line_no<<std::endl;
+        
+        if (Symbol_Table.find(id) != Symbol_Table.end();) {
+            cout << "Semantic Error! " << name << " has been in symbol table at line: " << entry->line_no<< endl;
+        } else {
+            Symbol_Table[name] = entry;
+        }
     }
     
     
@@ -78,7 +84,7 @@ namespace SPL {
             std::string specifier=children[0]->type;
             std::cout <<"Specifier: "<<children[0]->type<<std::endl;
             std::vector<std::string>var=get_Def(children[1]);
-            std::cout<<var[1]<<std::endl;
+//             std::cout<<var[1]<<std::endl;
             for(auto iter=var.begin();iter!=var.end();iter++){
                 Variable_Entry *var=new Variable_Entry(*iter,specifier,children[0]->line_no);
                 insert(var);
