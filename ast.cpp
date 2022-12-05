@@ -29,20 +29,26 @@ namespace SPL {
         
     
     std::unordered_map<std::string, std::string> Symbol_Table;
-    
+    void insert(Entry *entry){
+    }
     
     
     std::vector<std::string> get_Def(Node *node){
         auto *decs = new std::vector<Node *>{};
         decs->push_back(node->children.front());
-        std::cout <<"var: "<<node->children.front()->children.front()->value<<std::endl;
-        Node *list=children.back();
+        std::cout <<"var: "<<node->children.front()->children.front()->children.front()->value<<std::endl;
+        Node *list=node->children.back();
         while(list->type.compare("DecList") == 0){
             decs->push_back(list->children.front());
-            
-            list=list.back();
+            list=list->children.back();
         }
+        auto vars = new std::vector<std::string>{};
+        for(auto iter=decs.begin();iter!=decs.end();iter++)
+            vars.push_back((*iter)->children.front()->children.front()->value)
+        return vars      
     }
+    
+    
     void visit_node(Node *node) {
         if (node->type.compare("empty") == 0) {
             return;
@@ -50,7 +56,8 @@ namespace SPL {
         if (node->type.compare("Def") == 0) {
             std::vector<Node*> children=node->children;
             std::cout <<"Specifier: "<<children[0]->type<<std::endl;
-            get_Def(children[1]);
+            std::vector<std::string>var=get_Def(children[1]);
+            std::cout<<var[1]<<std::endl;
 //             for(auto iter=children.begin();iter!=children.end();iter++)
 //             {
 //                 if(iter==children.begin())
