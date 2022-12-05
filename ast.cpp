@@ -44,11 +44,11 @@ namespace SPL {
     };
     
     
-    std::unordered_map<std::string, Entry> Symbol_Table;
+    std::unordered_map<std::string, Entry *> Symbol_Table;
     void insert(Entry *entry){
-        std::cout <<"entry name: "<<entry.name<<std::endl;
-        std::cout <<"entry type "<<entry.type<<std::endl;
-        std::cout <<"entry line_no "<<entry.line_no<<std::endl;
+        std::cout <<"entry name: "<<entry->name<<std::endl;
+        std::cout <<"entry type "<<entry->type<<std::endl;
+        std::cout <<"entry line_no "<<entry->line_no<<std::endl;
     }
     
     
@@ -80,7 +80,8 @@ namespace SPL {
             std::vector<std::string>var=get_Def(children[1]);
             std::cout<<var[1]<<std::endl;
             for(auto iter=var->begin();iter!=var.end();iter++){
-                insert(new Variable_Symbol(*iter,specifier,children[0]->line_no));
+                Variable_Entry *var=new Variable_Entry(*iter,specifier,children[0]->line_no);
+                insert(var);
             }
             
             
