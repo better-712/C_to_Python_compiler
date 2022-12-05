@@ -50,19 +50,20 @@ namespace SPL {
         std::cout <<"entry type "<<entry->type<<std::endl;
         std::cout <<"entry line_no "<<entry->line_no<<std::endl;
         
-        if (Symbol_Table.find(id) != Symbol_Table.end();) {
-            cout << "Semantic Error! " << name << " has been in symbol table at line: " << entry->line_no<< endl;
+        if (Symbol_Table.find(entry->name) != Symbol_Table.end()) {
+            std::cout << "Semantic Error! " << entry->name << " has been in symbol table at line: " << entry->line_no<< std::endl;
         } else {
-            Symbol_Table[name] = entry;
+            Symbol_Table[entry->name] = entry;
         }
     }
     
     
     
     std::vector<std::string> get_Def(Node *node){
+        std::cout <<"var: "<<node->children.front()->children.front()->children.front()->value<<std::endl;
+        
         auto *decs = new std::vector<Node *>{};
         decs->push_back(node->children.front());
-        std::cout <<"var: "<<node->children.front()->children.front()->children.front()->value<<std::endl;
         Node *list=node->children.back();
         while(list->type.compare("DecList") == 0){
             decs->push_back(list->children.front());
@@ -80,24 +81,42 @@ namespace SPL {
             return;
         }
         if (node->type.compare("Def") == 0) {
+            std::cout <<"Specifier: "<<children[0]->type<<std::endl;
+            
             std::vector<Node*> children=node->children;
             std::string specifier=children[0]->type;
-            std::cout <<"Specifier: "<<children[0]->type<<std::endl;
             std::vector<std::string>var=get_Def(children[1]);
+            
 //             std::cout<<var[1]<<std::endl;
             for(auto iter=var.begin();iter!=var.end();iter++){
                 Variable_Entry *var=new Variable_Entry(*iter,specifier,children[0]->line_no);
                 insert(var);
             }
             
+        }
+        if (node->type.compare("ExtDef") == 0) {
+            std::vector<Node*> children=node->children;
+            std::string specifier=children[0]->type;
+            if(node->children[1]->type.compare("ExtDecList") == 0){
+                
+                auto *decs = new std::vector<Node *>{};
+                decs->push_back(node->children.front());
+                Node *list=node->children.back();
+                while(list->type.compare("ExtDecList") == 0){
+                    decs->push_back(list->children.front());
+                    list=list->children.back();
+                }
+                auto *vars = new std::vector<std::string>{};
+                for(auto iter=decs->begin();iter!=decs->end();iter++)
+                    vars->push_back((*iter)->children.front()->value);
+                
+                for(auto iter=var.begin();iter!=var.end();iter++){
+                    Variable_Entry *var=new Variable_Entry(*iter,specifier,children[0]->line_no);
+                    insert(var);
+                }
+                
+            }
             
-//             for(auto iter=children.begin();iter!=children.end();iter++)
-//             {
-//                 if(iter==children.begin())
-//                     std::cout <<"Specifier: "<<(*iter)->type<<std::endl;
-//                 else 
-//                     print_ast(iter,0);
-//             }     
         }
         
         
