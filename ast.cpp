@@ -83,7 +83,7 @@ namespace SPL {
             decs->push_back(list->children.front());
             list=list->children.back();
         }
-        return decs;
+        return *decs;
     }
     
     
@@ -98,10 +98,12 @@ namespace SPL {
 //             std::cout <<"Specifier: "<<children[0]->type<<std::endl;
             
 //             std::cout<<var[1]<<std::endl;
-            auto *decs =list_to_element(children[1]);
-            auto *var = new std::vector<std::string>{};
-            for(auto iter=decs->begin();iter!=decs->end();iter++)
-                var->push_back((*iter)->children.front()->children.front()->value);
+            
+            std::vector<std::string> var=get_Def(children[1]);
+//             auto *decs =list_to_element(children[1]);
+//             auto *var = new std::vector<std::string>{};
+//             for(auto iter=decs->begin();iter!=decs->end();iter++)
+//                 var->push_back((*iter)->children.front()->children.front()->value);
             for(auto iter=var->begin();iter!=var->end();iter++){
                 Variable_Entry *var=new Variable_Entry(*iter,specifier,children[0]->line_no);
                 insert(var);
