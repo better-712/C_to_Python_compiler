@@ -59,7 +59,7 @@ namespace SPL {
     
     
     
-    std::vector<std::string> get_Def(Node *node){
+    std::vector<std::string>* get_Def(Node *node){
         std::cout <<"var: "<<node->children.front()->children.front()->children.front()->value<<std::endl;
         
         auto *decs = new std::vector<Node *>{};
@@ -72,18 +72,18 @@ namespace SPL {
         auto *vars = new std::vector<std::string>{};
         for(auto iter=decs->begin();iter!=decs->end();iter++)
             vars->push_back((*iter)->children.front()->children.front()->value);
-        return *vars;      
+        return vars;      
     }
     
-    std::vector<Node *> list_to_element(Node *node){
+    std::vector<Node *>* list_to_element(Node *node){
         auto *decs = new std::vector<Node *>{};
         decs->push_back(node->children.front());
         Node *list=node->children.back();
-        while(list->type.compare("ExtDecList") == 0){
+        while(list->type.compare(node->type) == 0){
             decs->push_back(list->children.front());
             list=list->children.back();
         }
-        return *decs;
+        return decs;
     }
     
     
@@ -99,11 +99,11 @@ namespace SPL {
             
 //             std::cout<<var[1]<<std::endl;
             
-            std::vector<std::string> var=get_Def(children[1]);
-//             auto *decs =list_to_element(children[1]);
-//             auto *var = new std::vector<std::string>{};
-//             for(auto iter=decs->begin();iter!=decs->end();iter++)
-//                 var->push_back((*iter)->children.front()->children.front()->value);
+//            std::vector<std::string> var=get_Def(children[1]);
+            std::vector<Node*> *decs =list_to_element(children[1]);
+            auto *var = new std::vector<std::string>{};
+            for(auto iter=decs->begin();iter!=decs->end();iter++)
+                var->push_back((*iter)->children.front()->children.front()->value);
             for(auto iter=var->begin();iter!=var->end();iter++){
                 Variable_Entry *var=new Variable_Entry(*iter,specifier,children[0]->line_no);
                 insert(var);
@@ -115,7 +115,7 @@ namespace SPL {
             std::string specifier=children[0]->type;
             if(node->children[1]->type.compare("ExtDecList") == 0){
                 
-                auto *vars =list_to_element(children[1]);
+                std::vector<Node*>  *vars =list_to_element(children[1]);
                 auto *var = new std::vector<std::string>{};
                 
                 for(auto iter=vars->begin();iter!=vars->end();iter++)
