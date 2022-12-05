@@ -98,8 +98,11 @@ namespace SPL {
 //             std::cout <<"Specifier: "<<children[0]->type<<std::endl;
             
 //             std::cout<<var[1]<<std::endl;
-            std::vector<std::string>var=get_Def(children[1]);
-            for(auto iter=var.begin();iter!=var.end();iter++){
+            auto *decs =list_to_element(children[1]);
+            auto *var = new std::vector<std::string>{};
+            for(auto iter=decs->begin();iter!=decs->end();iter++)
+                var->push_back((*iter)->children.front()->children.front()->value);
+            for(auto iter=var->begin();iter!=var->end();iter++){
                 Variable_Entry *var=new Variable_Entry(*iter,specifier,children[0]->line_no);
                 insert(var);
             }
@@ -110,13 +113,13 @@ namespace SPL {
             std::string specifier=children[0]->type;
             if(node->children[1]->type.compare("ExtDecList") == 0){
                 
-                auto *vars =list_to_element(node->children[1]);
+                auto *vars =list_to_element(children[1]);
                 auto *var = new std::vector<std::string>{};
                 
                 for(auto iter=vars->begin();iter!=vars->end();iter++)
                     var->push_back((*iter)->children.front()->value);
                 
-                for(auto iter=var.begin();iter!=var.end();iter++){
+                for(auto iter=var->begin();iter!=var->end();iter++){
                     Variable_Entry *var=new Variable_Entry(*iter,specifier,children[0]->line_no);
                     insert(var);
                 }
