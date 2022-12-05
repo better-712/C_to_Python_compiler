@@ -6,7 +6,7 @@
 #include <iostream>
 #include <fstream>
 namespace SPL {
-    
+
     void print_ast(Node *node, int level) {
         if (node->type.compare("empty") == 0) {
             return;
@@ -26,18 +26,38 @@ namespace SPL {
         
     }
     
+        
+    
+    std::unordered_map<std::string, std::string> Symbol_Table;
+    
+    
+    
+    std::vector<std::string> get_Def(Node *node){
+        auto *decs = new std::vector<Node *>{};
+        decs->push_back(node->children.front());
+        std::cout <<"var: "<<node->children.front()->children.front()->value<<std::endl;
+        Node *list=children.back();
+        while(list->type.compare("DecList") == 0){
+            decs->push_back(list->children.front());
+            
+            list=list.back();
+        }
+    }
     void visit_node(Node *node) {
         if (node->type.compare("empty") == 0) {
             return;
         }
         if (node->type.compare("Def") == 0) {
             std::vector<Node*> children=node->children;
-            for(auto iter=children.begin();iter!=children.end();iter++)
-            {
-                if(iter==children.begin())
-                    std::cout <<"Specifier: "<<iter->type<<std::endl;
-                else print_ast(iter,0);
-            }     
+            std::cout <<"Specifier: "<<children[0]->type<<std::endl;
+            get_Def(children[1]);
+//             for(auto iter=children.begin();iter!=children.end();iter++)
+//             {
+//                 if(iter==children.begin())
+//                     std::cout <<"Specifier: "<<(*iter)->type<<std::endl;
+//                 else 
+//                     print_ast(iter,0);
+//             }     
         }
         
         for (auto &child: node->children) {
@@ -45,5 +65,6 @@ namespace SPL {
         }
         
     }
+    
     
 }
