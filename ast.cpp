@@ -34,7 +34,7 @@ namespace SPL {
     };
     class Variable_Entry : public Entry {
     public:
-        Variable_Symbol(std::string name, std::string name type, int line_no){
+        Variable_Symbol(std::string name, std::string type, int line_no){
         this->name = name;
         this->line_no = type->line_no;
         this->type = type;
@@ -63,7 +63,7 @@ namespace SPL {
             list=list->children.back();
         }
         auto *vars = new std::vector<std::string>{};
-        for(auto iter=decs->begin();iter!=decs.end();iter++)
+        for(auto iter=decs->begin();iter!=decs->end();iter++)
             vars->push_back((*iter)->children.front()->children.front()->value);
         return *vars;      
     }
@@ -79,7 +79,7 @@ namespace SPL {
             std::cout <<"Specifier: "<<children[0]->type<<std::endl;
             std::vector<std::string>var=get_Def(children[1]);
             std::cout<<var[1]<<std::endl;
-            for(auto iter=var->begin();iter!=var.end();iter++){
+            for(auto iter=var.begin();iter!=var.end();iter++){
                 Variable_Entry *var=new Variable_Entry(*iter,specifier,children[0]->line_no);
                 insert(var);
             }
