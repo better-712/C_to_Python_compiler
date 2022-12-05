@@ -75,19 +75,30 @@ namespace SPL {
         return *vars;      
     }
     
+    std::vector<Node *> list_to_element(Node *node){
+        auto *decs = new std::vector<Node *>{};
+        decs->push_back(node->children.front());
+        Node *list=node->children.back();
+        while(list->type.compare("ExtDecList") == 0){
+            decs->push_back(list->children.front());
+            list=list->children.back();
+        }
+        return decs;
+    }
+    
     
     void visit_node(Node *node) {
         if (node->type.compare("empty") == 0) {
             return;
         }
-        if (node->type.compare("Def") == 0) {
-            std::cout <<"Specifier: "<<children[0]->type<<std::endl;
-            
+        if (node->type.compare("Def") == 0) {           
             std::vector<Node*> children=node->children;
             std::string specifier=children[0]->type;
-            std::vector<std::string>var=get_Def(children[1]);
+          
+//             std::cout <<"Specifier: "<<children[0]->type<<std::endl;
             
 //             std::cout<<var[1]<<std::endl;
+            std::vector<std::string>var=get_Def(children[1]);
             for(auto iter=var.begin();iter!=var.end();iter++){
                 Variable_Entry *var=new Variable_Entry(*iter,specifier,children[0]->line_no);
                 insert(var);
@@ -99,16 +110,11 @@ namespace SPL {
             std::string specifier=children[0]->type;
             if(node->children[1]->type.compare("ExtDecList") == 0){
                 
-                auto *decs = new std::vector<Node *>{};
-                decs->push_back(node->children.front());
-                Node *list=node->children.back();
-                while(list->type.compare("ExtDecList") == 0){
-                    decs->push_back(list->children.front());
-                    list=list->children.back();
-                }
-                auto *vars = new std::vector<std::string>{};
-                for(auto iter=decs->begin();iter!=decs->end();iter++)
-                    vars->push_back((*iter)->children.front()->value);
+                auto *vars =list_to_element(node->children[1]);
+                auto *var = new std::vector<std::string>{};
+                
+                for(auto iter=vars->begin();iter!=vars->end();iter++)
+                    var->push_back((*iter)->children.front()->value);
                 
                 for(auto iter=var.begin();iter!=var.end();iter++){
                     Variable_Entry *var=new Variable_Entry(*iter,specifier,children[0]->line_no);
