@@ -35,7 +35,7 @@ namespace SPL {
     };
     class Variable_Entry : public Entry {
     public:
-        Variable_Entry(std::string name, Type type, int line_no){
+        Variable_Entry(std::string name, Type *type, int line_no){
             this->name = name;
             this->line_no = line_no;
             this->type = type;
@@ -136,7 +136,7 @@ namespace SPL {
         }
         if (node->type.compare("Def") == 0) {           
             std::vector<Node*> children=node->children;
-            Type specifier=new Primitive_Type(children[0]->type);
+            Primitive_Type *specifier=new Primitive_Type(children[0]->type);
             
           
 //             std::cout <<"Specifier: "<<children[0]->type<<std::endl;
@@ -157,7 +157,7 @@ namespace SPL {
         if (node->type.compare("ExtDef") == 0) {
             std::vector<Node*> children=node->children;
 //             std::string specifier=children[0]->type;
-            Type specifier=new Primitive_Type(children[0]->type);
+            Primitive_Type *specifier=new Primitive_Type(children[0]->type);
             if(node->children[1]->type.compare("ExtDecList") == 0){
                 
                 std::vector<Node*>  *vars =list_to_element(children[1]);
