@@ -31,11 +31,11 @@ namespace SPL {
     public:
         std::string name;
         int line_no = -1;
-        std::string type;
+        Type *type;
     };
     class Variable_Entry : public Entry {
     public:
-        Variable_Entry(std::string name, std::string type, int line_no){
+        Variable_Entry(std::string name, Type type, int line_no){
             this->name = name;
             this->line_no = line_no;
             this->type = type;
@@ -43,24 +43,54 @@ namespace SPL {
         
     };
     
-    class Function_Entry : public Entry {
-    public:
-        std::vector<std::string> parameters;
-        Function_Entry(std::string return_type, std::string id, int line_no, std::vector<std::string> parameters){
-            this->parameters = parameters;
-            this->name = id;
-            this->line_no = line_no;
-            this->type = return_type;
-        }
+//     class Function_Entry : public Entry {
+//     public:
+//         std::vector<std::string> parameters;
+//         Function_Entry(std::string return_type, std::string id, int line_no, std::vector<std::string> parameters){
+//             this->parameters = parameters;
+//             this->name = id;
+//             this->line_no = line_no;
+//             this->type = return_type;
+//         }
         
-    };   
+//     }; 
+//     class Struct_Def_Entry : public Entry{
+//         public:
+//             Struct_Type *struct_type;
+//             Struct_Def_Entry(Struct_Type *struct_type){
+//                 this->struct_type=struct_type;
+//                 this->name =struct_type->name;
+//                 this->line_no = struct_type->line_no;
+//             }
+//     };
+    
+    class Type {
+    public:
+//         int line_no = -1;
+        std::string name;
+    }
+    class Primitive_Type : public Type {
+    public:
+        Primitive_Type(std::string name){
+            this->name=name;
+        }
+    }
+    
+    class Struct_Type : public Type {
+    public:
+        std::map<std::string, Type *> members;
+        Struct_Type(std::string name, std::vector<std::pair<std::string, Type *>> member_vector){
+            
+        }
+   
+    };
         
     
     
     std::unordered_map<std::string, Entry *> Symbol_Table;
     void insert(Entry *entry){
         std::cout <<"entry name: "<<entry->name<<std::endl;
-        std::cout <<"entry type "<<entry->type<<std::endl;
+        std::cout <<"entry type "<<entry->type->name<<std::endl;
         std::cout <<"entry line_no "<<entry->line_no<<std::endl;
         
         if (Symbol_Table.find(entry->name) != Symbol_Table.end()) {
@@ -106,7 +136,8 @@ namespace SPL {
         }
         if (node->type.compare("Def") == 0) {           
             std::vector<Node*> children=node->children;
-            std::string specifier=children[0]->type;
+            Type specifier=new Primitive_Type(children[0]->type);
+            
           
 //             std::cout <<"Specifier: "<<children[0]->type<<std::endl;
             
@@ -125,7 +156,8 @@ namespace SPL {
         }
         if (node->type.compare("ExtDef") == 0) {
             std::vector<Node*> children=node->children;
-            std::string specifier=children[0]->type;
+//             std::string specifier=children[0]->type;
+            Type specifier=new Primitive_Type(children[0]->type);
             if(node->children[1]->type.compare("ExtDecList") == 0){
                 
                 std::vector<Node*>  *vars =list_to_element(children[1]);
@@ -144,16 +176,19 @@ namespace SPL {
                 
                 
                 if(children[1]->children[2]->type.compare("VarList") == 0){
-                    std::vector<Node*>  *params =list_to_element(children[1]);
+                    std::vector<Node*>  *params =list_to_element(children[1]->children[2]);
                     auto *var = new std::vector<std::string>{};
                     for(auto iter=params->begin();iter!=params->end();iter++)
-                        var->push_back((*iter)->children.end()->children.front()->value);
+                        var->push_back((*iter)->children.back()->children.front()->value);
                 
                     for(auto iter=var->begin();iter!=var->end();iter++){
                         Variable_Entry *var=new Variable_Entry(*iter,specifier,children[0]->line_no);
                         insert(var);
                     }
                 }
+                
+            }
+            if(children[0]->children[0]->type.compare("StructSpecifier") == 0){
                 
             }
             
