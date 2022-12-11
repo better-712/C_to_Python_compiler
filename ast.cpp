@@ -111,16 +111,17 @@ namespace SPL {
         return decs;
     }
     
-    Function_Entry* get_fun_entry(Type type,Node *node){
+    Function_Entry* get_fun_entry(Type* type,Node *node){
         Node* varlist=node->children[2];
+        auto *var_type = new std::vector<Type>{};
         if(varlist->type.compare("VarList") == 0){
             std::vector<Node*>  *params =list_to_element(varlist);
-            auto *var_type = new std::vector<Type>{};
             for(auto iter=params->begin();iter!=params->end();iter++){
                 Node * spec=(*iter)->children[0];
                 Primitive_Type *specifier=new Primitive_Type(spec->children[0]->value);
                 var_type->push_back(specifier);
             }
+        }
         Function_Entry *fun= new Function_Entry(type,node->children[0]->value,node->children[0]->line_no,var_type);
         return fun;
     }
