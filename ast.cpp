@@ -56,15 +56,16 @@ namespace SPL {
         
     }; 
     
-//     class Struct_Def_Entry : public Entry{
-//         public:
-//             Struct_Type *struct_type;
-//             Struct_Def_Entry(Struct_Type *struct_type){
-//                 this->struct_type=struct_type;
-//                 this->name =struct_type->name;
-//                 this->line_no = struct_type->line_no;
-//             }
-//     };
+    
+    class Struct_Def_Entry : public Entry{
+        public:
+            Struct_Type *struct_type;
+            Struct_Def_Entry(Struct_Type *struct_type){
+                this->struct_type=struct_type;
+                this->name =struct_type->name;
+                this->line_no = struct_type->line_no;
+            }
+    };
     
 
     
@@ -119,7 +120,7 @@ namespace SPL {
             for(auto iter=params->begin();iter!=params->end();iter++){
                 Node * spec=(*iter)->children[0];
                 Primitive_Type *specifier=new Primitive_Type(spec->children[0]->value);
-                var_type->push_back(specifier);
+                var_type.push_back(specifier);
             }
         }
         Function_Entry *fun= new Function_Entry(type,node->children[0]->value,node->children[0]->line_no,var_type);
