@@ -46,8 +46,8 @@ namespace SPL {
     
     class Function_Entry : public Entry {
     public:
-        std::vector<Type> parameters;
-        Function_Entry(Type* return_type, std::string id, int line_no, std::vector<Type> parameters){
+        std::vector<Type*> parameters;
+        Function_Entry(Type* return_type, std::string id, int line_no, std::vector<Type*> parameters){
             this->parameters = parameters;
             this->name = id;
             this->line_no = line_no;
@@ -113,7 +113,7 @@ namespace SPL {
     
     Function_Entry* get_fun_entry(Type* type,Node *node){
         Node* varlist=node->children[2];
-        auto *var_type = new std::vector<Type>{};
+        std::vector<Type*> var_type;
         if(varlist->type.compare("VarList") == 0){
             std::vector<Node*>  *params =list_to_element(varlist);
             for(auto iter=params->begin();iter!=params->end();iter++){
@@ -171,7 +171,7 @@ namespace SPL {
             }
             if(children[1]->type.compare("FunDec") == 0){
                 
-                auto *func_entry = get_fun_entry(specifier_type,children[1]);
+                auto *func_entry = get_fun_entry(specifier,children[1]);
                 insert(func_entry);
                 
                 if(children[1]->children[2]->type.compare("VarList") == 0){
