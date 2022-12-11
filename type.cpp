@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
+#include <unordered_map>
 namespace SPL{
   class Type {
     public:
@@ -15,7 +17,7 @@ namespace SPL{
     
     class Struct_Type : public Type {
     public:
-        std::map<std::string, Type *> members;
+        std::unordered_map<std::string, Type *> members;
         Struct_Type(std::string name, std::vector<std::pair<std::string, Type *>> member_vector){
             
         }
