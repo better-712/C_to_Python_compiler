@@ -47,7 +47,7 @@ namespace SPL {
     class Function_Entry : public Entry {
     public:
         std::vector<Type> parameters;
-        Function_Entry(std::string return_type, std::string id, int line_no, std::vector<Type> parameters){
+        Function_Entry(Type* return_type, std::string id, int line_no, std::vector<Type> parameters){
             this->parameters = parameters;
             this->name = id;
             this->line_no = line_no;
@@ -111,19 +111,19 @@ namespace SPL {
         return decs;
     }
     
-//     Function_Entry* get_fun_entry(Type type,Node *node){
-//         Node* varlist=node->children[2];
-//         if(varlist->type.compare("VarList") == 0){
-//             std::vector<Node*>  *params =list_to_element(varlist);
-//             auto *var_type = new std::vector<Type>{};
-//             for(auto iter=params->begin();iter!=params->end();iter++){
-//                 Node * spec=(*iter)->children[0];
-//                 Primitive_Type *specifier=new Primitive_Type(spec->children[0]->value);
-//                 var_type->push_back(specifier);
-//             }
-//         Function_Entry *fun= new Function_Entry(type,node->children[0]->value,node->children[0]->line_no,var_type);
-//         return fun;
-//     }
+    Function_Entry* get_fun_entry(Type type,Node *node){
+        Node* varlist=node->children[2];
+        if(varlist->type.compare("VarList") == 0){
+            std::vector<Node*>  *params =list_to_element(varlist);
+            auto *var_type = new std::vector<Type>{};
+            for(auto iter=params->begin();iter!=params->end();iter++){
+                Node * spec=(*iter)->children[0];
+                Primitive_Type *specifier=new Primitive_Type(spec->children[0]->value);
+                var_type->push_back(specifier);
+            }
+        Function_Entry *fun= new Function_Entry(type,node->children[0]->value,node->children[0]->line_no,var_type);
+        return fun;
+    }
     
     
     void visit_node(Node *node) {
@@ -170,8 +170,8 @@ namespace SPL {
             }
             if(children[1]->type.compare("FunDec") == 0){
                 
-//                 auto *func_entry = get_fun_entry(specifier_type,children[1]);
-//                 insert(func_entry);
+                auto *func_entry = get_fun_entry(specifier_type,children[1]);
+                insert(func_entry);
                 
                 if(children[1]->children[2]->type.compare("VarList") == 0){
                     std::vector<Node*>  *params =list_to_element(children[1]->children[2]);
@@ -181,7 +181,7 @@ namespace SPL {
                         Node * spec=(*iter)->children[0];
                         Primitive_Type *specifier=new Primitive_Type(spec->children[0]->value);
                         //
-                        Variable_Entry *var=new Variable_Entry(*iter,specifier,children[0]->line_no);
+                        Variable_Entry *var=new Variable_Entry(name,specifier,spec->line_no);
                         insert(var);
                     }
 //                         var->push_back((*iter)->children.back()->children.front()->value);
