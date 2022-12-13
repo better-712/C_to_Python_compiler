@@ -59,10 +59,10 @@ namespace SPL {
     
     class Struct_Def_Entry : public Entry{
         public:
-            Struct_Type *struct_type;
-            Struct_Def_Entry(Struct_Type *struct_type){
-                this->struct_type=struct_type;
-                this->name =struct_type->name;
+            
+            Struct_Def_Entry(std::string id,Struct_Type *struct_type){
+                this->type=struct_type;
+                this->name =id;
 //                 this->line_no ;
             }
     };
@@ -113,24 +113,26 @@ namespace SPL {
     Type* get_type(Node* node){
         Type *specifier;
         if(node->type.compare("StructSpecifier") == 0){
-            std::string name=node->children[1]->value;
+            
             std::vector<std::pair<std::string, Type *>> member_vector;
             
             Node* deflist=node->children[3];
             std::vector<Node *>* def_list=list_to_element(deflist);
             for(auto iter=def_list->begin();iter!=def_list->end();iter++){
-                Type *specifier=get_type((*iter)->children[0]);
+                Type *specifier=get_type((*iter)->children[0]->children[0]);
                 Node* declist=(*iter)->children[1];
                 std::vector<Node *>* dec_list=list_to_element(declist);
                 
                 for(auto iter=dec_list->begin();iter!=dec_list->end();iter++){
                     std::string var=(*iter)->children.front()->children.front()->value;
+                    
+                    std::cout <<"name : "<<specifier->name<<std::endl;
                     member_vector.push_back(make_pair(var,specifier));
                     
                 }
             }
             
-            specifier=new Struct_Type(name,member_vector);
+            specifier=new Struct_Type(member_vector);
             
                 
         }
@@ -224,7 +226,8 @@ namespace SPL {
             }
             if(children[0]->children[0]->type.compare("StructSpecifier") == 0){
                 Type* s=get_type(children[0]->children[0]);
-                auto *symbol = new Struct_Def_Entry(s);
+                std::string name=children[0]->children[0]->children[1]->value;
+                auto *symbol = new Struct_Def_Entry(name,dynamic_cast<Struct_Type*>(s));
                 insert(symbol);
             }
             
