@@ -63,7 +63,7 @@ namespace SPL {
             Struct_Def_Entry(Struct_Type *struct_type){
                 this->struct_type=struct_type;
                 this->name =struct_type->name;
-                this->line_no = struct_type->line_no;
+//                 this->line_no ;
             }
     };
     
@@ -83,23 +83,6 @@ namespace SPL {
         }
     }
     
-    
-    
-//     std::vector<std::string>* get_Def(Node *node){
-//         std::cout <<"var: "<<node->children.front()->children.front()->children.front()->value<<std::endl;
-        
-//         auto *decs = new std::vector<Node *>{};
-//         decs->push_back(node->children.front());
-//         Node *list=node->children.back();
-//         while(list->type.compare("DecList") == 0){
-//             decs->push_back(list->children.front());
-//             list=list->children.back();
-//         }
-//         auto *vars = new std::vector<std::string>{};
-//         for(auto iter=decs->begin();iter!=decs->end();iter++)
-//             vars->push_back((*iter)->children.front()->children.front()->value);
-//         return vars;      
-//     }
     
     std::vector<Node *>* list_to_element(Node *node){
         auto *decs = new std::vector<Node *>{};
@@ -127,6 +110,49 @@ namespace SPL {
         return fun;
     }
     
+    Type* get_type(Node* node){
+        Type *specifier;
+        if(node->type.compare("StructSpecifier") == 0){
+            std::string name=node->children[1]->value;
+            std::vector<std::pair<std::string, Type *>> member_vector;
+            
+            Node* deflist=node->children[3];
+            std::vector<Node *>* def_list=list_to_element(deflist);
+            for(auto iter=def_list->begin();iter!=def_list->end();iter++){
+                Type *specifier=get_type((*iter)->children[0]);
+                Node* declist=(*iter)->children[1];
+                std::vector<Node *>* dec_list=list_to_element(declist);
+                
+                for(auto iter=dec_list->begin();iter!=dec_list->end();iter++){
+                    std::string var=(*iter)->children.front()->children.front()->value;
+                    member_vector.push_back(make_pair(var,specifier));
+                    
+                }
+            }
+            
+            specifier=new Struct_Type(name,member_vector);
+            
+                
+        }
+        if(node->type.compare("TYPE") == 0){
+            specifier=new Primitive_Type(node->value);
+            
+        }   
+        return specifier;
+    }
+//     std::pair<Type *, std::vector<VarDec_Node *> *> Local_Resolver::get_info(Def_Node *node) {
+//         auto specifier_type = get_type(node->specifier);
+//         auto *decs = new std::vector<VarDec_Node *>{};
+
+//         DecList_Node *dec_list = node->dec_list;
+//         while (dec_list) {
+//             decs->push_back(dec_list->dec->var_dec);
+//             dec_list = dec_list->dec_list;
+//         }
+
+//         return make_pair(specifier_type, decs);
+//     }
+
     
     void visit_node(Node *node) {
         if (node->type.compare("empty") == 0) {
@@ -197,7 +223,9 @@ namespace SPL {
                 
             }
             if(children[0]->children[0]->type.compare("StructSpecifier") == 0){
-                
+                Type* s=get_type(children[0]->children[0]);
+                auto *symbol = new Struct_Def_Entry(s);
+                insert(symbol);
             }
             
         }
