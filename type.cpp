@@ -19,7 +19,9 @@ namespace SPL{
     public:
         std::unordered_map<std::string, Type *> members;
         Struct_Type(std::string name, std::vector<std::pair<std::string, Type *>> member_vector){
-            
+          this->name=name;
+          for (auto &p: member_vector) 
+            members.insert(p);
         }
    
     };
