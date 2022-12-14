@@ -7,6 +7,7 @@ namespace SPL{
     public:
 //         int line_no = -1;
         std::string name;
+        virtual ~Type()=default;
     };
     class Primitive_Type : public Type {
     public:
@@ -25,4 +26,12 @@ namespace SPL{
         }
    
     };
+    class Array_Type : public Type {
+    public:
+      Type *base_type;
+      Array_Type(Type *base_type){
+        this->base_type=base_type;
+      }   
+    };
+  
 }
