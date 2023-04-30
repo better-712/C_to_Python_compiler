@@ -19,5 +19,5 @@ int main(const int argc, const char **argv) {
         driver.print_errors();
 //         SPL::print_ast(driver.get_root());
     else
-        SPL::visit_node(driver.get_root());
+        SPL::code_gen(driver.get_root());
 }
