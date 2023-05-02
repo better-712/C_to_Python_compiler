@@ -9,7 +9,7 @@
 #include <sstream>
 
 #include "spl_driver.hpp"
-
+#include "gen.hpp"
 using std::cout, std::endl;
 
 int main(const int argc, const char **argv) {
