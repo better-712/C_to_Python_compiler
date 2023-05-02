@@ -1,7 +1,8 @@
 #include <iostream>
 #include <vector>
 #include "type.cpp"
-
+#include "ast.hpp"
+#include <string.h>
 namespace SPL {
   std::vector<Node *>* list_to_element(Node *node){
         auto *decs = new std::vector<Node *>{};
@@ -16,7 +17,7 @@ namespace SPL {
 
   char* cgen_Line (Node* tree, int indent){
     printf("cgen_Line\n");
-    return "abc";
+    return (char*)"abc";
   }
   char* cgen_Program (Node* tree, int indent){
     char *result;
@@ -25,26 +26,26 @@ namespace SPL {
 
     result = NULL;
     nLines = last = total = l_line = 0;
-    std::vector<Node *>* list=list_to_element(ExtDefList)
+    std::vector<Node *>* list=list_to_element(ExtDefList);
     
-    nLines=list.size();
+    nLines=list->size();
     char* lines[nLines];
     nLines = 0;
     for(auto iter=list->begin();iter!=list->end();iter++){
-        lines[nLines] = cgen_Line(tmp, indent);
+        lines[nLines] = cgen_Line((*iter), indent);
         printf("line is %s\n", lines[nLines]);
         if (lines[nLines] == NULL)
             printf("lines[%d] == NULL\n",nLines);
         total += strlen(lines[nLines]);
         nLines++;
     }
-    result = calloc(total + 1, sizeof(char));
+    result = (char*)calloc(total + 1, sizeof(char));
     
     for (int i=0; i<nLines; i++) {
         l_line = strlen(lines[i]);
         memcpy(result + last, lines[i], l_line * sizeof(char));
         last += l_line;
-        free(lines[i]);
+        //free(lines[i]);
     }
    
     
