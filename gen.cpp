@@ -29,6 +29,10 @@ namespace SPL {
     
     var = cgen_VarDec(tree->children[0]);
     l_var = strlen(var);
+    if(tree->children.size() == 3){
+      extDecList= cgen_ExtDecList(tree->children[2]);
+      l_ext = strlen(extDecList);
+    }
     
     if (l_ext > 0)
       result = (char*)calloc(l_var + 1 + l_ext, sizeof(char));
