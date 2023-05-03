@@ -4,7 +4,7 @@
 #include "ast.hpp"
 #include <string.h>
 namespace SPL {
-  std::vector<Node *>* list_to_element(Node *node){
+  std::vector<Node *>* list_to_ele(Node *node){
         auto *decs = new std::vector<Node *>{};
         decs->push_back(node->children.front());
         Node *list=node->children.back();
@@ -15,24 +15,36 @@ namespace SPL {
         return decs;
     }
 
-  char* cgen_Line (Node* tree, int indent){
+  char* cgen_ExtDef (Node* tree, int indent){
     printf("cgen_Line\n");
+    
+    
+    char *line, *result;
+    int l_line;
+    Node *tmp=tree->children[0];
+    if(tmp->type.compare("ExtDecList") == 0)
+      printf("ExtDecList\n");
+    else if(tmp->type.compare("SEMI") == 0)
+      printf("SEMI\n");
+    else if(tmp->type.compare("FunDec") == 0)
+      printf("FunDec\n");
+    
     return (char*)"abc";
   }
   char* cgen_Program (Node* tree, int indent){
     char *result;
     int nLines, total, last, l_line;
-    Node *ExtDefList=tree->children[0];
+    Node *ExtDefList=tree->children[1];
 
     result = NULL;
     nLines = last = total = l_line = 0;
-    std::vector<Node *>* list=list_to_element(ExtDefList);
+    std::vector<Node *>* list=list_to_ele(ExtDefList);
     
     nLines=list->size();
     char* lines[nLines];
     nLines = 0;
     for(auto iter=list->begin();iter!=list->end();iter++){
-        lines[nLines] = cgen_Line((*iter), indent);
+        lines[nLines] = cgen_ExtDef((*iter), indent);
         printf("line is %s\n", lines[nLines]);
         if (lines[nLines] == NULL)
             printf("lines[%d] == NULL\n",nLines);
