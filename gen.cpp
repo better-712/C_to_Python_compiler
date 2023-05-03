@@ -14,11 +14,34 @@ namespace SPL {
         }
         return decs;
     }
+  
+  char* cgen_VarDec(Node* tree){
+    return (char*)"Var";
+  }
   char* cgen_Specifier(Node* tree){
     return (char*)"A+";
   }
   char* cgen_ExtDecList(Node* tree){
-    return (char*)"+B";
+    char *var,*extDecList, *result;
+    int l_var,l_ext;
+    var = extDecList = result = NULL;
+    l_var = l_ext = 0;
+    
+    var = cgen_VarDec(tree->children[0]);
+    l_var = strlen(var);
+    
+    if (l_ext > 0)
+      result = (char*)calloc(l_var + 1 + l_ext, sizeof(char));
+    else
+      result = (char*)calloc(l_var, sizeof(char));
+    
+    memcpy(result, var, l_var * sizeof(char));
+    if (l_ext > 0){
+        result[l_var] = ',';
+        memcpy(result + l_var + 1, extDecList, l_ext * sizeof(char));
+    }
+    
+    return result;
   }
   char* cgen_Specifier_ExtDecList_SEMI(Node* tree, int indent){
     char *Specifier, *ExtDecList, *result;
@@ -34,6 +57,7 @@ namespace SPL {
     l_ext = strlen(ExtDecList);
     
     result = (char*)calloc(l_spec + 1 +l_ext, sizeof(char));
+    memcpy(result, Specifier, l_spec * sizeof(char));
     result[l_spec] = ' ';
     memcpy(result + l_spec + 1, ExtDecList, l_ext * sizeof(char));
         
@@ -56,7 +80,7 @@ namespace SPL {
       printf("FunDec\n");
     
     l_line = strlen(line);
-    result = calloc(l_line + 2, sizeof(char));
+    result = (char*)calloc(l_line + 2, sizeof(char));
     memcpy(result, line, l_line * sizeof(char));
     // Add the ENDLINE TOKEN
     memset(result + l_line, '\n', sizeof(char));
