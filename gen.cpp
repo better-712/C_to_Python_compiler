@@ -54,10 +54,10 @@ namespace SPL {
     Specifier = ExtDecList = result = NULL;
     l_spec = l_ext = 0;
     
-    Specifier = cgen_Specifier(tree);
+    Specifier = cgen_Specifier(tree->children[0]);
     l_spec = strlen(Specifier);
     
-    ExtDecList = cgen_ExtDecList(tree);
+    ExtDecList = cgen_ExtDecList(tree->children[1]);
     l_ext = strlen(ExtDecList);
     
     result = (char*)calloc(l_spec + 1 +l_ext, sizeof(char));
