@@ -14,8 +14,30 @@ namespace SPL {
         }
         return decs;
     }
+  char* cgen_Specifier(Node* tree){
+    return (char*)"A+";
+  }
+  char* cgen_ExtDecList(Node* tree){
+    return (char*)"+B";
+  }
   char* cgen_Specifier_ExtDecList_SEMI(Node* tree, int indent){
-    return(char*)"BBB";
+    char *Specifier, *ExtDecList, *result;
+    int l_spec, l_ext;
+
+    Specifier = ExtDecList = result = NULL;
+    l_spec = l_ext = 0;
+    
+    Specifier = cgen_Specifier(tree);
+    l_spec = strlen(Specifier);
+    
+    ExtDecList = cgen_ExtDecList(tree);
+    l_ext = strlen(ExtDecList);
+    
+    result = (char*)calloc(l_spec + 1 +l_ext, sizeof(char));
+    result[l_spec] = ' ';
+    memcpy(result + l_spec + 1, ExtDecList, l_ext * sizeof(char));
+        
+    return result;
   }
 
   char* cgen_ExtDef (Node* tree, int indent){
@@ -24,8 +46,6 @@ namespace SPL {
     
     char *line, *result;
     int l_line;
-    
-    result=(char*)"AAA";
       
     Node *tmp=tree->children[1];
     if(tmp->type.compare("ExtDecList") == 0)
