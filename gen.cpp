@@ -14,6 +14,9 @@ namespace SPL {
         }
         return decs;
     }
+  char* cgen_Specifier_ExtDecList_SEMI(Node* tree, int indent){
+    return(char*)"BBB";
+  }
 
   char* cgen_ExtDef (Node* tree, int indent){
     printf("cgen_Line\n");
@@ -21,20 +24,29 @@ namespace SPL {
     
     char *line, *result;
     int l_line;
-    Node *tmp=tree->children[0];
+    
+    result=(char*)"AAA";
+      
+    Node *tmp=tree->children[1];
     if(tmp->type.compare("ExtDecList") == 0)
-      printf("ExtDecList\n");
+      line = cgen_Specifier_ExtDecList_SEMI(tree, indent);
     else if(tmp->type.compare("SEMI") == 0)
       printf("SEMI\n");
     else if(tmp->type.compare("FunDec") == 0)
       printf("FunDec\n");
     
-    return (char*)"abc";
+    l_line = strlen(line);
+    result = calloc(l_line + 2, sizeof(char));
+    memcpy(result, line, l_line * sizeof(char));
+    // Add the ENDLINE TOKEN
+    memset(result + l_line, '\n', sizeof(char));
+    
+    return result;
   }
   char* cgen_Program (Node* tree, int indent){
     char *result;
     int nLines, total, last, l_line;
-    Node *ExtDefList=tree->children[1];
+    Node *ExtDefList=tree->children[0];
 
     result = NULL;
     nLines = last = total = l_line = 0;
