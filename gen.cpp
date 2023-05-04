@@ -15,7 +15,6 @@ namespace SPL {
         return decs;
     }
   char* cgen_Int (Node* tree) {
-    
     return (char*)(tree->value).c_str();
 }
   
@@ -40,7 +39,13 @@ namespace SPL {
     return result;
   }
   char* cgen_Specifier(Node* tree){
-    return (char*)"A+";
+    char  *result;
+    if(tree->children[0]->type.compare("TYPE")==0){
+      result=(char*)(tree->children[0]->value).c_str();
+    }else{
+      
+    }
+    return result;
   }
   char* cgen_ExtDecList(Node* tree){
     char *var,*extDecList, *result;
