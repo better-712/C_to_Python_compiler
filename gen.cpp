@@ -93,6 +93,38 @@ namespace SPL {
         
     return result;
   }
+  
+  char* cgen_FunDec(Node* tree, int indent){
+    return (char*)"FunDec";
+  }
+  
+  char* cgen_CompSt(Node* tree, int indent){
+    return (char*)"CompSt";
+  }
+  
+  char* cgen_Specifier_FunDec_CompSt(Node* tree, int indent){
+    char *Specifier, *FunDec,*CompSt, *result;
+    int l_spec, l_fun, l_comp;
+
+    Specifier = FunDec =CompSt= result = NULL;
+    l_spec = l_fun =l_comp= 0;
+    
+    Specifier = cgen_Specifier(tree->children[0]);
+    l_spec = strlen(Specifier);
+    
+    FunDec = cgen_FunDec(tree->children[1]);
+    l_fun = strlen(FunDec);
+    
+    CompSt = cgen_CompSt(tree->children[2]);
+    l_comp = strlen(CompSt);
+    
+    result = (char*)calloc(l_spec + l_fun +l_comp, sizeof(char));
+    memcpy(result, Specifier, l_spec * sizeof(char));
+    memcpy(result+l_spec, FunDec, l_fun * sizeof(char));
+    memcpy(result+l_spec+l_fun, CompSt, l_comp * sizeof(char));
+    return result;
+  }
+  
 
   char* cgen_ExtDef (Node* tree, int indent){
     printf("cgen_Line\n");
@@ -107,7 +139,7 @@ namespace SPL {
     else if(tmp->type.compare("SEMI") == 0)
       printf("SEMI\n");
     else if(tmp->type.compare("FunDec") == 0)
-      printf("FunDec\n");
+      line = cgen_Specifier_FunDec_CompSt(tree, indent);
     
     l_line = strlen(line);
     result = (char*)calloc(l_line + 2, sizeof(char));
