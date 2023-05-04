@@ -14,9 +14,30 @@ namespace SPL {
         }
         return decs;
     }
+  char* cgen_Int (Node* tree) {
+    
+    return (char*)(tree->value).c_str();
+}
   
   char* cgen_VarDec(Node* tree){
-    return (char*)"Var";
+    char  *result;
+    if(tree->children.size() == 4)
+    {
+      char *id,*in;
+      int l_id,l_in;
+      id = cgen_VarDec(tree->children[0]);
+      l_id= strlen(id);
+      in=cgen_Int(tree->children[2]);
+      l_in= strlen(in);
+      result = (char*)calloc(l_id + 2 + l_in, sizeof(char));
+      memcpy(result, id, l_id * sizeof(char));
+      result[l_id] = '[';
+      memcpy(result+l_id + 1, in, l_in * sizeof(char));
+      result[l_id + 1 + l_in] = ']';
+    }else{
+      result=(char*)(tree->children[0]->value).c_str();
+    }
+    return result;
   }
   char* cgen_Specifier(Node* tree){
     return (char*)"A+";
