@@ -160,8 +160,30 @@ namespace SPL {
     return result;
   }
   
+  char* cgen_DefList(Node* tree, int indent){
+    return (char*)"cgen_DefList";
+  }
+  
+  char* cgen_StmtList(Node* tree, int indent){
+    return (char*)"cgen_StmtList";
+  }
+  
   char* cgen_CompSt(Node* tree, int indent){
-    return (char*)"CompSt";
+    char *DefList,*StmtList,*result;
+    int l_DefList,l_StmtList;
+    DefList=cgen_DefList(tree->children[1],indent);
+    l_DefList=strlen(DefList);
+    StmtList=cgen_StmtList(tree->children[2],indent);
+    l_StmtList=strlen(StmtList);
+    
+    result = (char*)calloc(l_DefList + 3 +l_StmtList, sizeof(char));
+    result[0] = '{';
+    result[1] = '\n';
+    memcpy(result+2, DefList, l_DefList * sizeof(char));
+    memcpy(result+2+l_DefList, StmtList, l_StmtList * sizeof(char));
+    result[result+2+l_DefList] = '}';
+    
+    return result;
   }
   
   char* cgen_Specifier_FunDec_CompSt(Node* tree, int indent){
@@ -240,7 +262,8 @@ namespace SPL {
         last += l_line;
         //free(lines[i]);
     }
-   
+    printf("result is %s\n", result);
+    return result;
     
   }
   
