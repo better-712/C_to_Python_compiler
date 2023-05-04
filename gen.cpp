@@ -98,8 +98,35 @@ namespace SPL {
     return result;
   }
   
+  char* cgen_ParamDec(Node* tree){
+    return (char*)"ParamDec";
+  }
+  
   char* cgen_VarList(Node* tree){
-    return (char*)"VarList";
+    char *ParamDec,*VarList, *result;
+    int l_ParamDec,l_VarList;
+    ParamDec = VarList = result = NULL;
+    l_ParamDec = l_VarList = 0;
+    
+    ParamDec = cgen_ParamDec(tree->children[0]);
+    l_ParamDec = strlen(ParamDec);
+    if(tree->children.size() == 3){
+      VarList= cgen_VarList(tree->children[2]);
+      l_VarList = strlen(VarList);
+    }
+    
+    if (l_VarList > 0)
+      result = (char*)calloc(l_ParamDec + 1 + l_VarList, sizeof(char));
+    else
+      result = (char*)calloc(l_ParamDec, sizeof(char));
+    
+    memcpy(result, ParamDec, l_ParamDec * sizeof(char));
+    if (l_VarList > 0){
+        result[l_ParamDec] = ',';
+        memcpy(result + l_ParamDec + 1, VarList, l_VarList * sizeof(char));
+    }
+    
+    return result;
   }
   
   char* cgen_FunDec(Node* tree){
@@ -114,8 +141,8 @@ namespace SPL {
     result = (char*)calloc(l_id + 2 +l_VarList, sizeof(char));
     memcpy(result, id, l_id * sizeof(char));
     result[l_id] = '(';
-    if(l_VarList!=0)memcpy(result+l_id, VarList, l_VarList * sizeof(char));
-    result[l_id+l_VarList] = ')';
+    if(l_VarList!=0)memcpy(result+l_id+1, VarList, l_VarList * sizeof(char));
+    result[l_id+l_VarList+1] = ')';
     return result;
   }
   
