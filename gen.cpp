@@ -17,7 +17,10 @@ namespace SPL {
     }
   char* cgen_Int (Node* tree) {
     return (char*)(tree->value).c_str();
-}
+  }
+  char* cgen_ID(Node* tree){
+    return (char*)(tree->value).c_str();
+  }
   
   char* cgen_VarDec(Node* tree){
     char  *result;
@@ -25,7 +28,7 @@ namespace SPL {
     {
       char *id,*in;
       int l_id,l_in;
-      id = cgen_VarDec(tree->children[0]);
+      id = cgen_ID(tree->children[0]);
       l_id= strlen(id);
       in=cgen_Int(tree->children[2]);
       l_in= strlen(in);
@@ -35,7 +38,7 @@ namespace SPL {
       memcpy(result+l_id + 1, in, l_in * sizeof(char));
       result[l_id + 1 + l_in] = ']';
     }else{
-      result=(char*)(tree->children[0]->value).c_str();
+      result=cgen_ID(tree->children[0]);
     }
     return result;
   }
@@ -44,7 +47,7 @@ namespace SPL {
     if(tree->children[0]->type.compare("TYPE")==0){
       result=(char*)(tree->children[0]->value).c_str();
     }else{
-      
+      //to do
     }
     return result;
   }
@@ -95,8 +98,25 @@ namespace SPL {
     return result;
   }
   
+  char* cgen_VarList(Node* tree){
+    return (char*)"VarList";
+  }
+  
   char* cgen_FunDec(Node* tree){
-    return (char*)"FunDec";
+    char *id,*VarList,*result;
+    int l_id,l_VarList;
+    id=cgen_ID(tree->children[0]);
+    l_id=strlen(id);
+    if(tree->children.size() == 4){
+      VarList=cgen_VarList(tree->children[2]);
+      l_VarList=strlen(VarList);
+    }
+    result = (char*)calloc(l_id + 2 +l_VarList, sizeof(char));
+    memcpy(result, id, l_id * sizeof(char));
+    result[l_id] = '(';
+    if(l_VarList!=0)memcpy(result+l_id, VarList, l_VarList * sizeof(char));
+    result[l_id+l_VarList] = ')';
+    return result;
   }
   
   char* cgen_CompSt(Node* tree, int indent){
