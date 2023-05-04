@@ -99,7 +99,21 @@ namespace SPL {
   }
   
   char* cgen_ParamDec(Node* tree){
-    return (char*)"ParamDec";
+    char *Specifier,* VarDec, *result;
+    int l_spec,l_VarDec;
+    Specifier = VarDec = result = NULL;
+    l_spec = l_VarDec = 0;
+    Specifier = cgen_Specifier(tree->children[0]);
+    l_spec = strlen(Specifier);
+    VarDec = cgen_VarDec(tree->children[1]);
+    l_VarDec = strlen(VarDec);
+    
+    result = (char*)calloc(l_spec + 1 +l_VarDec, sizeof(char));
+    memcpy(result, Specifier, l_spec * sizeof(char));
+    result[l_spec] = ' ';
+    memcpy(result + l_spec + 1, VarDec, l_VarDec * sizeof(char));
+        
+    return result;
   }
   
   char* cgen_VarList(Node* tree){
