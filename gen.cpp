@@ -4,6 +4,7 @@
 #include "ast.hpp"
 #include <string.h>
 namespace SPL {
+  int INDENT_LEV=4;
   std::vector<Node *>* list_to_ele(Node *node){
         auto *decs = new std::vector<Node *>{};
         decs->push_back(node->children.front());
@@ -94,7 +95,7 @@ namespace SPL {
     return result;
   }
   
-  char* cgen_FunDec(Node* tree, int indent){
+  char* cgen_FunDec(Node* tree){
     return (char*)"FunDec";
   }
   
@@ -115,13 +116,14 @@ namespace SPL {
     FunDec = cgen_FunDec(tree->children[1]);
     l_fun = strlen(FunDec);
     
-    CompSt = cgen_CompSt(tree->children[2]);
+    CompSt = cgen_CompSt(tree->children[2],indent+INDENT_LEV);
     l_comp = strlen(CompSt);
     
-    result = (char*)calloc(l_spec + l_fun +l_comp, sizeof(char));
+    result = (char*)calloc(l_spec + l_fun +l_comp+1, sizeof(char));
     memcpy(result, Specifier, l_spec * sizeof(char));
-    memcpy(result+l_spec, FunDec, l_fun * sizeof(char));
-    memcpy(result+l_spec+l_fun, CompSt, l_comp * sizeof(char));
+    result[l_spec] = ' ';
+    memcpy(result+l_spec+1, FunDec, l_fun * sizeof(char));
+    memcpy(result+l_spec+1+l_fun, CompSt, l_comp * sizeof(char));
     return result;
   }
   
