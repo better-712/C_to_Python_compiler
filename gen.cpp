@@ -159,20 +159,69 @@ namespace SPL {
     result[l_id+l_VarList+1] = ')';
     return result;
   }
+  char* cgen_Dec(Node* tree, int indent){
+    return (char*)"cgen_Dec";
+  }
+  
+  char* cgen_DecList(Node* tree, int indent){
+    char *Dec,*DecList, *result;
+    int l_Dec,l_DecList;
+    Dec = DecList = result = NULL;
+    l_Dec = l_DecList = 0;
+    
+    Dec = cgen_Dec(tree->children[0]);
+    l_Dec = strlen(Dec);
+    if(tree->children.size() == 3){
+      DecList= cgen_DecList(tree->children[2]);
+      l_DecList = strlen(DecList);
+    }
+    
+    if (l_DecList > 0)
+      result = (char*)calloc(l_Dec + 1 + l_DecList, sizeof(char));
+    else
+      result = (char*)calloc(l_Dec, sizeof(char));
+    
+    memcpy(result, Dec, l_Dec * sizeof(char));
+    if (l_DecList > 0){
+        result[l_Dec] = ',';
+        memcpy(result + l_Dec + 1, DecList, l_DecList * sizeof(char));
+    }
+    
+    return result;
+  }
+  
   char* cgen_Def(Node* tree, int indent){
-    return (char*)"cgen_Def";
+    char *Specifier, *DecList, *result;
+    int l_spec, l_DecList;
+
+    Specifier = DecList = result = NULL;
+    l_spec = l_DecList = 0;
+    
+    Specifier = cgen_Specifier(tree->children[0]);
+    l_spec = strlen(Specifier);
+    
+    DecList = cgen_DecList(tree->children[1]);
+    l_DecList = strlen(DecList);
+    
+    result = (char*)calloc(l_spec + 1 +l_DecList, sizeof(char));
+    memcpy(result, Specifier, l_spec * sizeof(char));
+    result[l_spec] = ' ';
+    memcpy(result + l_spec + 1, DecList, l_DecList * sizeof(char));
+        
+    return result;
   }
   
   char* cgen_DefList(Node* tree, int indent){
-    if(tree->children.size() == 1)return NULL;
+    //null? ""!
+    if(tree->type.compare("empty") == 0)return (char*)"";
     char *Def,*DefList, *result;
     int l_Def,l_DefList;
     Def = DefList = result = NULL;
     l_Def = l_DefList = 0;
     
-    Def = cgen_Def(tree->children[0]);
+    Def = cgen_Def(tree->children[0],indent);
     l_Def = strlen(Def);
-    DefList= cgen_DefList(tree->children[1]);
+    DefList= cgen_DefList(tree->children[1],indent);
     l_DefList = strlen(DefList);
     
     result = (char*)calloc(l_Def + l_DefList, sizeof(char));
