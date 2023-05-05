@@ -175,10 +175,12 @@ namespace SPL {
       int l_var;
       var=NULL;
       l_var=0;
-      result = (char*)calloc(indent + l_var+1, sizeof(char));
-      memset(result, ' ', indent * sizeof(char));
-      memcpy(result+indent, var, l_var * sizeof(char));
-      result[result+indent+ l_var]='\n';
+      
+      var = cgen_VarDec(tree->children[0]);
+      l_var = strlen(var);
+      result = (char*)calloc(l_var+1, sizeof(char));
+      memcpy(result, var, l_var * sizeof(char));
+      result[l_var]='\n';
     }
     else{
       char *var,*exp;
@@ -220,6 +222,7 @@ namespace SPL {
   }
   
   char* cgen_Def(Node* tree, int indent){
+    //indent
     char *Specifier, *DecList, *result;
     int l_spec, l_DecList;
 
@@ -232,10 +235,12 @@ namespace SPL {
     DecList = cgen_DecList(tree->children[1],indent);
     l_DecList = strlen(DecList);
     
-    result = (char*)calloc(l_spec + 1 +l_DecList, sizeof(char));
-    memcpy(result, Specifier, l_spec * sizeof(char));
-    result[l_spec] = ' ';
-    memcpy(result + l_spec + 1, DecList, l_DecList * sizeof(char));
+    
+    result = (char*)calloc(indent+l_spec + 1 +l_DecList, sizeof(char));
+    memset(result, ' ', indent * sizeof(char));
+    memcpy(result+indent, Specifier, l_spec * sizeof(char));
+    result[indent+l_spec] = ' ';
+    memcpy(result +indent+ l_spec + 1, DecList, l_DecList * sizeof(char));
         
     return result;
   }
