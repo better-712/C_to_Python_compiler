@@ -159,12 +159,30 @@ namespace SPL {
     result[l_id+l_VarList+1] = ')';
     return result;
   }
+  char* cgen_Def(Node* tree, int indent){
+    return (char*)"cgen_Def";
+  }
   
   char* cgen_DefList(Node* tree, int indent){
-    return (char*)"cgen_DefList";
+    if(tree->children.size() == 1)return NULL;
+    char *Def,*DefList, *result;
+    int l_Def,l_DefList;
+    Def = DefList = result = NULL;
+    l_Def = l_DefList = 0;
+    
+    Def = cgen_Def(tree->children[0]);
+    l_Def = strlen(Def);
+    DefList= cgen_DefList(tree->children[1]);
+    l_DefList = strlen(DefList);
+    
+    result = (char*)calloc(l_Def + l_DefList, sizeof(char));
+    memcpy(result, Def, l_Def * sizeof(char));
+    memcpy(result+l_Def, DefList, l_DefList * sizeof(char));
+    return result;
   }
   
   char* cgen_StmtList(Node* tree, int indent){
+    
     return (char*)"cgen_StmtList";
   }
   
@@ -181,7 +199,7 @@ namespace SPL {
     result[1] = '\n';
     memcpy(result+2, DefList, l_DefList * sizeof(char));
     memcpy(result+2+l_DefList, StmtList, l_StmtList * sizeof(char));
-    result[result+2+l_DefList] = '}';
+    result[l_DefList+2+l_StmtList] = '}';
     
     return result;
   }
