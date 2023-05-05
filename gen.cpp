@@ -22,6 +22,12 @@ namespace SPL {
     return (char*)(tree->value).c_str();
   }
   
+  char* cgen_Exp(Node* tree){
+    
+    return (char*)"cgen_Exp";
+  }
+  
+  
   char* cgen_VarDec(Node* tree){
     char  *result;
     if(tree->children.size() == 4)
@@ -159,8 +165,31 @@ namespace SPL {
     result[l_id+l_VarList+1] = ')';
     return result;
   }
+  
   char* cgen_Dec(Node* tree, int indent){
-    return (char*)"cgen_Dec";
+    //indent
+    char *result;
+    result=NULL;
+    if(tree->children.size()==1){
+      char *var;
+      int l_var;
+      var=NULL;
+      l_var=0;
+      result = (char*)calloc(indent + l_var+1, sizeof(char));
+      memset(result, ' ', indent * sizeof(char));
+      memcpy(result+indent, var, l_var * sizeof(char));
+      result[result+indent+ l_var]='\n';
+    }
+    else{
+      char *var,*exp;
+      int l_var,l_exp;
+      var=exp=NULL;
+      l_var=l_exp=0;
+      exp = cgen_Exp(tree->children[0]);
+      l_exp = strlen(exp);
+      
+    }
+    return result;
   }
   
   char* cgen_DecList(Node* tree, int indent){
@@ -169,10 +198,10 @@ namespace SPL {
     Dec = DecList = result = NULL;
     l_Dec = l_DecList = 0;
     
-    Dec = cgen_Dec(tree->children[0]);
+    Dec = cgen_Dec(tree->children[0],indent);
     l_Dec = strlen(Dec);
     if(tree->children.size() == 3){
-      DecList= cgen_DecList(tree->children[2]);
+      DecList= cgen_DecList(tree->children[2],indent);
       l_DecList = strlen(DecList);
     }
     
@@ -200,7 +229,7 @@ namespace SPL {
     Specifier = cgen_Specifier(tree->children[0]);
     l_spec = strlen(Specifier);
     
-    DecList = cgen_DecList(tree->children[1]);
+    DecList = cgen_DecList(tree->children[1],indent);
     l_DecList = strlen(DecList);
     
     result = (char*)calloc(l_spec + 1 +l_DecList, sizeof(char));
