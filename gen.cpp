@@ -346,6 +346,34 @@ namespace SPL {
     if(tree->children[0]->type.compare("CompSt") == 0)
        return cgen_CompSt(tree->children[0],indent);
     
+    if(tree->children[0]->type.compare("RETURN") == 0){
+       //cgen_Return
+       char *Exp, *result;
+       int l_Exp;
+
+       char * Exp=cgen_Exp(tree->children[1]);
+       int l_Exp=strlen(Exp);
+       result = (char*)calloc(indent+7+l_Exp, sizeof(char));
+       memset(result, ' ', indent * sizeof(char));
+       memcpy(result + indent, "return ", 7 * sizeof(char));
+       memcpy(result+indent+7, Exp, l_Exp * sizeof(char));
+       return result;
+     }
+     if(tree->children[0]->type.compare("WHILE") == 0){
+       char *Exp,*Stmt, *result;
+       int l_Exp,l_Stmt;
+       char * Exp=cgen_Exp(tree->children[2]);
+       int l_Exp=strlen(Exp);
+       char * Stmt=cgen_Stmt(tree->children[4],indent+INDENT_LEV);
+       int l_Stmt=strlen(Stmt);
+       result = (char*)calloc(indent+5+l_Exp+2+l_Stmt, sizeof(char));
+       memset(result, ' ', indent * sizeof(char));
+       memcpy(result + indent, "while", 5 * sizeof(char));
+       memcpy(result+indent+5, Exp, l_Exp * sizeof(char));
+       memcpy(result + indent+5+l_Exp, ":\n", 2 * sizeof(char));
+       memcpy(result + indent+7+l_Exp, Stmt, l_Stmt * sizeof(char));
+       return result;
+     }
     //Exp SEMI
     //CompSt
     //RETURN Exp SEMI
