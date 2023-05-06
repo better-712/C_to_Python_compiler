@@ -18,11 +18,26 @@ namespace SPL {
   char* cgen_Int (Node* tree) {
     return (char*)(tree->value).c_str();
   }
+  char* cgen_FLOAT (Node* tree) {
+    return (char*)(tree->value).c_str();
+  }
+  char* cgen_CHAR (Node* tree) {
+    return (char*)(tree->value).c_str();
+  }
   char* cgen_ID(Node* tree){
     return (char*)(tree->value).c_str();
   }
   
   char* cgen_Exp(Node* tree){
+    if (tree->child[0]->type.compare("Int") == 0)
+        return cgen_Int(tree->child);
+    if (tree->child[0]->type.compare("ID") == 0)
+        return cgen_ID(tree->child);
+    if (tree->child[0]->type.compare("FLOAT") == 0)
+        return cgen_FLOAT(tree->child);
+    if (tree->child[0]->type.compare("CHAR") == 0)
+        return cgen_CHAR(tree->child);
+    
     
     return (char*)"cgen_Exp";
   }
@@ -187,9 +202,15 @@ namespace SPL {
       int l_var,l_exp;
       var=exp=NULL;
       l_var=l_exp=0;
-      exp = cgen_Exp(tree->children[0]);
+      var = cgen_VarDec(tree->children[0]);
+      l_var = strlen(var);
+      exp = cgen_Exp(tree->children[2]);
       l_exp = strlen(exp);
-      
+      result = (char*)calloc(l_var+l_exp+2, sizeof(char));
+      memcpy(result, var, l_var * sizeof(char));
+      result[l_var]='=';
+      memcpy(result+l_var+1, exp, l_exp * sizeof(char));
+      result[l_var+1+l_exp]='\n';
     }
     return result;
   }
