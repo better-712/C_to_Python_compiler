@@ -366,12 +366,12 @@ namespace SPL {
        l_Exp=strlen(Exp);
        Stmt=cgen_Stmt(tree->children[4],indent+INDENT_LEV);
        l_Stmt=strlen(Stmt);
-       result = (char*)calloc(indent+5+l_Exp+2+l_Stmt, sizeof(char));
+       result = (char*)calloc(indent+5+l_Exp+3+l_Stmt, sizeof(char));
        memset(result, ' ', indent * sizeof(char));
-       memcpy(result + indent, "while", 5 * sizeof(char));
-       memcpy(result+indent+5, Exp, l_Exp * sizeof(char));
-       memcpy(result + indent+5+l_Exp, ":\n", 2 * sizeof(char));
-       memcpy(result + indent+7+l_Exp, Stmt, l_Stmt * sizeof(char));
+       memcpy(result + indent, "while ", 6 * sizeof(char));
+       memcpy(result+indent+6, Exp, l_Exp * sizeof(char));
+       memcpy(result + indent+6+l_Exp, ":\n", 2 * sizeof(char));
+       memcpy(result + indent+8+l_Exp, Stmt, l_Stmt * sizeof(char));
        return result;
      }
     //Exp SEMI
@@ -397,9 +397,10 @@ namespace SPL {
     StmtList= cgen_StmtList(tree->children[1],indent);
     l_StmtList = strlen(StmtList);
     
-    result = (char*)calloc(l_Stmt + l_StmtList, sizeof(char));
+    result = (char*)calloc(l_Stmt + l_StmtList+1, sizeof(char));
     memcpy(result, Stmt, l_Stmt * sizeof(char));
-    memcpy(result+l_Stmt, StmtList, l_StmtList * sizeof(char));
+    result[l_Stmt]='\n';
+    memcpy(result+l_Stmt+1, StmtList, l_StmtList * sizeof(char));
     return result;
   }
   
