@@ -29,14 +29,14 @@ namespace SPL {
   }
   
   char* cgen_Exp(Node* tree){
-    if (tree->child[0]->type.compare("Int") == 0)
-        return cgen_Int(tree->child);
-    if (tree->child[0]->type.compare("ID") == 0)
-        return cgen_ID(tree->child);
-    if (tree->child[0]->type.compare("FLOAT") == 0)
-        return cgen_FLOAT(tree->child);
-    if (tree->child[0]->type.compare("CHAR") == 0)
-        return cgen_CHAR(tree->child);
+    if (tree->children[0]->type.compare("Int") == 0)
+        return cgen_Int(tree->children[0]);
+    if (tree->children[0]->type.compare("ID") == 0)
+        return cgen_ID(tree->children[0]);
+    if (tree->children[0]->type.compare("FLOAT") == 0)
+        return cgen_FLOAT(tree->children[0]);
+    if (tree->children[0]->type.compare("CHAR") == 0)
+        return cgen_CHAR(tree->children[0]);
     
     
     return (char*)"cgen_Exp";
