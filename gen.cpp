@@ -5,7 +5,7 @@
 #include <string.h>
 namespace SPL {
   //char* cgen_Stmt(Node* tree, int indent);
-  //char* cgen_CompSt(Node* tree, int indent);
+  char* cgen_CompSt(Node* tree, int indent);
   
   int INDENT_LEV=4;
   std::vector<Node *>* list_to_ele(Node *node){
@@ -351,8 +351,8 @@ namespace SPL {
        char *Exp, *result;
        int l_Exp;
 
-       char * Exp=cgen_Exp(tree->children[1]);
-       int l_Exp=strlen(Exp);
+       Exp=cgen_Exp(tree->children[1]);
+       l_Exp=strlen(Exp);
        result = (char*)calloc(indent+7+l_Exp, sizeof(char));
        memset(result, ' ', indent * sizeof(char));
        memcpy(result + indent, "return ", 7 * sizeof(char));
@@ -362,10 +362,10 @@ namespace SPL {
      if(tree->children[0]->type.compare("WHILE") == 0){
        char *Exp,*Stmt, *result;
        int l_Exp,l_Stmt;
-       char * Exp=cgen_Exp(tree->children[2]);
-       int l_Exp=strlen(Exp);
-       char * Stmt=cgen_Stmt(tree->children[4],indent+INDENT_LEV);
-       int l_Stmt=strlen(Stmt);
+       Exp=cgen_Exp(tree->children[2]);
+       l_Exp=strlen(Exp);
+       Stmt=cgen_Stmt(tree->children[4],indent+INDENT_LEV);
+       l_Stmt=strlen(Stmt);
        result = (char*)calloc(indent+5+l_Exp+2+l_Stmt, sizeof(char));
        memset(result, ' ', indent * sizeof(char));
        memcpy(result + indent, "while", 5 * sizeof(char));
