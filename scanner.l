@@ -147,103 +147,103 @@ int|float|char {        // reserved type
 
 "." {
 	//std::cout << "DOT" <<yylineno<<  std::endl;
-	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
+	yylval->build<Scan_Info*>(new Scan_Info(".", yylineno));
     return token::DOT;
 }
 
 ";" {
 	//std::cout << "SEMI" <<yylineno<<  std::endl;
-	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
+	yylval->build<Scan_Info*>(new Scan_Info(";", yylineno));
 	return token::SEMI;
 }
 
 "," {
 	//std::cout << "COMMA" <<yylineno<<  std::endl;
-	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
+	yylval->build<Scan_Info*>(new Scan_Info(",", yylineno));
 	return token::COMMA;
 }
 
 "==" {
 	//std::cout << "EQ" << yylineno<< std::endl;
-	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
+	yylval->build<Scan_Info*>(new Scan_Info("==", yylineno));
 	return token::EQ;
 }
 
 "=" {
 	//std::cout << "ASSIGN" <<yylineno<<  std::endl;
-	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
+	yylval->build<Scan_Info*>(new Scan_Info("=", yylineno));
 	return token::ASSIGN;
 }
 
 "<=" {
 	//std::cout << "LE" << yylineno<< std::endl;
-	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
+	yylval->build<Scan_Info*>(new Scan_Info("<=", yylineno));
     return token::LE;
 }
 
 "<" {
 	//std::cout << "LT" << yylineno<< std::endl;
-	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
+	yylval->build<Scan_Info*>(new Scan_Info("<", yylineno));
     return token::LT;
 }
 
 ">=" {
 	//std::cout << "GE" <<yylineno<<  std::endl;
-	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
+	yylval->build<Scan_Info*>(new Scan_Info(">=", yylineno));
     return token::GE;
 }
 
 ">" {
 	//std::cout << "GT" <<yylineno<<  std::endl;
-	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
+	yylval->build<Scan_Info*>(new Scan_Info(">", yylineno));
     return token::GT;
 }
 
 "!=" {
 	//std::cout << "NE" << yylineno<< std::endl;
-	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
+	yylval->build<Scan_Info*>(new Scan_Info("!=", yylineno));
     return token::NE;
 }
 
 "!" {
 	//std::cout << "NOT" << yylineno<< std::endl;
-	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
+	yylval->build<Scan_Info*>(new Scan_Info("!", yylineno));
     return token::NOT;
 }
 
 "+" {
 	//std::cout << "PLUS" << yylineno<< std::endl;
-	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
+	yylval->build<Scan_Info*>(new Scan_Info("+", yylineno));
 	return token::PLUS;
 }
 
 "-" {
 	//std::cout << "MINUS" <<yylineno<<  std::endl;
-	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
+	yylval->build<Scan_Info*>(new Scan_Info("-", yylineno));
 	return token::MINUS;
 }
 
 "*" {
 	//std::cout << "MUL" << yylineno<< std::endl;
-	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
+	yylval->build<Scan_Info*>(new Scan_Info("*", yylineno));
 	return token::MUL;
 }
 
 "/" {
 	//std::cout << "DIV" <<yylineno<<  std::endl;
-	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
+	yylval->build<Scan_Info*>(new Scan_Info("/", yylineno));
 	return token::DIV;
 }
 
 "&&" {
 	//std::cout << "AND" << yylineno<< std::endl;
-	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
+	yylval->build<Scan_Info*>(new Scan_Info("&&", yylineno));
 	return token::AND;
 }
 
 "||" {
 	//std::cout << "OR" <<yylineno<<  std::endl;
-	yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
+	yylval->build<Scan_Info*>(new Scan_Info("||", yylineno));
 	return token::OR;
 }
 
