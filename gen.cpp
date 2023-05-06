@@ -81,6 +81,7 @@ namespace SPL {
       memcpy(result, exp1, l_exp1 * sizeof(char));
       memcpy(result+l_exp1, op, l_op * sizeof(char));
       memcpy(result+l_exp1+l_op, exp2, l_exp2 * sizeof(char));
+      return result;
     }
     
     return (char*)"cgen_Exp";
