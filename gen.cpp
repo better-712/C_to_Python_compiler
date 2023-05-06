@@ -28,8 +28,39 @@ namespace SPL {
     return (char*)(tree->value).c_str();
   }
   
+  char* cgen_op(Node* tree){
+//     if(tree->children[0]->type.compare("ASSIGN") == 0)
+//       return (char*)"=";
+//     if(tree->children[0]->type.compare("AND") == 0)
+//       return (char*)"&&";
+//     if(tree->children[0]->type.compare("OR") == 0)
+//       return (char*)"||";
+//     if(tree->children[0]->type.compare("LT") == 0)
+//       return (char*)"<";
+//     if(tree->children[0]->type.compare("LE") == 0)
+//       return (char*)"<=";
+//     if(tree->children[0]->type.compare("GT") == 0)
+//       return (char*)">";
+//     if(tree->children[0]->type.compare("GE") == 0)
+//       return (char*)">=";
+//     if(tree->children[0]->type.compare("NE") == 0)
+//       return (char*)"!=";
+//     if(tree->children[0]->type.compare("EQ") == 0)
+//       return (char*)"==";
+//     if(tree->children[0]->type.compare("PLUS") == 0)
+//       return (char*)"+";
+//     if(tree->children[0]->type.compare("MINUS") == 0)
+//       return (char*)"-";
+//     if(tree->children[0]->type.compare("MUL") == 0)
+//       return (char*)"*";
+//     if(tree->children[0]->type.compare("DIV") == 0)
+//       return (char*)"/";
+    return (char*)(tree->value).c_str();
+  }
+ 
+  
   char* cgen_Exp(Node* tree){
-    if (tree->children[0]->type.compare("Int") == 0)
+    if (tree->children[0]->type.compare("INT") == 0)
         return cgen_Int(tree->children[0]);
     if (tree->children[0]->type.compare("ID") == 0)
         return cgen_ID(tree->children[0]);
@@ -37,7 +68,20 @@ namespace SPL {
         return cgen_FLOAT(tree->children[0]);
     if (tree->children[0]->type.compare("CHAR") == 0)
         return cgen_CHAR(tree->children[0]);
-    
+    if (tree->children.size()==3&&tree->children[0]->type.compare("Exp") == 0&&tree->children[2]->type.compare("Exp") == 0){
+      char  *exp1,*op,*exp2,*result;
+      int l_exp1,l_op,l_exp2;
+      exp1=cgen_Exp(tree->children[0]);
+      l_exp1=strlen(exp1);
+      op=cgen_op(tree->children[1]);
+      l_op=strlen(op);
+      exp2=cgen_Exp(tree->children[2]);
+      l_exp2=strlen(exp2);
+      result = (char*)calloc(l_exp1 + l_op + l_exp2, sizeof(char));
+      memcpy(result, exp1, l_exp1 * sizeof(char));
+      memcpy(result+l_exp1, op, l_op * sizeof(char));
+      memcpy(result+l_exp1+l_op, exp2, l_exp2 * sizeof(char));
+    }
     
     return (char*)"cgen_Exp";
   }
