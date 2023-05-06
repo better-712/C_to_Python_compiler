@@ -330,9 +330,36 @@ namespace SPL {
     return result;
   }
   
-  char* cgen_StmtList(Node* tree, int indent){
+  char* cgen_Stmt(Node* tree, int indent){
     
-    return (char*)"cgen_StmtList";
+    
+    //Exp SEMI
+    //CompSt
+    //RETURN Exp SEMI
+    //IF LP Exp RP Stmt
+    //IF LP Exp RP Stmt ELSE Stmt
+    //WHILE LP Exp RP Stmt
+    
+    return (char*)"cgen_Stmt";
+  }
+  
+  char* cgen_StmtList(Node* tree, int indent){
+    //Stmt StmtList
+    if(tree->type.compare("empty") == 0)return (char*)"";
+    char *Stmt,*StmtList, *result;
+    int l_Stmt,l_StmtList;
+    Stmt = StmtList = result = NULL;
+    l_Stmt = l_StmtList = 0;
+    
+    Stmt = cgen_Stmt(tree->children[0],indent);
+    l_Stmt = strlen(Stmt);
+    StmtList= cgen_StmtList(tree->children[1],indent);
+    l_StmtList = strlen(StmtList);
+    
+    result = (char*)calloc(l_Stmt + l_StmtList, sizeof(char));
+    memcpy(result, Stmt, l_Stmt * sizeof(char));
+    memcpy(result+l_Stmt, StmtList, l_StmtList * sizeof(char));
+    return result;
   }
   
   char* cgen_CompSt(Node* tree, int indent){
