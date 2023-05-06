@@ -334,7 +334,17 @@ namespace SPL {
   }
   
   char* cgen_Stmt(Node* tree, int indent){
-    
+    if(tree->children[0]->type.compare("Exp") == 0){
+       char * result;
+       char * exp=cgen_Exp(tree->children[0]);
+       int l_exp=strlen(exp);
+       result = (char*)calloc(indent+l_exp, sizeof(char));
+       memset(result, ' ', indent * sizeof(char));
+       memcpy(result+indent, exp, l_exp * sizeof(char));
+       return result;
+     }
+    if(tree->children[0]->type.compare("CompSt") == 0)
+       return cgen_CompSt(tree->children[0],indent);
     
     //Exp SEMI
     //CompSt
