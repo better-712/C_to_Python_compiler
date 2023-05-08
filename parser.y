@@ -87,8 +87,9 @@ StructSpecifier : STRUCT ID LC DefList RC{$$ = new Node("StructSpecifier",new No
 
 /* declarator */
 VarDec : ID{$$ = new Node("VarDec",new Node("ID",$1));}
-    | VarDec LB INT RB{$$ = new Node("VarDec",$1,new Node("LB",$2),new Node("INT",$3),new Node("RB",$4));
-    | VarDec LB RB{$$ = new Node("VarDec",$1,new Node("LB",$2),new Node("RB",$3));}}
+    | VarDec LB RB{$$ = new Node("VarDec",$1,new Node("LB",$2),new Node("RB",$3));}
+    | VarDec LB INT RB{$$ = new Node("VarDec",$1,new Node("LB",$2),new Node("INT",$3),new Node("RB",$4));}
+    
 FunDec : ID LP VarList RP{$$ = new Node("FunDec",new Node("ID",$1),new Node("LP",$2),$3,new Node("RP",$4));}
     | ID LP RP{$$ = new Node("FunDec",new Node("ID",$1),new Node("LP",$2),new Node("RP",$3));}
     | ID LP %prec ERROR{driver.add_syntax_error(")", $1);$$= new Node("FunDec");}
