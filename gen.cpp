@@ -559,12 +559,11 @@ namespace SPL {
     l_StmtList=strlen(StmtList);
     
     result = (char*)calloc(l_DefList + 5 +l_StmtList, sizeof(char));
-    result[0] = '{';
-    result[1] = '\n';
-    memcpy(result+2, DefList, l_DefList * sizeof(char));
-    memcpy(result+2+l_DefList, StmtList, l_StmtList * sizeof(char));
-    result[l_DefList+2+l_StmtList] = '}';
-    result[l_DefList+3+l_StmtList] = '\n';
+    
+    result[0] = '\n';
+    memcpy(result+1, DefList, l_DefList * sizeof(char));
+    memcpy(result+1+l_DefList, StmtList, l_StmtList * sizeof(char));
+    
     return result;
   }
   
