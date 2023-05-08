@@ -353,7 +353,7 @@ namespace SPL {
     l_DecList = strlen(DecList);
     
     
-    result = (char*)calloc(indent+l_spec + 1 +l_DecList, sizeof(char));
+    result = (char*)calloc(indent+l_spec + 2 +l_DecList, sizeof(char));
     memset(result, ' ', indent * sizeof(char));
     memcpy(result+indent, Specifier, l_spec * sizeof(char));
     result[indent+l_spec] = ' ';
@@ -390,7 +390,7 @@ namespace SPL {
        result = (char*)calloc(indent+l_exp+2, sizeof(char));
        memset(result, ' ', indent * sizeof(char));
        memcpy(result+indent, exp, l_exp * sizeof(char));
-       result[indent+1]='\n';
+       result[indent+l_exp]='\n';
        return result;
      }
     if(tree->children[0]->type.compare("CompSt") == 0)
@@ -403,10 +403,11 @@ namespace SPL {
 
        Exp=cgen_Exp(tree->children[1]);
        l_Exp=strlen(Exp);
-       result = (char*)calloc(indent+7+l_Exp, sizeof(char));
+       result = (char*)calloc(indent+9+l_Exp, sizeof(char));
        memset(result, ' ', indent * sizeof(char));
        memcpy(result + indent, "return ", 7 * sizeof(char));
        memcpy(result+indent+7, Exp, l_Exp * sizeof(char));
+       result[indent+7+l_Exp]='\n';
        return result;
      }
      if(tree->children[0]->type.compare("WHILE") == 0){
@@ -491,8 +492,8 @@ namespace SPL {
     
     result = (char*)calloc(l_Stmt + l_StmtList+1, sizeof(char));
     memcpy(result, Stmt, l_Stmt * sizeof(char));
-    result[l_Stmt]='\n';
-    memcpy(result+l_Stmt+1, StmtList, l_StmtList * sizeof(char));
+    //result[l_Stmt]='\n';
+    memcpy(result+l_Stmt, StmtList, l_StmtList * sizeof(char));
     return result;
   }
   
