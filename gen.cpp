@@ -382,7 +382,7 @@ namespace SPL {
     return result;
   }
   
-  char* cgen_Stmt(Node* tree, int indent){
+  char* cgen_Stmt(Node* tree, int indent,int first_if=1){
     if(tree->children[0]->type.compare("Exp") == 0){
        char * result;
        char * exp=cgen_Exp(tree->children[0]);
@@ -417,7 +417,7 @@ namespace SPL {
        l_Exp=strlen(Exp);
        Stmt=cgen_Stmt(tree->children[4],indent+INDENT_LEV);
        l_Stmt=strlen(Stmt);
-       result = (char*)calloc(indent+5+l_Exp+3+l_Stmt, sizeof(char));
+       result = (char*)calloc(indent+5+l_Exp+3+l_Stmt+1, sizeof(char));
        memset(result, ' ', indent * sizeof(char));
        memcpy(result + indent, "while ", 6 * sizeof(char));
        memcpy(result+indent+6, Exp, l_Exp * sizeof(char));
@@ -435,7 +435,7 @@ namespace SPL {
        Stmt=cgen_Stmt(tree->children[4],indent+INDENT_LEV);
        l_Stmt=strlen(Stmt);
        
-       result = (char*)calloc(indent+5+l_Exp+l_Stmt, sizeof(char));
+       result = (char*)calloc(indent+6+l_Exp+l_Stmt, sizeof(char));
        memset(result, ' ', indent * sizeof(char));
        memcpy(result + indent, "if ", 3 * sizeof(char));
        memcpy(result+indent+3, Exp, l_Exp * sizeof(char));
@@ -443,8 +443,48 @@ namespace SPL {
        memcpy(result + indent+5+l_Exp, Stmt, l_Stmt * sizeof(char));
        return result;
      }
+    //if(exp)else stmt el  if stmt
+     if(tree->children.size()==7&&tree->children[0]->type.compare("IF") == 0&&tree->children[6]->children[0]->type.compare("IF") == 0){
+       
+       char *Exp,*Stmt1,*Stmt2, *result;
+       int l_Exp,l_Stmt1,l_Stmt2;
+       
+       Exp=cgen_Exp(tree->children[2]);
+       l_Exp=strlen(Exp);
+       Stmt1=cgen_Stmt(tree->children[4],indent+INDENT_LEV);
+       l_Stmt1=strlen(Stmt1);
+       Stmt2=cgen_Stmt(tree->children[6]);
+       l_Stmt2=strlen(Stmt2);
+       
+       if(first_if){
+         result = (char*)calloc(2*indent+9+l_Exp+l_Stmt1+l_Stmt2, sizeof(char));
+         memset(result, ' ', indent * sizeof(char));
+         memcpy(result + indent, "if ", 3 * sizeof(char));
+         memcpy(result+indent+3, Exp, l_Exp * sizeof(char));
+         memcpy(result + indent+3+l_Exp, ":\n", 2 * sizeof(char));
+         memcpy(result + indent+5+l_Exp, Stmt1, l_Stmt1 * sizeof(char));
+         memset(result+ indent+5+l_Exp+l_Stmt1, ' ', indent * sizeof(char));
+         memcpy(result+ 2*indent+5+l_Exp+l_Stmt1, "el\n", 3 * sizeof(char));
+         memcpy(result+ 2*indent+8+l_Exp+l_Stmt1, Stmt2, l_Stmt2 * sizeof(char));
+       
+       }else{
+         result = (char*)calloc(indent+9+l_Exp+l_Stmt1+l_Stmt2, sizeof(char));
+         memcpy(result, "if ", 3 * sizeof(char));
+         memcpy(result+3, Exp, l_Exp * sizeof(char));
+         memcpy(result+3+l_Exp, ":\n", 2 * sizeof(char));
+         memcpy(result+5+l_Exp, Stmt1, l_Stmt1 * sizeof(char));
+         memset(result+5+l_Exp+l_Stmt1, ' ', indent * sizeof(char));
+         memcpy(result+indent+5+l_Exp+l_Stmt1, "el\n", 3 * sizeof(char));
+         memcpy(result+indent+8+l_Exp+l_Stmt1, Stmt2, l_Stmt2 * sizeof(char));
+       
+       }
+       
+       
+       return result;
+     }
     ////IF LP Exp RP Stmt ELSE Stmt
      if(tree->children.size()==7&&tree->children[0]->type.compare("IF") == 0){
+       
        char *Exp,*Stmt1,*Stmt2, *result;
        int l_Exp,l_Stmt1,l_Stmt2;
        
@@ -454,6 +494,8 @@ namespace SPL {
        l_Stmt1=strlen(Stmt1);
        Stmt2=cgen_Stmt(tree->children[6],indent+INDENT_LEV);
        l_Stmt2=strlen(Stmt2);
+       
+       
        
        result = (char*)calloc(2*indent+11+l_Exp+l_Stmt1+l_Stmt2, sizeof(char));
        memset(result, ' ', indent * sizeof(char));
