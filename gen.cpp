@@ -93,7 +93,17 @@ namespace SPL {
   
   char* cgen_VarDec(Node* tree){
     char  *result;
-    if(tree->children.size() == 4)
+    if(tree->children.size() == 3)
+    {
+      char *id;
+      int l_id;
+      id = cgen_ID(tree->children[0]);
+      l_id= strlen(id);
+      result = (char*)calloc(l_id + 2, sizeof(char));
+      memcpy(result, id, l_id * sizeof(char));
+      result[l_id] = '[';
+      result[l_id + 1] = ']';
+    }else if(tree->children.size() == 4)
     {
       char *id,*in;
       int l_id,l_in;
@@ -374,6 +384,10 @@ namespace SPL {
        memcpy(result + indent+8+l_Exp, Stmt, l_Stmt * sizeof(char));
        return result;
      }
+    //to do
+     if(tree->children[0]->type.compare("IF") == 0){
+     }
+    
     //Exp SEMI
     //CompSt
     //RETURN Exp SEMI
