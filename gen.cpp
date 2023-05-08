@@ -289,9 +289,9 @@ namespace SPL {
       
       var = cgen_VarDec(tree->children[0]);
       l_var = strlen(var);
-      result = (char*)calloc(l_var+1, sizeof(char));
+      result = (char*)calloc(l_var, sizeof(char));
       memcpy(result, var, l_var * sizeof(char));
-      result[l_var]='\n';
+      
     }
     else{
       char *var,*exp;
@@ -302,11 +302,11 @@ namespace SPL {
       l_var = strlen(var);
       exp = cgen_Exp(tree->children[2]);
       l_exp = strlen(exp);
-      result = (char*)calloc(l_var+l_exp+2, sizeof(char));
+      result = (char*)calloc(l_var+l_exp+1, sizeof(char));
       memcpy(result, var, l_var * sizeof(char));
       result[l_var]='=';
       memcpy(result+l_var+1, exp, l_exp * sizeof(char));
-      result[l_var+1+l_exp]='\n';
+      
     }
     return result;
   }
@@ -375,8 +375,9 @@ namespace SPL {
     DefList= cgen_DefList(tree->children[1],indent);
     l_DefList = strlen(DefList);
     
-    result = (char*)calloc(l_Def + l_DefList, sizeof(char));
+    result = (char*)calloc(l_Def + l_DefList+1, sizeof(char));
     memcpy(result, Def, l_Def * sizeof(char));
+    result[l_Def]='\n';
     memcpy(result+l_Def, DefList, l_DefList * sizeof(char));
     return result;
   }
@@ -432,12 +433,12 @@ namespace SPL {
        Stmt=cgen_Stmt(tree->children[4],indent+INDENT_LEV);
        l_Stmt=strlen(Stmt);
        
-       result = (char*)calloc(indent+5+l_Exp+3+l_Stmt, sizeof(char));
+       result = (char*)calloc(indent+5+l_Exp+l_Stmt, sizeof(char));
        memset(result, ' ', indent * sizeof(char));
        memcpy(result + indent, "if ", 3 * sizeof(char));
        memcpy(result+indent+3, Exp, l_Exp * sizeof(char));
        memcpy(result + indent+3+l_Exp, ":\n", 2 * sizeof(char));
-       memcpy(result + indent+3+l_Exp, Stmt, l_Stmt * sizeof(char));
+       memcpy(result + indent+5+l_Exp, Stmt, l_Stmt * sizeof(char));
        return result;
      }
     ////IF LP Exp RP Stmt ELSE Stmt
@@ -452,15 +453,15 @@ namespace SPL {
        Stmt2=cgen_Stmt(tree->children[6],indent+INDENT_LEV);
        l_Stmt2=strlen(Stmt2);
        
-       result = (char*)calloc(2*indent+9+l_Exp+l_Stmt1+l_Stmt2, sizeof(char));
+       result = (char*)calloc(2*indent+11+l_Exp+l_Stmt1+l_Stmt2, sizeof(char));
        memset(result, ' ', indent * sizeof(char));
        memcpy(result + indent, "if ", 3 * sizeof(char));
        memcpy(result+indent+3, Exp, l_Exp * sizeof(char));
        memcpy(result + indent+3+l_Exp, ":\n", 2 * sizeof(char));
-       memcpy(result + indent+3+l_Exp, Stmt1, l_Stmt1 * sizeof(char));
-       memset(result+ indent+3+l_Exp+l_Stmt1, ' ', indent * sizeof(char));
-       memcpy(result+ 2*indent+3+l_Exp+l_Stmt1, "else:\n", 6 * sizeof(char));
-       memcpy(result+ 2*indent+9+l_Exp+l_Stmt1, Stmt2, l_Stmt2 * sizeof(char));
+       memcpy(result + indent+5+l_Exp, Stmt1, l_Stmt1 * sizeof(char));
+       memset(result+ indent+5+l_Exp+l_Stmt1, ' ', indent * sizeof(char));
+       memcpy(result+ 2*indent+5+l_Exp+l_Stmt1, "else:\n", 6 * sizeof(char));
+       memcpy(result+ 2*indent+11+l_Exp+l_Stmt1, Stmt2, l_Stmt2 * sizeof(char));
        return result;
      }
     
@@ -588,7 +589,7 @@ namespace SPL {
         last += l_line;
         //free(lines[i]);
     }
-    printf("result is %s\n", result);
+    printf("result is \n%s\n", result);
     return result;
     
   }
