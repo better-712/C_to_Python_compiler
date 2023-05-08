@@ -422,8 +422,46 @@ namespace SPL {
        memcpy(result + indent+8+l_Exp, Stmt, l_Stmt * sizeof(char));
        return result;
      }
-    //to do
-     if(tree->children[0]->type.compare("IF") == 0){
+    //IF LP Exp RP Stmt if score > 60:
+     if(tree->children.size()==5&&tree->children[0]->type.compare("IF") == 0){
+       char *Exp,*Stmt, *result;
+       int l_Exp,l_Stmt;
+       
+       Exp=cgen_Exp(tree->children[2]);
+       l_Exp=strlen(Exp);
+       Stmt=cgen_Stmt(tree->children[4],indent+INDENT_LEV);
+       l_Stmt=strlen(Stmt);
+       
+       result = (char*)calloc(indent+5+l_Exp+3+l_Stmt, sizeof(char));
+       memset(result, ' ', indent * sizeof(char));
+       memcpy(result + indent, "if ", 3 * sizeof(char));
+       memcpy(result+indent+3, Exp, l_Exp * sizeof(char));
+       memcpy(result + indent+3+l_Exp, ":\n", 2 * sizeof(char));
+       memcpy(result + indent+3+l_Exp, Stmt, l_Stmt * sizeof(char));
+       return result;
+     }
+    ////IF LP Exp RP Stmt ELSE Stmt
+     if(tree->children.size()==7&&tree->children[0]->type.compare("IF") == 0){
+       char *Exp,*Stmt1,*Stmt2, *result;
+       int l_Exp,l_Stmt1,l_Stmt2;
+       
+       Exp=cgen_Exp(tree->children[2]);
+       l_Exp=strlen(Exp);
+       Stmt1=cgen_Stmt(tree->children[4],indent+INDENT_LEV);
+       l_Stmt1=strlen(Stmt1);
+       Stmt2=cgen_Stmt(tree->children[6],indent+INDENT_LEV);
+       l_Stmt2=strlen(Stmt2);
+       
+       result = (char*)calloc(2*indent+9+l_Exp+l_Stmt1+l_Stmt2, sizeof(char));
+       memset(result, ' ', indent * sizeof(char));
+       memcpy(result + indent, "if ", 3 * sizeof(char));
+       memcpy(result+indent+3, Exp, l_Exp * sizeof(char));
+       memcpy(result + indent+3+l_Exp, ":\n", 2 * sizeof(char));
+       memcpy(result + indent+3+l_Exp, Stmt1, l_Stmt1 * sizeof(char));
+       memset(result+ indent+3+l_Exp+l_Stmt1, ' ', indent * sizeof(char));
+       memcpy(result+ 2*indent+3+l_Exp+l_Stmt1, "else:\n", 6 * sizeof(char));
+       memcpy(result+ 2*indent+9+l_Exp+l_Stmt1, Stmt2, l_Stmt2 * sizeof(char));
+       return result;
      }
     
     //Exp SEMI
