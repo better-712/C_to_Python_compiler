@@ -86,6 +86,21 @@ namespace SPL {
       memcpy(result+l_exp1+l_op, exp2, l_exp2 * sizeof(char));
       return result;
     }
+    //Exp LB Exp RB
+    if (tree->children.size()==4&&tree->children[1]->type.compare("LB") == 0&&tree->children[3]->type.compare("RB") == 0){
+      char  *exp1,*exp2,*result;
+      int l_exp1,l_exp2;
+      exp1=cgen_Exp(tree->children[0]);
+      l_exp1=strlen(exp1);
+      exp2=cgen_Exp(tree->children[2]);
+      l_exp2=strlen(exp2);
+      result = (char*)calloc(l_exp1 + 2 + l_exp2, sizeof(char));
+      memcpy(result, exp1, l_exp1 * sizeof(char));
+      result[l_exp1]='[';
+      memcpy(result+l_exp1+1, exp2, l_exp2 * sizeof(char));
+      result[l_exp1+1+l_exp2]=']';
+      return result;
+    }
     
     return (char*)"cgen_Exp";
   }
@@ -97,7 +112,7 @@ namespace SPL {
     {
       char *id;
       int l_id;
-      id = cgen_ID(tree->children[0]);
+      id = cgen_VarDec(tree->children[0]);
       l_id= strlen(id);
       result = (char*)calloc(l_id + 2, sizeof(char));
       memcpy(result, id, l_id * sizeof(char));
@@ -107,7 +122,7 @@ namespace SPL {
     {
       char *id,*in;
       int l_id,l_in;
-      id = cgen_ID(tree->children[0]);
+      id = cgen_VarDec(tree->children[0]);
       l_id= strlen(id);
       in=cgen_Int(tree->children[2]);
       l_in= strlen(in);
