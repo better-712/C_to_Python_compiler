@@ -88,7 +88,7 @@ namespace SPL {
     }
     //LP Exp RP
     if (tree->children.size()==3&&tree->children[0]->type.compare("LP") == 0&&tree->children[2]->type.compare("RP") == 0){
-      char  *exp;
+      char  *exp,*result;
       int l_exp;
       exp=cgen_Exp(tree->children[1]);
       l_exp=strlen(exp);
@@ -96,16 +96,18 @@ namespace SPL {
       result[0]='(';
       memcpy(result+1, exp, l_exp * sizeof(char));
       result[l_exp+1]=')';
+      return result;
     }
     //MINUS Exp
     if (tree->children.size()==2&&tree->children[0]->type.compare("MINUS") == 0){
-      char  *exp;
+      char  *exp,*result;
       int l_exp;
       exp=cgen_Exp(tree->children[1]);
       l_exp=strlen(exp);
       result = (char*)calloc(l_exp + 1 , sizeof(char));
       result[0]='-';
       memcpy(result+1, exp, l_exp * sizeof(char));
+      return result;
     }
     //Exp LB Exp RB
     if (tree->children.size()==4&&tree->children[1]->type.compare("LB") == 0&&tree->children[3]->type.compare("RB") == 0){
