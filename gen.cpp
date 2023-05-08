@@ -453,7 +453,7 @@ namespace SPL {
        l_Exp=strlen(Exp);
        Stmt1=cgen_Stmt(tree->children[4],indent+INDENT_LEV);
        l_Stmt1=strlen(Stmt1);
-       Stmt2=cgen_Stmt(tree->children[6]);
+       Stmt2=cgen_Stmt(tree->children[6],indent);
        l_Stmt2=strlen(Stmt2);
        
        if(first_if){
@@ -464,8 +464,8 @@ namespace SPL {
          memcpy(result + indent+3+l_Exp, ":\n", 2 * sizeof(char));
          memcpy(result + indent+5+l_Exp, Stmt1, l_Stmt1 * sizeof(char));
          memset(result+ indent+5+l_Exp+l_Stmt1, ' ', indent * sizeof(char));
-         memcpy(result+ 2*indent+5+l_Exp+l_Stmt1, "el\n", 3 * sizeof(char));
-         memcpy(result+ 2*indent+8+l_Exp+l_Stmt1, Stmt2, l_Stmt2 * sizeof(char));
+         memcpy(result+ 2*indent+5+l_Exp+l_Stmt1, "el", 2 * sizeof(char));
+         memcpy(result+ 2*indent+7+l_Exp+l_Stmt1, Stmt2, l_Stmt2 * sizeof(char));
        
        }else{
          result = (char*)calloc(indent+9+l_Exp+l_Stmt1+l_Stmt2, sizeof(char));
@@ -474,8 +474,8 @@ namespace SPL {
          memcpy(result+3+l_Exp, ":\n", 2 * sizeof(char));
          memcpy(result+5+l_Exp, Stmt1, l_Stmt1 * sizeof(char));
          memset(result+5+l_Exp+l_Stmt1, ' ', indent * sizeof(char));
-         memcpy(result+indent+5+l_Exp+l_Stmt1, "el\n", 3 * sizeof(char));
-         memcpy(result+indent+8+l_Exp+l_Stmt1, Stmt2, l_Stmt2 * sizeof(char));
+         memcpy(result+indent+5+l_Exp+l_Stmt1, "el", 2 * sizeof(char));
+         memcpy(result+indent+7+l_Exp+l_Stmt1, Stmt2, l_Stmt2 * sizeof(char));
        
        }
        
@@ -496,7 +496,7 @@ namespace SPL {
        l_Stmt2=strlen(Stmt2);
        
        
-       
+       if(first_if){
        result = (char*)calloc(2*indent+11+l_Exp+l_Stmt1+l_Stmt2, sizeof(char));
        memset(result, ' ', indent * sizeof(char));
        memcpy(result + indent, "if ", 3 * sizeof(char));
@@ -506,6 +506,17 @@ namespace SPL {
        memset(result+ indent+5+l_Exp+l_Stmt1, ' ', indent * sizeof(char));
        memcpy(result+ 2*indent+5+l_Exp+l_Stmt1, "else:\n", 6 * sizeof(char));
        memcpy(result+ 2*indent+11+l_Exp+l_Stmt1, Stmt2, l_Stmt2 * sizeof(char));
+       
+       }else{
+         result = (char*)calloc(indent+11+l_Exp+l_Stmt1+l_Stmt2, sizeof(char));
+         memcpy(result, "if ", 3 * sizeof(char));
+         memcpy(result+3, Exp, l_Exp * sizeof(char));
+         memcpy(result+3+l_Exp, ":\n", 2 * sizeof(char));
+         memcpy(result+5+l_Exp, Stmt1, l_Stmt1 * sizeof(char));
+         memset(result+5+l_Exp+l_Stmt1, ' ', indent * sizeof(char));
+         memcpy(result+ indent+5+l_Exp+l_Stmt1, "else:\n", 6 * sizeof(char));
+         memcpy(result+ indent+11+l_Exp+l_Stmt1, Stmt2, l_Stmt2 * sizeof(char));
+       }
        return result;
      }
     
