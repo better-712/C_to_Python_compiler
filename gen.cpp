@@ -375,7 +375,7 @@ namespace SPL {
     DefList= cgen_DefList(tree->children[1],indent);
     l_DefList = strlen(DefList);
     
-    result = (char*)calloc(l_Def + l_DefList+1, sizeof(char));
+    result = (char*)calloc(l_Def + l_DefList+2, sizeof(char));
     memcpy(result, Def, l_Def * sizeof(char));
     result[l_Def]='\n';
     memcpy(result+l_Def, DefList, l_DefList * sizeof(char));
@@ -387,9 +387,10 @@ namespace SPL {
        char * result;
        char * exp=cgen_Exp(tree->children[0]);
        int l_exp=strlen(exp);
-       result = (char*)calloc(indent+l_exp, sizeof(char));
+       result = (char*)calloc(indent+l_exp+2, sizeof(char));
        memset(result, ' ', indent * sizeof(char));
        memcpy(result+indent, exp, l_exp * sizeof(char));
+       result[indent+1]='\n';
        return result;
      }
     if(tree->children[0]->type.compare("CompSt") == 0)
@@ -503,13 +504,13 @@ namespace SPL {
     StmtList=cgen_StmtList(tree->children[2],indent);
     l_StmtList=strlen(StmtList);
     
-    result = (char*)calloc(l_DefList + 3 +l_StmtList, sizeof(char));
+    result = (char*)calloc(l_DefList + 5 +l_StmtList, sizeof(char));
     result[0] = '{';
     result[1] = '\n';
     memcpy(result+2, DefList, l_DefList * sizeof(char));
     memcpy(result+2+l_DefList, StmtList, l_StmtList * sizeof(char));
     result[l_DefList+2+l_StmtList] = '}';
-    
+    result[l_DefList+3+l_StmtList] = '\n';
     return result;
   }
   
