@@ -453,7 +453,7 @@ namespace SPL {
        l_Exp=strlen(Exp);
        Stmt1=cgen_Stmt(tree->children[4],indent+INDENT_LEV);
        l_Stmt1=strlen(Stmt1);
-       Stmt2=cgen_Stmt(tree->children[6],indent);
+       Stmt2=cgen_Stmt(tree->children[6],indent,0);
        l_Stmt2=strlen(Stmt2);
        
        if(first_if){
