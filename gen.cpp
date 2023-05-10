@@ -270,6 +270,10 @@ namespace SPL {
       VarList=cgen_VarList(tree->children[2]);
       l_VarList=strlen(VarList);
     }
+    //ID LP RP
+    if(tree->children.size() == 3)
+      l_VarList=0;
+    
     result = (char*)calloc(l_id + 4 +l_VarList, sizeof(char));
     memcpy(result, id, l_id * sizeof(char));
     result[l_id] = '(';
@@ -598,7 +602,7 @@ namespace SPL {
     CompSt = cgen_CompSt(tree->children[2],indent+INDENT_LEV);
     l_comp = strlen(CompSt);
     
-    result = (char*)calloc(l_spec + l_fun +l_comp+1, sizeof(char));
+    result = (char*)calloc(l_spec + l_fun +l_comp+2, sizeof(char));
     memcpy(result, Specifier, l_spec * sizeof(char));
     result[l_spec] = ' ';
     memcpy(result+l_spec+1, FunDec, l_fun * sizeof(char));
