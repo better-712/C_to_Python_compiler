@@ -1,0 +1,3 @@
+struct Person{};
+int a,b;
+int c;
