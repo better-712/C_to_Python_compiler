@@ -1,0 +1,2 @@
+int Var;//声明一个变量
+int my_function(int a,int b){}//声明一个函数
