@@ -160,6 +160,7 @@ namespace SPL {
     return result;
   }
   char* cgen_Specifier(Node* tree){
+    //to do for struct
     char  *result;
     if(tree->children[0]->type.compare("TYPE")==0){
       result=(char*)(tree->children[0]->value).c_str();
@@ -421,8 +422,8 @@ namespace SPL {
        memset(result, ' ', indent * sizeof(char));
        memcpy(result + indent, "while ", 6 * sizeof(char));
        memcpy(result+indent+6, Exp, l_Exp * sizeof(char));
-       memcpy(result + indent+6+l_Exp, ":\n", 2 * sizeof(char));
-       memcpy(result + indent+8+l_Exp, Stmt, l_Stmt * sizeof(char));
+       memcpy(result + indent+6+l_Exp, ":", 1 * sizeof(char));
+       memcpy(result + indent+7+l_Exp, Stmt, l_Stmt * sizeof(char));
        return result;
      }
     //IF LP Exp RP Stmt if score > 60:
@@ -574,7 +575,7 @@ namespace SPL {
     Specifier = FunDec =CompSt= result = NULL;
     l_spec = l_fun =l_comp= 0;
     
-    Specifier = cgen_Specifier(tree->children[0]);
+    Specifier = (char*)"def";
     l_spec = strlen(Specifier);
     
     FunDec = cgen_FunDec(tree->children[1]);
