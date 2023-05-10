@@ -196,40 +196,39 @@ namespace SPL {
     return result;
   }
   char* cgen_Specifier_ExtDecList_SEMI(Node* tree, int indent){
-    char *Specifier, *ExtDecList, *result;
-    int l_spec, l_ext;
+    char  *ExtDecList, *result;
+    int  l_ext;
 
-    Specifier = ExtDecList = result = NULL;
-    l_spec = l_ext = 0;
+    ExtDecList = result = NULL;
+    l_ext = 0;
     
-    Specifier = cgen_Specifier(tree->children[0]);
-    l_spec = strlen(Specifier);
+    //Specifier = cgen_Specifier(tree->children[0]);
+    //l_spec = strlen(Specifier);
     
     ExtDecList = cgen_ExtDecList(tree->children[1]);
     l_ext = strlen(ExtDecList);
     
-    result = (char*)calloc(l_spec + 1 +l_ext, sizeof(char));
-    memcpy(result, Specifier, l_spec * sizeof(char));
-    result[l_spec] = ' ';
-    memcpy(result + l_spec + 1, ExtDecList, l_ext * sizeof(char));
+    result = (char*)calloc(l_ext, sizeof(char));
+    
+    memcpy(result, ExtDecList, l_ext * sizeof(char));
         
     return result;
   }
   
   char* cgen_ParamDec(Node* tree){
-    char *Specifier,* VarDec, *result;
-    int l_spec,l_VarDec;
-    Specifier = VarDec = result = NULL;
-    l_spec = l_VarDec = 0;
-    Specifier = cgen_Specifier(tree->children[0]);
-    l_spec = strlen(Specifier);
+    char * VarDec, *result;
+    int l_VarDec;
+    VarDec = result = NULL;
+    l_VarDec = 0;
+//     Specifier = cgen_Specifier(tree->children[0]);
+//     l_spec = strlen(Specifier);
     VarDec = cgen_VarDec(tree->children[1]);
     l_VarDec = strlen(VarDec);
     
-    result = (char*)calloc(l_spec + 1 +l_VarDec, sizeof(char));
-    memcpy(result, Specifier, l_spec * sizeof(char));
-    result[l_spec] = ' ';
-    memcpy(result + l_spec + 1, VarDec, l_VarDec * sizeof(char));
+    result = (char*)calloc(l_VarDec, sizeof(char));
+//     memcpy(result, Specifier, l_spec * sizeof(char));
+//     result[l_spec] = ' ';
+    memcpy(result, VarDec, l_VarDec * sizeof(char));
         
     return result;
   }
@@ -341,24 +340,24 @@ namespace SPL {
   
   char* cgen_Def(Node* tree, int indent){
     //indent
-    char *Specifier, *DecList, *result;
-    int l_spec, l_DecList;
+    char  *DecList, *result;
+    int  l_DecList;
 
-    Specifier = DecList = result = NULL;
-    l_spec = l_DecList = 0;
+    DecList = result = NULL;
+    l_DecList = 0;
     
-    Specifier = cgen_Specifier(tree->children[0]);
-    l_spec = strlen(Specifier);
+//     Specifier = cgen_Specifier(tree->children[0]);
+//     l_spec = strlen(Specifier);
     
     DecList = cgen_DecList(tree->children[1],indent);
     l_DecList = strlen(DecList);
     
     
-    result = (char*)calloc(indent+l_spec + 2 +l_DecList, sizeof(char));
+    result = (char*)calloc(indent+1 +l_DecList, sizeof(char));
     memset(result, ' ', indent * sizeof(char));
-    memcpy(result+indent, Specifier, l_spec * sizeof(char));
-    result[indent+l_spec] = ' ';
-    memcpy(result +indent+ l_spec + 1, DecList, l_DecList * sizeof(char));
+//     memcpy(result+indent, Specifier, l_spec * sizeof(char));
+//     result[indent+l_spec] = ' ';
+    memcpy(result +indent, DecList, l_DecList * sizeof(char));
         
     return result;
   }
