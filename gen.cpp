@@ -188,7 +188,7 @@ namespace SPL {
     
     memcpy(result, var, l_var * sizeof(char));
     if (l_ext > 0){
-        result[l_var] = ',';
+        
         memcpy(result + l_var + 1, extDecList, l_ext * sizeof(char));
     }
     
