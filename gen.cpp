@@ -182,14 +182,14 @@ namespace SPL {
     }
     
     if (l_ext > 0)
-      result = (char*)calloc(l_var + 1 + l_ext, sizeof(char));
+      result = (char*)calloc(l_var + 7 + l_ext, sizeof(char));
     else
-      result = (char*)calloc(l_var, sizeof(char));
+      result = (char*)calloc(l_var+7, sizeof(char));
     
     memcpy(result, var, l_var * sizeof(char));
-    if (l_ext > 0){
-        
-        memcpy(result + l_var + 1, extDecList, l_ext * sizeof(char));
+    memcpy(result+l_var, "=None\n", 6 * sizeof(char));
+    if (l_ext > 0){  
+        memcpy(result + l_var + 6, extDecList, l_ext * sizeof(char));
     }
     
     return result;
