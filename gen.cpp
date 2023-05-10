@@ -298,10 +298,15 @@ namespace SPL {
       
       var = cgen_VarDec(tree->children[0]);
       l_var = strlen(var);
-      result = (char*)calloc(indent+l_var+7, sizeof(char));
+      
+      int se=0;
+      if(self==1)se=5;
+      
+      result = (char*)calloc(indent+l_var+7+se, sizeof(char));
       memset(result, ' ', indent * sizeof(char));
-      memcpy(result+indent, var, l_var * sizeof(char));
-      memcpy(result+indent+l_var, "=None\n", 6 * sizeof(char)); 
+      memcpy(result+indent, "self.", se * sizeof(char));
+      memcpy(result+indent+se, var, l_var * sizeof(char));
+      memcpy(result+indent+l_var+se, "=None\n", 6 * sizeof(char)); 
     }
     else{
       char *var,*exp;
@@ -312,11 +317,15 @@ namespace SPL {
       l_var = strlen(var);
       exp = cgen_Exp(tree->children[2]);
       l_exp = strlen(exp);
-      result = (char*)calloc(indent+l_var+l_exp+2, sizeof(char));
+      
+      int se=0;
+      if(self==1)se=5;
+      result = (char*)calloc(indent+l_var+l_exp+2+se, sizeof(char));
       memset(result, ' ', indent * sizeof(char));
-      memcpy(result+indent, var, l_var * sizeof(char));
-      result[indent+l_var]='=';
-      memcpy(result+indent+l_var+1, exp, l_exp * sizeof(char));
+      memcpy(result+indent, "self.", se * sizeof(char));
+      memcpy(result+indent+se, var, l_var * sizeof(char));
+      result[indent+l_var+se]='=';
+      memcpy(result+indent+l_var+1+se, exp, l_exp * sizeof(char));
       
     }
     return result;
@@ -619,7 +628,7 @@ namespace SPL {
     l_id=strlen(id);
     
     //DefList : Def DefList
-     
+    self=1;
     if(tree->children.size()==5&&tree->children[3]->type.compare("empty")==0){
       result = (char*)calloc(18+l_id+indent, sizeof(char));
       memcpy(result, "class ", 6 * sizeof(char));
@@ -646,6 +655,7 @@ namespace SPL {
       return result;
     }
     //STRUCT ID LC DefList RC
+    self=0;
     return result;
   }
 
