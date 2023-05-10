@@ -137,10 +137,9 @@ namespace SPL {
       int l_id;
       id = cgen_VarDec(tree->children[0]);
       l_id= strlen(id);
-      result = (char*)calloc(l_id + 2, sizeof(char));
+      result = (char*)calloc(l_id + 1, sizeof(char));
       memcpy(result, id, l_id * sizeof(char));
-      result[l_id] = '[';
-      result[l_id + 1] = ']';
+      
     }else if(tree->children.size() == 4)
     {
       char *id,*in;
@@ -269,11 +268,12 @@ namespace SPL {
       VarList=cgen_VarList(tree->children[2]);
       l_VarList=strlen(VarList);
     }
-    result = (char*)calloc(l_id + 2 +l_VarList, sizeof(char));
+    result = (char*)calloc(l_id + 3 +l_VarList, sizeof(char));
     memcpy(result, id, l_id * sizeof(char));
     result[l_id] = '(';
     if(l_VarList!=0)memcpy(result+l_id+1, VarList, l_VarList * sizeof(char));
     result[l_id+l_VarList+1] = ')';
+    result[l_id+l_VarList+2] = ':';
     return result;
   }
   
@@ -563,7 +563,7 @@ namespace SPL {
     result[0] = '\n';
     memcpy(result+1, DefList, l_DefList * sizeof(char));
     memcpy(result+1+l_DefList, StmtList, l_StmtList * sizeof(char));
-    
+    if(l_DefList+l_StmtList==0)return (char*)"\npass\n"
     return result;
   }
   
