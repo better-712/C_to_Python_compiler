@@ -636,7 +636,7 @@ namespace SPL {
       memcpy(result+6+l_id, ":\n", 2 * sizeof(char));
       memset(result+8+l_id, ' ', (indent+4) * sizeof(char));
       memcpy(result+12+l_id+indent, "pass\n", 5 * sizeof(char));
-      return result;
+      
     }else if(tree->children.size()==5){
       //def __init__(self):
       char * DefList;
@@ -652,7 +652,7 @@ namespace SPL {
       memset(result+8+l_id, ' ', (indent+4) * sizeof(char));
       memcpy(result+l_id+indent+12, "def __init__(self):\n", 20 * sizeof(char));
       memcpy(result+l_id+indent+32, DefList, l_DefList * sizeof(char));
-      return result;
+      
     }
     //STRUCT ID LC DefList RC
     self=0;
