@@ -1,0 +1,9 @@
+struct Person{
+int a=1;
+int b;
+};
+int a,b;
+int c;
+int main(int a){
+int a;
+}
