@@ -5,6 +5,7 @@
 #include <string.h>
 namespace SPL {
   //char* cgen_Stmt(Node* tree, int indent);
+  int self=0;
   char* cgen_CompSt(Node* tree, int indent);
   
   int INDENT_LEV=4;
@@ -606,24 +607,41 @@ namespace SPL {
   char* cgen_StructSpecifier (Node* tree, int indent){
     
     //STRUCT ID
-    char* id,result;
+    char* id,*result;
     result=(char*)"cgen_StructSpecifier";
     int l_id=0;
     id=cgen_ID(tree->children[1]);
-     //STRUCT ID LC DefList RC
-    if(tree->children.size()==2){
+    l_id=strlen(id);
+    
+    //DefList : Def DefList
+     
+    if(tree->children.size()==5&&tree->children[3]->type.compare("empty")==0){
       result = (char*)calloc(18+l_id+indent, sizeof(char));
       memcpy(result, "class ", 6 * sizeof(char));
       memcpy(result+6, id, l_id * sizeof(char));
-      memcpy(result+6+l_id, ":\n ", 2 * sizeof(char));
-      memcpy(result+8+l_id, " ", (indent+4) * sizeof(char));
+      memcpy(result+6+l_id, ":\n", 2 * sizeof(char));
+      memset(result+8+l_id, ' ', (indent+4) * sizeof(char));
       memcpy(result+12+l_id+indent, "pass\n", 5 * sizeof(char));
       return result;
-    }else{
+    }else if(tree->children.size()==5){
+      //def __init__(self):
+      char * DefList;
+      int l_DefList;
+      DefList=cgen_DefList(tree->children[3],indent+4);
+      l_DefList=strlen(DefList);                  
+                           
+      result = (char*)calloc(l_id+l_DefList+indent+32, sizeof(char));
+      memcpy(result, "class ", 6 * sizeof(char));
+      memcpy(result+6, id, l_id * sizeof(char));
+      memcpy(result+6+l_id, ":\n", 2 * sizeof(char));
+      
+      memset(result+8+l_id, ' ', (indent+4) * sizeof(char));
+      memcpy(result+l_id+indent+12, "def __init__(self):\n", 20 * sizeof(char));
+      memcpy(result+l_id+indent+32, DefList, l_DefList * sizeof(char));
       return result;
     }
-    
-    
+    //STRUCT ID LC DefList RC
+    return result;
   }
 
   char* cgen_ExtDef (Node* tree, int indent){
