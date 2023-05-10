@@ -1,2 +1,6 @@
-int Var;//声明一个变量
-int my_function(int a,int b){}//声明一个函数
+int Var1,Var2,Var3;
+int my_function(int a,int b){
+int a;
+int a,b,c;
+int a;
+}
