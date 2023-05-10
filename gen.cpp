@@ -336,7 +336,7 @@ namespace SPL {
     
     memcpy(result, Dec, l_Dec * sizeof(char));
     if (l_DecList > 0){
-        result[l_Dec] = ',';
+        result[l_Dec] = '\n';
         memcpy(result + l_Dec + 1, DecList, l_DecList * sizeof(char));
     }
     
@@ -358,11 +358,11 @@ namespace SPL {
     l_DecList = strlen(DecList);
     
     
-    result = (char*)calloc(indent+1 +l_DecList, sizeof(char));
-    memset(result, ' ', indent * sizeof(char));
+    result = (char*)calloc(1 +l_DecList, sizeof(char));
+    //memset(result, ' ', indent * sizeof(char));
 //     memcpy(result+indent, Specifier, l_spec * sizeof(char));
 //     result[indent+l_spec] = ' ';
-    memcpy(result +indent, DecList, l_DecList * sizeof(char));
+    memcpy(result, DecList, l_DecList * sizeof(char));
         
     return result;
   }
