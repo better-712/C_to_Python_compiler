@@ -603,7 +603,28 @@ namespace SPL {
     memcpy(result+l_spec+1+l_fun, CompSt, l_comp * sizeof(char));
     return result;
   }
-  
+  char* cgen_StructSpecifier (Node* tree, int indent){
+    
+    //STRUCT ID
+    char* id,result;
+    result=(char*)"cgen_StructSpecifier";
+    int l_id=0;
+    id=cgen_ID(tree->children[1]);
+     //STRUCT ID LC DefList RC
+    if(tree->children.size()==2){
+      result = (char*)calloc(18+l_id+indent, sizeof(char));
+      memcpy(result, "class ", 6 * sizeof(char));
+      memcpy(result+6, id, l_id * sizeof(char));
+      memcpy(result+6+l_id, ":\n ", 2 * sizeof(char));
+      memcpy(result+8+l_id, " ", (indent+4) * sizeof(char));
+      memcpy(result+12+l_id+indent, "pass\n", 5 * sizeof(char));
+      return result;
+    }else{
+      return result;
+    }
+    
+    
+  }
 
   char* cgen_ExtDef (Node* tree, int indent){
     printf("cgen_Line\n");
@@ -616,7 +637,7 @@ namespace SPL {
     if(tmp->type.compare("ExtDecList") == 0)
       line = cgen_Specifier_ExtDecList_SEMI(tree, indent);
     else if(tmp->type.compare("SEMI") == 0)
-      printf("SEMI\n");
+      line = cgen_StructSpecifier(tree->children[0]->children[0], indent);
     else if(tmp->type.compare("FunDec") == 0)
       line = cgen_Specifier_FunDec_CompSt(tree, indent);
     
