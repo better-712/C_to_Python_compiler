@@ -285,6 +285,7 @@ namespace SPL {
     //indent
     char *result;
     result=NULL;
+    //struct or None
     if(tree->children.size()==1){
       char *var;
       int l_var;
@@ -293,10 +294,10 @@ namespace SPL {
       
       var = cgen_VarDec(tree->children[0]);
       l_var = strlen(var);
-      result = (char*)calloc(indent+l_var+1, sizeof(char));
+      result = (char*)calloc(indent+l_var+7, sizeof(char));
       memset(result, ' ', indent * sizeof(char));
       memcpy(result+indent, var, l_var * sizeof(char));
-      
+      memcpy(result+indent+l_var, "=None\n", 6 * sizeof(char)); 
     }
     else{
       char *var,*exp;
@@ -627,7 +628,7 @@ namespace SPL {
       //def __init__(self):
       char * DefList;
       int l_DefList;
-      DefList=cgen_DefList(tree->children[3],indent+4);
+      DefList=cgen_DefList(tree->children[3],indent+8);
       l_DefList=strlen(DefList);                  
                            
       result = (char*)calloc(l_id+l_DefList+indent+32, sizeof(char));
