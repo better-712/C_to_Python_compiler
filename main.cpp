@@ -21,11 +21,12 @@ int main(const int argc, const char **argv) {
 //         SPL::print_ast(driver.get_root());
     else{
         printf("C code: \n");
-        char* file=argv[1];
-        FILE *fp=fopen(filename,"r");
+        char* file=(char*)argv[1];
+        FILE *fp=fopen(file,"r");
         int c;
         while((c=fgetc(fp))!=EOF)
             putchar(c);
+        printf("\n");
         SPL::code_gen(driver.get_root());
     }
 }
