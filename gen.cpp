@@ -5,7 +5,18 @@
 #include <string.h>
 namespace SPL {
   //char* cgen_Stmt(Node* tree, int indent);
+  struct spec{
+    int type;
+    char* id;
+  };
+  struct spec cur_spec={0,(char*)"un_def"};
+  int INT=1;
+  int FLOAR=2;
+  int STRUCT=3;
+  
+  
   int self=0;
+  
   char* cgen_CompSt(Node* tree, int indent);
   
   int INDENT_LEV=4;
@@ -60,6 +71,28 @@ namespace SPL {
 //     if(tree->children[0]->type.compare("DIV") == 0)
 //       return (char*)"/";
     return (char*)(tree->value).c_str();
+  }
+  
+  void record_Specifier(Node* tree){
+    //to do for struct
+    
+    if(tree->children[0]->type.compare("TYPE")==0){
+      cur_spec.type=0;
+      cur_spec.id=(char*)(tree->children[0]->value).c_str();
+    }else{
+      //StructSpecifier
+      //STRUCT ID
+      
+      cur_spec.type=STRUCT;
+      cur_spec.id=cgen_ID(tree->children[0]->children[1]);
+      std::cout<<"cur_spec.id:"<<cur_spec.id<<"cur_spec.type:"<<cur_spec.type<<std::endl;
+    }
+    
+  }
+  
+  void eliminate_Specifier(){
+    cur_spec.type=0;
+    cur_spec.id=(char*)"un_def";
   }
  
   
@@ -159,16 +192,7 @@ namespace SPL {
     }
     return result;
   }
-  char* cgen_Specifier(Node* tree){
-    //to do for struct
-    char  *result;
-    if(tree->children[0]->type.compare("TYPE")==0){
-      result=(char*)(tree->children[0]->value).c_str();
-    }else{
-      //to do
-    }
-    return result;
-  }
+  
   char* cgen_ExtDecList(Node* tree){
     char *var,*extDecList, *result;
     int l_var,l_ext;
@@ -205,6 +229,7 @@ namespace SPL {
     
     //Specifier = cgen_Specifier(tree->children[0]);
     //l_spec = strlen(Specifier);
+    record_Specifier(tree);
     
     ExtDecList = cgen_ExtDecList(tree->children[1]);
     l_ext = strlen(ExtDecList);
@@ -213,6 +238,7 @@ namespace SPL {
     
     memcpy(result, ExtDecList, l_ext * sizeof(char));
         
+    eliminate_Specifier();
     return result;
   }
   
