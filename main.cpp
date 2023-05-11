@@ -10,6 +10,7 @@
 
 #include "spl_driver.hpp"
 #include "gen.hpp"
+#include <stdio.h>
 using std::cout, std::endl;
 
 int main(const int argc, const char **argv) {
@@ -18,6 +19,13 @@ int main(const int argc, const char **argv) {
     if(!driver.get_errors()->empty())
         driver.print_errors();
 //         SPL::print_ast(driver.get_root());
-    else
+    else{
+        printf("C code: \n");
+        char* file=argv[1];
+        FILE *fp=fopen(filename,"r");
+        int c;
+        while((c=fgetc(fp))!=EOF)
+            putchar(c);
         SPL::code_gen(driver.get_root());
+    }
 }
