@@ -206,14 +206,23 @@ namespace SPL {
       l_ext = strlen(extDecList);
     }
     
+    int len=strlen(cur_spec.id);
+    
     if (l_ext > 0)
-      result = (char*)calloc(l_var + 7 + l_ext, sizeof(char));
+      result = (char*)calloc(l_var + 7 + l_ext+len, sizeof(char));
     else
-      result = (char*)calloc(l_var+7, sizeof(char));
+      result = (char*)calloc(l_var+7+len, sizeof(char));
     
     memcpy(result, var, l_var * sizeof(char));
     //struct to do
-    memcpy(result+l_var, "=None\n", 6 * sizeof(char));
+    if(cur_spec.type==STRUCT){
+      result[l_var]='=';
+      memcpy(result+l_var+1, cur_spec.id, len * sizeof(char));
+      memcpy(result+l_var+1+len, "()\n", 3 * sizeof(char));
+    }else
+      memcpy(result+l_var, "=None\n", 6 * sizeof(char));
+    
+    
     if (l_ext > 0){  
         memcpy(result + l_var + 6, extDecList, l_ext * sizeof(char));
     }
@@ -229,7 +238,7 @@ namespace SPL {
     
     //Specifier = cgen_Specifier(tree->children[0]);
     //l_spec = strlen(Specifier);
-    record_Specifier(tree);
+    record_Specifier(tree->children[0]);
     
     ExtDecList = cgen_ExtDecList(tree->children[1]);
     l_ext = strlen(ExtDecList);
