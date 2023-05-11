@@ -337,11 +337,21 @@ namespace SPL {
       int se=0;
       if(self==1)se=5;
       
-      result = (char*)calloc(indent+l_var+7+se, sizeof(char));
+      int len=strlen(cur_spec.id);
+      
+      result = (char*)calloc(indent+l_var+7+se+len, sizeof(char));
       memset(result, ' ', indent * sizeof(char));
       memcpy(result+indent, "self.", se * sizeof(char));
       memcpy(result+indent+se, var, l_var * sizeof(char));
-      memcpy(result+indent+l_var+se, "=None\n", 6 * sizeof(char)); 
+      
+      
+      if(cur_spec.type==STRUCT){
+        result[indent+se+l_var]='=';
+        memcpy(result+indent+se+l_var+1, cur_spec.id, len * sizeof(char));
+        memcpy(result+indent+se+l_var+1+len, "()\n", 3 * sizeof(char));
+        
+      }else
+        memcpy(result+indent+l_var+se, "=None\n", 6 * sizeof(char)); 
     }
     else{
       char *var,*exp;
