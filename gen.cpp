@@ -413,6 +413,8 @@ namespace SPL {
     
 //     Specifier = cgen_Specifier(tree->children[0]);
 //     l_spec = strlen(Specifier);
+    record_Specifier(tree->children[0]);
+    
     
     DecList = cgen_DecList(tree->children[1],indent);
     l_DecList = strlen(DecList);
@@ -423,7 +425,8 @@ namespace SPL {
 //     memcpy(result+indent, Specifier, l_spec * sizeof(char));
 //     result[indent+l_spec] = ' ';
     memcpy(result, DecList, l_DecList * sizeof(char));
-        
+       
+    eliminate_Specifier();
     return result;
   }
   
