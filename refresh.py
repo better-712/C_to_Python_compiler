@@ -10,5 +10,9 @@ parent_dir = os.path.dirname(current_dir)
 # 删除当前目录
 shutil.rmtree(current_dir)
 
-# 打印上级目录
-print("Parent directory:", parent_dir)
+
+# 进入上级目录
+os.chdir(parent_dir)
+
+# 进行 git clone 操作
+os.system("git clone https://github.com/better-712/com_project")
