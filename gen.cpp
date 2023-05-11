@@ -708,7 +708,7 @@ namespace SPL {
   }
 
   char* cgen_ExtDef (Node* tree, int indent){
-    printf("cgen_Line\n");
+    //printf("cgen_Line\n");
     
     
     char *line, *result;
@@ -731,6 +731,7 @@ namespace SPL {
     return result;
   }
   char* cgen_Program (Node* tree, int indent){
+    
     char *result;
     int nLines, total, last, l_line;
     Node *ExtDefList=tree->children[0];
@@ -744,7 +745,7 @@ namespace SPL {
     nLines = 0;
     for(auto iter=list->begin();iter!=list->end();iter++){
         lines[nLines] = cgen_ExtDef((*iter), indent);
-        printf("line is %s\n", lines[nLines]);
+        //printf("line is %s\n", lines[nLines]);
         if (lines[nLines] == NULL)
             printf("lines[%d] == NULL\n",nLines);
         total += strlen(lines[nLines]);
@@ -758,13 +759,14 @@ namespace SPL {
         last += l_line;
         //free(lines[i]);
     }
-    printf("result is \n%s\n", result);
+    
+    printf("Python code: \n%s\n", result);
     return result;
     
   }
   
   char* code_gen (Node *root){
-    printf("code_gen\n");
+    //printf("code_gen\n");
     return cgen_Program(root, 0);
   }
   
