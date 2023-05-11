@@ -16,3 +16,5 @@ os.chdir(parent_dir)
 
 # 进行 git clone 操作
 os.system("git clone https://github.com/better-712/com_project")
+
+os.chdir("com_project")
