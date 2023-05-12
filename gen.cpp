@@ -241,7 +241,7 @@ namespace SPL {
       //[0]*9
       memcpy(result+l_var,"=0\n", 3 * sizeof(char));
       
-    }else if(cur_spec.type==FlOAT){
+    }else if(cur_spec.type==FLOAT){
       //[0]*9
       memcpy(result+l_var,"=0.0\n", 5 * sizeof(char));
       
@@ -384,7 +384,7 @@ namespace SPL {
       
       memcpy(result+indent+se+l_var,"=0\n", 3 * sizeof(char));
       
-      }else if(cur_spec.type==FlOAT){
+      }else if(cur_spec.type==FLOAT){
       //[0]*9
       memcpy(result+indent+se+l_var,"=0.0\n", 5 * sizeof(char));
       
