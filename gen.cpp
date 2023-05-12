@@ -12,8 +12,9 @@ namespace SPL {
   struct spec cur_spec={0,(char*)"un_def"};
   int INT=1;
   int FLOAT=2;
-  int STRUCT=3;
-  int ARRAY=4;
+  int CHAR=3;
+  int STRUCT=4;
+  int ARRAY=5;
   
   int self=0;
   
@@ -77,9 +78,15 @@ namespace SPL {
     //to do for struct
     
     if(tree->children[0]->type.compare("TYPE")==0){
-      cur_spec.type=0;
+      
       cur_spec.id=(char*)(tree->children[0]->value).c_str();
-      std::cout<<cur_spec.id<<std::endl;
+      if(cur_spec.id.compare("int")==0)
+        cur_spec.type=INT;
+      if(cur_spec.id.compare("float")==0)
+        cur_spec.type=FLOAT;
+      if(cur_spec.id.compare("char")==0)
+        cur_spec.type=CHAR;
+     // std::cout<<cur_spec.id<<std::endl;
     }else{
       //StructSpecifier
       //STRUCT ID
@@ -229,6 +236,11 @@ namespace SPL {
       //[0]*9
       memcpy(result+l_var,"=[0]*", 5 * sizeof(char));
       memcpy(result+l_var+5, cur_spec.id, len * sizeof(char));
+      result[l_var+5+len]='\n';
+    }else if(cur_spec.type==INT){
+      //[0]*9
+      memcpy(result+l_var,"=0\n", 3 * sizeof(char));
+      
     }else
       memcpy(result+l_var, "=None\n", 6 * sizeof(char));
     
@@ -364,6 +376,10 @@ namespace SPL {
       //[0]*9
       memcpy(result+indent+se+l_var,"=[0]*", 5 * sizeof(char));
       memcpy(result+indent+se+l_var+5, cur_spec.id, len * sizeof(char));
+      }else if(cur_spec.type==INT){
+      //[0]*9
+      memcpy(result+l_var,"=0\n", 3 * sizeof(char));
+      
       }else
         memcpy(result+indent+l_var+se, "=None\n", 6 * sizeof(char)); 
       
