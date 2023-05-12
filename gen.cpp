@@ -378,7 +378,7 @@ namespace SPL {
       memcpy(result+indent+se+l_var+5, cur_spec.id, len * sizeof(char));
       }else if(cur_spec.type==INT){
       //[0]*9
-      memcpy(result+l_var,"=0\n", 3 * sizeof(char));
+      memcpy(result+indent+se+l_var,"=0\n", 3 * sizeof(char));
       
       }else
         memcpy(result+indent+l_var+se, "=None\n", 6 * sizeof(char)); 
