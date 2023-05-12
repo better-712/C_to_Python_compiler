@@ -182,10 +182,10 @@ namespace SPL {
       l_id= strlen(id);
       in=cgen_Int(tree->children[2]);
       l_in= strlen(in);
-      result = (char*)calloc(l_id + 1 + l_in, sizeof(char));
+      result = (char*)calloc(l_id + 1 , sizeof(char));
       memcpy(result, id, l_id * sizeof(char));
       //result[l_id] = '[';
-      memcpy(result+l_id , in, l_in * sizeof(char));
+      //memcpy(result+l_id , in, l_in * sizeof(char));
       //result[l_id + 1 + l_in] = ']';
       //arr
       cur_spec.type=ARRAY;
