@@ -13,7 +13,7 @@ namespace SPL {
   int INT=1;
   int FLOAR=2;
   int STRUCT=3;
-  
+  int ARRAY=4;
   
   int self=0;
   
@@ -187,6 +187,10 @@ namespace SPL {
       result[l_id] = '[';
       memcpy(result+l_id + 1, in, l_in * sizeof(char));
       result[l_id + 1 + l_in] = ']';
+      cur_spec.type=ARRAY;
+      //value
+      cur_spec.id=in;
+      
     }else{
       result=cgen_ID(tree->children[0]);
     }
@@ -219,6 +223,10 @@ namespace SPL {
       result[l_var]='=';
       memcpy(result+l_var+1, cur_spec.id, len * sizeof(char));
       memcpy(result+l_var+1+len, "()\n", 3 * sizeof(char));
+    }else if(cur_spec.type==ARRAY){
+      //[0]*9
+      memcpy(result+l_var,"=[0]*", 5 * sizeof(char));
+      memcpy(result+l_var+5, cur_spec.id, len * sizeof(char));
     }else
       memcpy(result+l_var, "=None\n", 6 * sizeof(char));
     
