@@ -80,11 +80,11 @@ namespace SPL {
     if(tree->children[0]->type.compare("TYPE")==0){
       
       cur_spec.id=(char*)(tree->children[0]->value).c_str();
-      if(cur_spec.id.compare("int")==0)
+      if(tree->children[0]->value.compare("int")==0)
         cur_spec.type=INT;
-      if(cur_spec.id.compare("float")==0)
+      if(tree->children[0]->value.compare("float")==0)
         cur_spec.type=FLOAT;
-      if(cur_spec.id.compare("char")==0)
+      if(tree->children[0]->value.compare("char")==0)
         cur_spec.type=CHAR;
      // std::cout<<cur_spec.id<<std::endl;
     }else{
@@ -93,7 +93,7 @@ namespace SPL {
       
       cur_spec.type=STRUCT;
       cur_spec.id=cgen_ID(tree->children[0]->children[1]);
-      std::cout<<"cur_spec.id:"<<cur_spec.id<<"cur_spec.type:"<<cur_spec.type<<std::endl;
+     // std::cout<<"cur_spec.id:"<<cur_spec.id<<"cur_spec.type:"<<cur_spec.type<<std::endl;
     }
     
   }
