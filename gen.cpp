@@ -11,7 +11,7 @@ namespace SPL {
   };
   struct spec cur_spec={0,(char*)"un_def"};
   int INT=1;
-  int FLOAR=2;
+  int FLOAT=2;
   int STRUCT=3;
   int ARRAY=4;
   
@@ -79,6 +79,7 @@ namespace SPL {
     if(tree->children[0]->type.compare("TYPE")==0){
       cur_spec.type=0;
       cur_spec.id=(char*)(tree->children[0]->value).c_str();
+      std::cout<<cur_spec.id<<std::endl;
     }else{
       //StructSpecifier
       //STRUCT ID
