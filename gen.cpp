@@ -187,6 +187,7 @@ namespace SPL {
       result[l_id] = '[';
       memcpy(result+l_id + 1, in, l_in * sizeof(char));
       result[l_id + 1 + l_in] = ']';
+      //arr
       cur_spec.type=ARRAY;
       //value
       cur_spec.id=in;
@@ -358,8 +359,13 @@ namespace SPL {
         memcpy(result+indent+se+l_var+1, cur_spec.id, len * sizeof(char));
         memcpy(result+indent+se+l_var+1+len, "()\n", 3 * sizeof(char));
         
+      }else if(cur_spec.type==ARRAY){
+      //[0]*9
+      memcpy(result+indent+se+l_var,"=[0]*", 5 * sizeof(char));
+      memcpy(result+indent+se+l_var+5, cur_spec.id, len * sizeof(char));
       }else
         memcpy(result+indent+l_var+se, "=None\n", 6 * sizeof(char)); 
+      
     }
     else{
       char *var,*exp;
