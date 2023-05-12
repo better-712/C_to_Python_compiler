@@ -3,4 +3,6 @@ int b;
 int main(){
 int c[4];
 a[4]=1;
+int m;
+int d=1;
 }
