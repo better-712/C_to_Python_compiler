@@ -120,6 +120,12 @@ int|float|char {        // reserved type
     return token::ELSE;
 }
 
+"for" {             // reserved key word
+	//std::cout << "for" <<yylineno<<  std::endl;
+    yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
+    return token::FOR;
+}
+
 "while" {             // reserved key word
 	//std::cout << "while" << yylineno<< std::endl;
     yylval->build<Scan_Info*>(new Scan_Info(" ", yylineno));
