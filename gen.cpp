@@ -166,6 +166,19 @@ namespace SPL {
       result[l_exp1+1+l_exp2]=']';
       return result;
     }
+    //Exp DOT ID
+    if (tree->children.size()==3&&tree->children[1]->type.compare("DOT") == 0){
+      char  *exp,*id,*result;
+      int l_exp,l_id;
+      exp=cgen_Exp(tree->children[0]);
+      l_exp=strlen(exp);
+      id=cgen_Exp(tree->children[2]);
+      l_id=strlen(id);
+      result = (char*)calloc(l_exp + 2 + l_id, sizeof(char));
+      memcpy(result, exp, l_exp * sizeof(char));
+      result[l_exp]='.';
+      memcpy(result+l_exp+1, id, l_id * sizeof(char));
+    }
     
     return (char*)"cgen_Exp";
   }
