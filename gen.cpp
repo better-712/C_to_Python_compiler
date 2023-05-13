@@ -645,18 +645,20 @@ namespace SPL {
        char *Exp,*Stmt, *result;
        int l_Exp,l_Stmt;
        
-       Exp=cgen_Exp(tree->children[1]);
+       Exp=cgen_ID(tree->children[1]->children[2]->children[0]);
        l_Exp=strlen(Exp);
+       
+       
        Stmt=cgen_Stmt(tree->children[2],indent+INDENT_LEV);
        l_Stmt=strlen(Stmt);
        
-       result = (char*)calloc(indent+6+l_Exp+l_Stmt, sizeof(char));
+       result = (char*)calloc(indent+20+l_Exp+l_Stmt, sizeof(char));
        memset(result, ' ', indent * sizeof(char));
-       memcpy(result + indent, "for", 3 * sizeof(char));
-       memcpy(result+indent+3, Exp, l_Exp * sizeof(char));
-       memcpy(result + indent+3+l_Exp, ":\n", 2 * sizeof(char));
-       memcpy(result + indent+5+l_Exp, Stmt, l_Stmt * sizeof(char));
-       return (char*)"for_Stmt";
+       memcpy(result + indent, "for i in range(", 15 * sizeof(char));
+       memcpy(result+indent+15, Exp, l_Exp * sizeof(char));
+       memcpy(result + indent+15+l_Exp, "):\n", 3 * sizeof(char));
+       memcpy(result + indent+18+l_Exp, Stmt, l_Stmt * sizeof(char));
+       return result;
      }
     
     //Exp SEMI
