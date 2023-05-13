@@ -109,7 +109,7 @@ Stmt : Exp SEMI{$$ = new Node("Stmt",$1,new Node("SEMI",$2));}
     | IF LP Exp RP Stmt{$$ = new Node("Stmt",new Node("IF",$1),new Node("LP",$2),$3,new Node("RP",$4),$5);}
     | IF LP Exp RP Stmt ELSE Stmt{$$ = new Node("Stmt",new Node("IF",$1),new Node("LP",$2),$3,new Node("RP",$4),$5,new Node("ELSE",$6),$7);}
     | WHILE LP Exp RP Stmt{$$ = new Node("Stmt",new Node("WHILE",$1),new Node("LP",$2),$3,new Node("RP",$4),$5);}
-    | FOR LP Exp COMMA Exp COMMA Exp RP Stmt{$$ = new Node("Stmt",new Node("FOR",$1),$5,$9);}
+    | FOR LP Exp SEMI Exp SEMI Exp RP Stmt{$$ = new Node("Stmt",new Node("FOR",$1),$5,$9);}
 
 /* local definition */
 DefList : Def DefList{$$ = new Node("DefList",$1,$2);}
