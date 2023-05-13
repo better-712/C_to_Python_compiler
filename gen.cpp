@@ -172,7 +172,7 @@ namespace SPL {
       int l_exp,l_id;
       exp=cgen_Exp(tree->children[0]);
       l_exp=strlen(exp);
-      id=cgen_Exp(tree->children[2]);
+      id=cgen_ID(tree->children[2]);
       l_id=strlen(id);
       result = (char*)calloc(l_exp + 2 + l_id, sizeof(char));
       memcpy(result, exp, l_exp * sizeof(char));
