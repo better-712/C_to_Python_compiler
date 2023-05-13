@@ -1,0 +1,11 @@
+struct Person{
+int age;
+int id;
+}
+int a;
+float b;
+char c;
+struct Person p;
+int main(){
+p.age=22;
+}
