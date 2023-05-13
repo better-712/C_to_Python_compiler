@@ -641,7 +641,7 @@ namespace SPL {
        return result;
      }
     //FOR Exp Stmt
-     if(tree->children.size()==5&&tree->children[0]->type.compare("FOR") == 0){
+     if(tree->children.size()==3&&tree->children[0]->type.compare("FOR") == 0){
        char *Exp,*Stmt, *result;
        int l_Exp,l_Stmt;
        
