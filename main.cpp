@@ -10,6 +10,7 @@
 
 #include "spl_driver.hpp"
 #include "gen.hpp"
+#include "semantics.hpp"
 #include <stdio.h>
 using std::cout, std::endl;
 
