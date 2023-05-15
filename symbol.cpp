@@ -1,7 +1,6 @@
 #include <vector>
 #include <unordered_map>
-#include "utils.hpp"
-#include "type.cpp"
+
 #include "ast.hpp"
 
 #include "symbol.hpp"
