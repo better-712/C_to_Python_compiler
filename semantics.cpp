@@ -37,7 +37,8 @@ namespace SPL {
     
     //STRUCT ID LC DefList RC  DefList : Def DefList
     if(tree->children.size()==5){
-      Symbol a;
+      Symbol* a;
+      a.name=name;
       cur_table->insert(a);
       
     }else if(tree->children.size()==3)//STRUCT ID
