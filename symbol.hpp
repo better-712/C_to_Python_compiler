@@ -4,12 +4,13 @@
 #include "ast.hpp"
 
 namespace SPL {
+  using namespace std;
   
   class Symbol_Table;
   
   class Symbol {
     public:
-        std::string name;
+        string name;
     //funtion return type 
         int type;
     
@@ -27,9 +28,9 @@ namespace SPL {
 
         void insert(Symbol *entry);
 
-        std::Symbol_Table * next;
+        Symbol_Table * next;
     
-        std::unordered_map<std::string, Symbol *> table;
+        unordered_map<string, Symbol *> table;
     
     };
 
