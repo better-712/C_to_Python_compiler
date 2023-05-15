@@ -3,8 +3,10 @@
 #include "type.cpp"
 #include "ast.hpp"
 #include <string.h>
+#include "symbol.hpp"
 namespace SPL {
   //INT FLOAT CHAR ARRAY  STRUCT
+  Symbol_Table *cur_table;
   
   std::vector<Node *>* list_to_e(Node *node){
         auto *decs = new std::vector<Node *>{};
@@ -30,16 +32,13 @@ namespace SPL {
     printf("analyze_StructSpecifier\n");
     int result=0;
     
-    
-    int l_id=0;
-    id=cgen_ID(tree->children[1]);
-    l_id=strlen(id);
-    string name=tree->children[1]->value;
-    std::cout<<"name:"<<name<<std::endl;
+    std::string name=tree->children[1]->value;
+    //std::cout<<"name:"<<name<<std::endl;
     
     //STRUCT ID LC DefList RC  DefList : Def DefList
     if(tree->children.size()==5){
-      
+      Symbol a;
+      cur_table->insert(a);
       
     }else if(tree->children.size()==3)//STRUCT ID
     {
@@ -47,9 +46,7 @@ namespace SPL {
 //       char * DefList;
 //       int l_DefList;
 //       DefList=cgen_DefList(tree->children[3],indent+8);
-//       l_DefList=strlen(DefList);                  
-
-      
+//       l_DefList=strlen(DefList);                        
     }
     
     return result;
@@ -76,12 +73,10 @@ namespace SPL {
     Node *ExtDefList=tree->children[0];
     std::vector<Node *>* list=list_to_e(ExtDefList);
     
-    nLines=list->size();
     
     for(auto iter=list->begin();iter!=list->end();iter++){
         result = result+analyze_ExtDef((*iter));
         
-        nLines++;
     }
     
     printf("analyze_Program\n");
