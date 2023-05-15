@@ -27,6 +27,9 @@ namespace SPL {
         void set_next(Symbol_Table *next);
 
         void insert(Symbol *entry);
+    
+        Symbol find_symbol(std::string name);
+    
 
         Symbol_Table * next;
     
