@@ -9,12 +9,20 @@ namespace SPL {
   using namespace std;
   void Symbol_Table::insert(Symbol *entry) {
     cout << "insert! " << endl;
-//         if (string name = entry->name; contains(name)) {
-//             cout << "Semantic Error! " << name << " has been in symbol table at line: " << entry->line_no
-//                  << endl;
-//         } else {
-//             table[name] = entry;
-//         }
-    
+    string name = entry->name;
+    if (find_symbol(name)) {
+            cout << "Semantic Error! " << name << " has been in symbol table at line: " << entry->line_no<< endl;
+    } else {
+            table[name] = entry;
     }
+    
+  }
+  
+  Symbol Symbol_Table::find_symbol(std::string name) {
+    if(table.find(id) != table.end())
+      return *(table.find(id));
+    else
+      return NULL;    
+    }
+  
 }
