@@ -6,7 +6,7 @@
 #include "symbol.hpp"
 namespace SPL {
   //INT FLOAT CHAR ARRAY  STRUCT
-  Symbol_Table *cur_table;
+  Symbol_Table *cur_table=new Symbol_Table;
   
   std::vector<Node *>* list_to_e(Node *node){
         auto *decs = new std::vector<Node *>{};
@@ -33,12 +33,14 @@ namespace SPL {
     int result=0;
     
     std::string name=tree->children[1]->value;
+    int line_no=tree->children[1]->line_no;
     //std::cout<<"name:"<<name<<std::endl;
     
     //STRUCT ID LC DefList RC  DefList : Def DefList
     if(tree->children.size()==5){
-      Symbol* a;
+      Symbol* a=new Symbol;
       a->name=name;
+      a->line_no=line_no;
       cur_table->insert(a);
       
     }else if(tree->children.size()==3)//STRUCT ID
