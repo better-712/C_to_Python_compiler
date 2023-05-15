@@ -19,8 +19,9 @@ namespace SPL {
   }
   
   Symbol* Symbol_Table::find_symbol(std::string name) {
-    if(table.find(id) != table.end())
-      return *(table.find(id));
+    auto it=table.find(name) ;
+    if(it!= table.end())
+      return it->second;
     else
       return nullptr;    
     }
