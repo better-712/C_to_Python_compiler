@@ -10,7 +10,7 @@ namespace SPL {
   void Symbol_Table::insert(Symbol *entry) {
     cout << "insert! " << endl;
     string name = entry->name;
-    if (find_symbol(name)==nullptr) {
+    if (find_symbol(name)!=nullptr) {
             cout << "Semantic Error! " << name << " has been in symbol table at line: " << entry->line_no<< endl;
     } else {
             table[name] = entry;
