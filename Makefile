@@ -1,5 +1,5 @@
 
-SRCS = main.cpp scanner.yy.cpp parser.tab.cpp spl_driver.cpp ast.cpp gen.cpp semantics.cpp
+SRCS = main.cpp scanner.yy.cpp parser.tab.cpp spl_driver.cpp ast.cpp gen.cpp semantics.cpp symbol.cpp
 
 splc: $(SRCS)
 	g++ -g -std=c++17 $(SRCS) -o $@
