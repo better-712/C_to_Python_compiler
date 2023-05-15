@@ -14,6 +14,9 @@ namespace SPL {
     //funtion return type 
         int type;
     
+    //for struct
+        string tag;
+    
     //fun or struct
         vector<int> parm_type;
 
