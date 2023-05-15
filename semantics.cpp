@@ -6,6 +6,16 @@
 namespace SPL {
   //INT FLOAT CHAR ARRAY  STRUCT
   
+  std::vector<Node *>* list_to_e(Node *node){
+        auto *decs = new std::vector<Node *>{};
+        decs->push_back(node->children.front());
+        Node *list=node->children.back();
+        while(list->type.compare(node->type) == 0){
+            decs->push_back(list->children.front());
+            list=list->children.back();
+        }
+        return decs;
+    }
   
   int analyze_Specifier_FunDec_CompSt (Node* tree){
     printf("analyze_Specifier_FunDec_CompSt\n");
@@ -64,12 +74,12 @@ namespace SPL {
     int result=0;
     
     Node *ExtDefList=tree->children[0];
-    std::vector<Node *>* list=list_to_ele(ExtDefList);
+    std::vector<Node *>* list=list_to_e(ExtDefList);
     
     nLines=list->size();
     
     for(auto iter=list->begin();iter!=list->end();iter++){
-        result = result+cgen_ExtDef((*iter), indent);
+        result = result+analyze_ExtDef((*iter));
         
         nLines++;
     }
@@ -79,7 +89,7 @@ namespace SPL {
   }
   
   int semantic_analyze (Node *root){
-    return cgen_Program(root);
+    return analyze_Program(root);
   }
     
 }
