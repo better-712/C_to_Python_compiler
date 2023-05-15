@@ -1,7 +1,6 @@
 #include <vector>
 #include <unordered_map>
 
-#include "type.cpp"
 #include "ast.hpp"
 
 namespace SPL {
@@ -22,7 +21,7 @@ namespace SPL {
   
   class Symbol_Table {
     public:
-        Symbol_Table(): next(nullptr),size(0) {}
+        Symbol_Table(): next(nullptr) {}
 
         void set_next(Symbol_Table *next);
 
