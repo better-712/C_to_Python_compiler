@@ -1,0 +1,5 @@
+int undef_var;
+int undef_fun(int par1,int par2);
+int def_fun(int par1){
+int var=3;
+}
