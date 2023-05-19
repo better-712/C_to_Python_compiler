@@ -1,0 +1,6 @@
+struct undef{
+};
+struct def{
+int var1;
+int var2=1;
+};
