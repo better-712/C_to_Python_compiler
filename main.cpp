@@ -17,9 +17,9 @@ using std::cout, std::endl;
 int main(const int argc, const char **argv) {
     SPL::SPL_Driver driver;
     driver.parse(argv[1]);
-    int is_error=SPL::semantic_analyze(driver.get_root());
-    printf("return value: %d\n",is_error);
-    return 0;
+  //  int is_error=SPL::semantic_analyze(driver.get_root());
+  //  printf("return value: %d\n",is_error);
+ //   return 0;
     if(!driver.get_errors()->empty())
         driver.print_errors();
 //         SPL::print_ast(driver.get_root());
