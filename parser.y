@@ -76,7 +76,7 @@ ExtDefList : ExtDef ExtDefList{$$=new Node("ExtDefList",$1,$2);}
 ExtDef : Specifier ExtDecList SEMI{$$=new Node("ExtDef",$1,$2,new Node("SEMI",$3));}
     | Specifier SEMI{$$=new Node("ExtDef",$1,new Node("SEMI",$2));}
     | Specifier FunDec CompSt{$$=new Node("ExtDef",$1,$2,$3);}
-    | Specifier FunDec SEMI{$$=new Node("ExtDef",$1,$2,$3);}
+    | Specifier FunDec SEMI{$$=new Node("ExtDef",$1,$2,new Node("SEMI",$3));}
 ExtDecList : VarDec{$$ = new Node("ExtDecList",$1);}
     | VarDec COMMA ExtDecList{$$ = new Node("ExtDecList",$1,new Node("COMMA",$2),$3);}
 
