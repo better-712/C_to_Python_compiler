@@ -1,0 +1,6 @@
+int a;
+int main(){
+int b;
+int c=0;
+b=3;
+}
