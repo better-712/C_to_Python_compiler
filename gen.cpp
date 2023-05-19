@@ -694,10 +694,6 @@ namespace SPL {
   char* cgen_CompSt(Node* tree, int indent){
     char *DefList,*StmtList,*result;
     int l_DefList,l_StmtList;
-    DefList=cgen_DefList(tree->children[1],indent);
-    l_DefList=strlen(DefList);
-    StmtList=cgen_StmtList(tree->children[2],indent);
-    l_StmtList=strlen(StmtList);
     
     if(tree->type.compare("SEMI") == 0||l_DefList+l_StmtList==0){
       result = (char*)calloc(indent+7, sizeof(char));
@@ -706,6 +702,12 @@ namespace SPL {
       memcpy(result+1+indent, "pass\n", 5 * sizeof(char));
       return result;
     }
+    
+    DefList=cgen_DefList(tree->children[1],indent);
+    l_DefList=strlen(DefList);
+    StmtList=cgen_StmtList(tree->children[2],indent);
+    l_StmtList=strlen(StmtList);
+    
     
     result = (char*)calloc(l_DefList + 5 +l_StmtList, sizeof(char));
     
