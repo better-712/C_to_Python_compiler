@@ -699,7 +699,7 @@ namespace SPL {
     StmtList=cgen_StmtList(tree->children[2],indent);
     l_StmtList=strlen(StmtList);
     
-    if(l_DefList+l_StmtList==0){
+    if(tree->type.compare("SEMI") == 0||l_DefList+l_StmtList==0){
       result = (char*)calloc(indent+7, sizeof(char));
       result[0] = '\n';
       memset(result+1, ' ', indent * sizeof(char));
