@@ -84,12 +84,12 @@ namespace SPL {
   
   int analyze_Specifier_ExtDecList_SEMI (Node* tree){
     printf("analyze_Specifier_ExtDecList_SEMI\n");
-    if (node->children[0]->children[0]->type.compare("TYPE") == 0) {
+    if (tree->children[0]->children[0]->type.compare("TYPE") == 0) {
         // global puretype variables
-        extDefVisit_SES_PureType(node);
+        extDefVisit_SES_PureType(tree);
     } else {
         //global struct def and varis
-        extDefVisit_SES_StructType(node);
+        extDefVisit_SES_StructType(tree);
         
     }
     return 0;
