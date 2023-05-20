@@ -22,6 +22,10 @@ namespace SPL {
         return decs;
     }
   
+  int analyze_Int (Node* tree) {
+    return std::stoi(tree->value);
+  }
+  
   void record_Spec(Node* tree){
     //to do for struct
     
@@ -36,6 +40,7 @@ namespace SPL {
         cur_specifier.type=CHAR;
      // std::cout<<cur_spec.id<<std::endl;
     }else{
+//todo
       //StructSpecifier
       //STRUCT ID
       
@@ -80,39 +85,30 @@ namespace SPL {
   
   void analyze_VarDec(Node *tree) {
     printf("analyze_VarDec\n");
+    std::string name=tree->children[0]->value;
+    int line_no=tree->children[0]->line_no;
+    Symbol* a=new Symbol;
+    a->name=name;
+    a->line_no=line_no;
+    a->type=cur_specifier.type;
+    a->tag=cur_specifier.tag;
     if(tree->children.size() == 3)//size not sure
     {
-//       char *id;
-//       int l_id;
-//       id = cgen_VarDec(tree->children[0]);
-//       l_id= strlen(id);
-//       result = (char*)calloc(l_id + 1, sizeof(char));
-//       memcpy(result, id, l_id * sizeof(char));
-      
+      a->type=ARRAY;
+      a->size=-1;
+      printf("size -1\n");
     }else if(tree->children.size() == 4)
     {
-      
-//       //arr
-//       cur_spec.type=ARRAY;
-//       //value
-//       cur_spec.id=in;
-      
-    }else{
-      std::string name=tree->children[0]->value;
-      int line_no=tree->children[0]->line_no;
-      //std::cout<<"name:"<<name<<std::endl;
-      if(cur_table->table.count(name) != 0){
-        std::cout<<"VariableRedefined:"<<name<<std::endl;
-      }else{
-        Symbol* a=new Symbol;
-        a->name=name;
-        a->line_no=line_no;
-        a->type=cur_specifier.type;
-        a->tag=cur_specifier.tag;
-        cur_table->table[name]=a;
-      }     
-      
+      a->type=ARRAY;
+      a->size=analyze_Int(tree->children[2]);
+      printf("size %d\n",a->size);
     }
+      //std::cout<<"name:"<<name<<std::endl;
+    if(cur_table->table.count(name) != 0){
+      std::cout<<"VariableRedefined:"<<name<<std::endl;
+    }else
+      cur_table->table[name]=a;
+  
   }
   
   void analyze_ExtDecList(Node *tree) {
