@@ -89,7 +89,7 @@ namespace SPL {
     //std::cout<<"name:"<<name<<std::endl;
     if(cur_table->table.count(a->name) != 0){
       //undef array 
-      if(table[a->name]->type==a->type&&table[a->name]->size==-1)
+      if(cur_table->table[a->name]->type==a->type&&cur_table->table[a->name]->size==-1)
         cur_table->table[a->name]=a;
       else
         std::cout<<"VariableRedefined:"<<a->name<<std::endl;
