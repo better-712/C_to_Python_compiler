@@ -80,6 +80,38 @@ namespace SPL {
     std::cout<<"extDecList: "<<extDecList->type<<std::endl;
     
 }
+  void extDefVisit_SES_StructType(Node *node) {
+//     string structName = std::get<string>(node->get_nodes(0, 0, 1)->value);
+//     Node *extDefList = node->get_nodes(1);
+//     string variableName = getStrValueFromExtDecList(extDefList);
+//     extDefVisit_SS(node);
+//     if (symbolTable.count(structName) == 0) {
+//         structNoDefinition(std::get<int>(node->value),structName);
+//         // but this do not need to print, it use to happen is extDefVisit_SS;
+//         // do not match there
+//         //structRedefined(std::get<int>(node->value), structName);
+//     } else {
+//         do {
+//             if (symbolTable.count(variableName) != 0) {
+//                 variableRedefined(std::get<int>(node->value), variableName);
+//             }
+//             if (extDefList->get_nodes(0)->nodes.size() == 1) {
+//                 //Struct with variable definition
+//                 symbolTable[variableName] = symbolTable[structName];
+//             } else {
+//                 //Struct with variable definition - with Array
+//                 symbolTable[variableName] = new Type(variableName, CATEGORY::ARRAY,
+//                                                      getArrayFromVarDec(extDefList->get_nodes(0),
+//                                                                         symbolTable[structName]));
+//             }
+//             if (extDefList->nodes.size() == 1) {
+//                 return;
+//             }
+//             extDefList = extDefList->get_nodes(2);
+//             variableName = getStrValueFromExtDecList(extDefList);
+//         } while (true);
+//     }
+}
 
   
   int analyze_Specifier_ExtDecList_SEMI (Node* tree){
