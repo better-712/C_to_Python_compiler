@@ -1,2 +1,4 @@
-char age;
-int func(int arg){}
+struct age{
+int a[5];
+int b;
+};
