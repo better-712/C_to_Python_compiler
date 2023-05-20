@@ -24,35 +24,7 @@ namespace SPL {
     return 0;
   }
   
-  void defPureTypeVisit(Node *node) {
-    Node *decList = node->get_nodes(1);
-    string name = getStrValueFromDecList(decList);
-    auto _type = snt[std::get<string>(node->get_nodes(0, 0)->value)];
-    do {
-        if (symbolTable.count(name) != 0) {
-            variableRedefined(std::get<int>(node->value), name);
-        }
-        const auto &PrimitiveType = Type::getPrimitiveType(_type);
-        if (decList->get_nodes(0, 0)->nodes.size() == 1) {
-            symbolTable[name] = PrimitiveType;
-            if (decList->get_nodes(0)->nodes.size() == 3) {
-                checkTypeMatchType(symbolTable[std::get<string>(decList->get_nodes(0, 0, 0)->value)],
-                                   decList->get_nodes(0, 2)->type, std::get<int>(node->value), nonMatchTypeBothSide);
-            }
-        } else {
-            symbolTable[name] = new Type(name, CATEGORY::ARRAY,
-                                         getArrayFromVarDec(decList->get_nodes(0, 0), PrimitiveType));
-            if (decList->get_nodes(0)->nodes.size() == 3) {
-                nonMatchTypeBothSide(std::get<int>(decList->value));
-            }
-        }
-        if (decList->nodes.size() == 1) {
-            break;
-        }
-        decList = decList->get_nodes(2);
-        name = getStrValueFromDecList(decList);
-    } while (true);
-}
+  
   
   void extDefVisit_SES_PureType(Node *tree) {
 //     Node *extDecList = node->get_nodes(1);
