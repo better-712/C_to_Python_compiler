@@ -27,19 +27,19 @@ namespace SPL {
     
     if(tree->children[0]->type.compare("TYPE")==0){
       
-      cur_spec.id=(char*)(tree->children[0]->value).c_str();
+      cur_specifier.id=(char*)(tree->children[0]->value).c_str();
       if(tree->children[0]->value.compare("int")==0)
-        cur_spec.type=INT;
+        cur_specifier.type=INT;
       if(tree->children[0]->value.compare("float")==0)
-        cur_spec.type=FLOAT;
+        cur_specifier.type=FLOAT;
       if(tree->children[0]->value.compare("char")==0)
-        cur_spec.type=CHAR;
+        cur_specifier.type=CHAR;
      // std::cout<<cur_spec.id<<std::endl;
     }else{
       //StructSpecifier
       //STRUCT ID
       
-      cur_spec.type=STRUCT;
+      cur_specifier.type=STRUCT;
       //cur_spec.id=cgen_ID(tree->children[0]->children[1]);
      // std::cout<<"cur_spec.id:"<<cur_spec.id<<"cur_spec.type:"<<cur_spec.type<<std::endl;
     }
