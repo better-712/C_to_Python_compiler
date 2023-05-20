@@ -22,12 +22,12 @@ namespace SPL {
         return decs;
     }
   
-  void record_Specifier(Node* tree){
+  void record_Spec(Node* tree){
     //to do for struct
     
     if(tree->children[0]->type.compare("TYPE")==0){
       
-      cur_specifier.id=(char*)(tree->children[0]->value).c_str();
+      //cur_specifier.id=(char*)(tree->children[0]->value).c_str();
       if(tree->children[0]->value.compare("int")==0)
         cur_specifier.type=INT;
       if(tree->children[0]->value.compare("float")==0)
@@ -46,7 +46,7 @@ namespace SPL {
     
   }
   
-//   void eliminate_Specifier(){
+//   void eliminate_Spec(){
 //     cur_specifier = Symbol_Type();
 //   }
   
