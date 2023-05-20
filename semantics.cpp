@@ -22,6 +22,17 @@ namespace SPL {
         return decs;
     }
   
+  void enter_scope(){
+    Symbol_Table *top=new Symbol_Table;
+    top->next=cur_table;
+    cur_table=top;
+    printf("inter");
+  }
+  void pop_scope(){
+    cur_table=cur_table->next;
+    printf("pop");
+  }
+  
   int analyze_Int (Node* tree) {
     return std::stoi(tree->value);
   }
@@ -174,7 +185,9 @@ namespace SPL {
       a->line_no=line_no;
       
       //enter scope
+      enter_scope();
       
+      pop_scope();
       
       cur_table->insert(a);
       
