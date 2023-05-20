@@ -6,6 +6,12 @@
 namespace SPL {
   using namespace std;
   
+  struct Type{
+    int type;
+    string tag="tag";
+    vector<int> parm_type;
+  };
+  
   class Symbol_Table;
   
   class Symbol {
