@@ -61,27 +61,7 @@ namespace SPL {
     return 0;
   }
   
-      //     Node *extDecList = node->get_nodes(1);
-//     string name = getStrValueFromExtDecList(extDecList);
-//     auto _type = snt[std::get<string>(node->get_nodes(0, 0)->value)];
-//     do {
-//         if (symbolTable.count(name) != 0) {
-//             variableRedefined(std::get<int>(node->value), name);
-//         }
-//         const auto &PrimitiveType = Type::getPrimitiveType(_type);
-//         if (extDecList->get_nodes(0, 0)->nodes.empty()) {
-//             symbolTable[name] = PrimitiveType;
-//         } else {
-//             symbolTable[name] = new Type(name, CATEGORY::ARRAY,
-//                                          getArrayFromVarDec(extDecList->get_nodes(0),
-//                                                             PrimitiveType));
-//         }
-//         if (extDecList->nodes.size() == 1) {
-//             break;
-//         }
-//         extDecList = extDecList->get_nodes(2);
-//         name = getStrValueFromExtDecList(extDecList);
-//     } while (true);
+
   
   void analyze_VarDec(Node *tree) {
     printf("analyze_VarDec\n");
@@ -96,19 +76,23 @@ namespace SPL {
       a->name=tree->children[0]->children[0]->value;
       a->type=ARRAY;
       a->size=-1;
-      printf("size -1\n");
+      //printf("size -1\n");
     }else if(tree->children.size() == 4){
       a->name=tree->children[0]->children[0]->value;
       a->type=ARRAY;
       a->size=analyze_Int(tree->children[2]);
-      printf("size %d\n",a->size);
+     // printf("size %d\n",a->size);
     }else{
       a->name=tree->children[0]->value;
     }
    
-      //std::cout<<"name:"<<name<<std::endl;
+    //std::cout<<"name:"<<name<<std::endl;
     if(cur_table->table.count(a->name) != 0){
-      std::cout<<"VariableRedefined:"<<name<<std::endl;
+      //undef array 
+      if(table[a->name]->type==a->type&&table[a->name]->size==-1)
+        cur_table->table[a->name]=a;
+      else
+        std::cout<<"VariableRedefined:"<<a->name<<std::endl;
     }else
       cur_table->table[a->name]=a;
   
