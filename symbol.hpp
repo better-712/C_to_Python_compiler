@@ -9,7 +9,8 @@ namespace SPL {
   struct Symbol_Type{
     int type;
     string tag="tag";
-    vector<int> parm_type;
+    int size=0;
+    vector<Symbol_Type> parm_type;
   };
   
   class Symbol_Table;
@@ -18,15 +19,7 @@ namespace SPL {
     public:
         string name;
     //funtion return type 
-        int type;
-    
-    //for struct
-        string tag;
-    
-    //fun or struct
-        vector<int> parm_type;
-    
-        int size=0;
+        Symbol_Type symbol_type;
 
         int line_no = -1;
     };
