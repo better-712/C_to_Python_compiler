@@ -85,24 +85,27 @@ namespace SPL {
   
   void analyze_VarDec(Node *tree) {
     printf("analyze_VarDec\n");
-    std::string name=tree->children[0]->value;
+    
     int line_no=tree->children[0]->line_no;
     Symbol* a=new Symbol;
-    a->name=name;
     a->line_no=line_no;
     a->type=cur_specifier.type;
     a->tag=cur_specifier.tag;
-    if(tree->children.size() == 3)//size not sure
-    {
+    //size not sure
+    if(tree->children.size() == 3){
+      a->name=tree->children[0]->children[0]->value;
       a->type=ARRAY;
       a->size=-1;
       printf("size -1\n");
-    }else if(tree->children.size() == 4)
-    {
+    }else if(tree->children.size() == 4){
+      a->name=tree->children[0]->children[0]->value;
       a->type=ARRAY;
       a->size=analyze_Int(tree->children[2]);
       printf("size %d\n",a->size);
+    }else{
+      a->name=tree->children[0]->value;
     }
+   
       //std::cout<<"name:"<<name<<std::endl;
     if(cur_table->table.count(name) != 0){
       std::cout<<"VariableRedefined:"<<name<<std::endl;
