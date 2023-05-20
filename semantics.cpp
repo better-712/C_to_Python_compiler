@@ -46,9 +46,9 @@ namespace SPL {
     
   }
   
-//   void eliminate_Spec(){
-//     cur_specifier = Symbol_Type();
-//   }
+  void eliminate_Spec(){
+    cur_specifier = Symbol_Type();
+  }
   
   int analyze_Specifier_FunDec_CompSt (Node* tree){
     printf("analyze_Specifier_FunDec_CompSt\n");
@@ -80,7 +80,10 @@ namespace SPL {
 //         name = getStrValueFromExtDecList(extDecList);
 //     } while (true);
     Node *extDecList = tree->children[1];
-    
+    record_Spec(tree->children[0]);
+    std::cout<<"cur_specifier.type: "<<cur_specifier.type<<std::endl;
+    eliminate_Spec();
+    std::cout<<"cur_specifier.type: "<<cur_specifier.type<<std::endl;
     std::cout<<"FLOAT: "<<FLOAT<<std::endl;
     
 }
