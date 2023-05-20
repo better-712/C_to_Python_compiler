@@ -69,18 +69,18 @@ namespace SPL {
     int line_no=tree->children[0]->line_no;
     Symbol* a=new Symbol;
     a->line_no=line_no;
-    a->type=cur_specifier.type;
-    a->tag=cur_specifier.tag;
+    a->symbol_type.type=cur_specifier.type;
+    a->symbol_type.tag=cur_specifier.tag;
     //only used in function.   to do:must follow by=
     if(tree->children.size() == 3){
       a->name=tree->children[0]->children[0]->value;
-      a->symbol_type->type=ARRAY;
-      a->symbol_type->size=-1;
+      a->symbol_type.type=ARRAY;
+      a->symbol_type.size=-1;
       //printf("size -1\n");
     }else if(tree->children.size() == 4){
       a->name=tree->children[0]->children[0]->value;
-      a->symbol_type->type=ARRAY;
-      a->symbol_type->size=analyze_Int(tree->children[2]);
+      a->symbol_type.type=ARRAY;
+      a->symbol_type.size=analyze_Int(tree->children[2]);
      // printf("size %d\n",a->size);
     }else{
       a->name=tree->children[0]->value;
@@ -170,7 +170,7 @@ namespace SPL {
     if(tree->children.size()==5){
       Symbol* a=new Symbol;
       a->name=name;
-      a->symbol_type->tag=name;
+      a->symbol_type.tag=name;
       a->line_no=line_no;
       
       //enter scope
