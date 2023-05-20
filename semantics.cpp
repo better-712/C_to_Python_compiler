@@ -26,11 +26,11 @@ namespace SPL {
     Symbol_Table *top=new Symbol_Table;
     top->next=cur_table;
     cur_table=top;
-    printf("inter");
+    printf("enter_scope\n");
   }
   void pop_scope(){
     cur_table=cur_table->next;
-    printf("pop");
+    printf("pop_scope\n");
   }
   
   int analyze_Int (Node* tree) {
@@ -169,6 +169,11 @@ namespace SPL {
     }
     return 0;
   }
+  int analyze_DefList (Node* tree){
+    printf("analyze_DefList\n");
+    std::cout<<"tree:"<<tree->type<<std::endl;
+  }
+  
   int analyze_StructSpecifier (Node* tree){
     printf("analyze_StructSpecifier\n");
     int result=0;
@@ -186,6 +191,8 @@ namespace SPL {
       
       //enter scope
       enter_scope();
+      
+      analyze_DefList(tree->children[3]);
       
       pop_scope();
       
