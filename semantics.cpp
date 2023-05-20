@@ -24,8 +24,74 @@ namespace SPL {
     return 0;
   }
   
+  void defPureTypeVisit(Node *node) {
+    Node *decList = node->get_nodes(1);
+    string name = getStrValueFromDecList(decList);
+    auto _type = snt[std::get<string>(node->get_nodes(0, 0)->value)];
+    do {
+        if (symbolTable.count(name) != 0) {
+            variableRedefined(std::get<int>(node->value), name);
+        }
+        const auto &PrimitiveType = Type::getPrimitiveType(_type);
+        if (decList->get_nodes(0, 0)->nodes.size() == 1) {
+            symbolTable[name] = PrimitiveType;
+            if (decList->get_nodes(0)->nodes.size() == 3) {
+                checkTypeMatchType(symbolTable[std::get<string>(decList->get_nodes(0, 0, 0)->value)],
+                                   decList->get_nodes(0, 2)->type, std::get<int>(node->value), nonMatchTypeBothSide);
+            }
+        } else {
+            symbolTable[name] = new Type(name, CATEGORY::ARRAY,
+                                         getArrayFromVarDec(decList->get_nodes(0, 0), PrimitiveType));
+            if (decList->get_nodes(0)->nodes.size() == 3) {
+                nonMatchTypeBothSide(std::get<int>(decList->value));
+            }
+        }
+        if (decList->nodes.size() == 1) {
+            break;
+        }
+        decList = decList->get_nodes(2);
+        name = getStrValueFromDecList(decList);
+    } while (true);
+}
+  
+  void extDefVisit_SES_PureType(Node *tree) {
+//     Node *extDecList = node->get_nodes(1);
+//     string name = getStrValueFromExtDecList(extDecList);
+//     auto _type = snt[std::get<string>(node->get_nodes(0, 0)->value)];
+//     do {
+//         if (symbolTable.count(name) != 0) {
+//             variableRedefined(std::get<int>(node->value), name);
+//         }
+//         const auto &PrimitiveType = Type::getPrimitiveType(_type);
+//         if (extDecList->get_nodes(0, 0)->nodes.empty()) {
+//             symbolTable[name] = PrimitiveType;
+//         } else {
+//             symbolTable[name] = new Type(name, CATEGORY::ARRAY,
+//                                          getArrayFromVarDec(extDecList->get_nodes(0),
+//                                                             PrimitiveType));
+//         }
+//         if (extDecList->nodes.size() == 1) {
+//             break;
+//         }
+//         extDecList = extDecList->get_nodes(2);
+//         name = getStrValueFromExtDecList(extDecList);
+//     } while (true);
+    Node *extDecList = tree->children[1];
+    std::cout<<"extDecList: "<<extDecList->type<<std::endl;
+    
+}
+
+  
   int analyze_Specifier_ExtDecList_SEMI (Node* tree){
     printf("analyze_Specifier_ExtDecList_SEMI\n");
+    if (node->children[0]->children[0]->type.compare("TYPE") == 0) {
+        // global puretype variables
+        extDefVisit_SES_PureType(node);
+    } else {
+        //global struct def and varis
+        extDefVisit_SES_StructType(node);
+        
+    }
     return 0;
   }
   int analyze_StructSpecifier (Node* tree){
