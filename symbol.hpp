@@ -25,6 +25,8 @@ namespace SPL {
     
     //fun or struct
         vector<int> parm_type;
+    
+        int size=0;
 
         int line_no = -1;
     };
