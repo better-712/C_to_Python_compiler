@@ -7,7 +7,7 @@
 namespace SPL {
   //INT FLOAT CHAR ARRAY  STRUCT
   Symbol_Table *cur_table=new Symbol_Table;
-  
+  Type cur_specifier;
   std::vector<Node *>* list_to_e(Node *node){
         auto *decs = new std::vector<Node *>{};
         decs->push_back(node->children.front());
@@ -49,7 +49,8 @@ namespace SPL {
 //         name = getStrValueFromExtDecList(extDecList);
 //     } while (true);
     Node *extDecList = tree->children[1];
-    std::cout<<"extDecList: "<<extDecList->type<<std::endl;
+    
+    std::cout<<"cur_specifier: "<<cur_specifier.tag<<std::endl;
     
 }
   void extDefVisit_SES_StructType(Node *node) {
