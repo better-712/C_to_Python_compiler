@@ -6,8 +6,11 @@
 #include "symbol.hpp"
 namespace SPL {
   //INT FLOAT CHAR ARRAY  STRUCT
+  extern int INT,FLOAT,CHAR,STRUCT,ARRAY;
+  
   Symbol_Table *cur_table=new Symbol_Table;
   Symbol_Type cur_specifier;
+  
   std::vector<Node *>* list_to_e(Node *node){
         auto *decs = new std::vector<Node *>{};
         decs->push_back(node->children.front());
@@ -18,6 +21,34 @@ namespace SPL {
         }
         return decs;
     }
+  
+  void record_Specifier(Node* tree){
+    //to do for struct
+    
+    if(tree->children[0]->type.compare("TYPE")==0){
+      
+      cur_spec.id=(char*)(tree->children[0]->value).c_str();
+      if(tree->children[0]->value.compare("int")==0)
+        cur_spec.type=INT;
+      if(tree->children[0]->value.compare("float")==0)
+        cur_spec.type=FLOAT;
+      if(tree->children[0]->value.compare("char")==0)
+        cur_spec.type=CHAR;
+     // std::cout<<cur_spec.id<<std::endl;
+    }else{
+      //StructSpecifier
+      //STRUCT ID
+      
+      cur_spec.type=STRUCT;
+      //cur_spec.id=cgen_ID(tree->children[0]->children[1]);
+     // std::cout<<"cur_spec.id:"<<cur_spec.id<<"cur_spec.type:"<<cur_spec.type<<std::endl;
+    }
+    
+  }
+  
+//   void eliminate_Specifier(){
+//     cur_specifier = Symbol_Type();
+//   }
   
   int analyze_Specifier_FunDec_CompSt (Node* tree){
     printf("analyze_Specifier_FunDec_CompSt\n");
@@ -50,7 +81,7 @@ namespace SPL {
 //     } while (true);
     Node *extDecList = tree->children[1];
     
-    std::cout<<"cur_specifier: "<<cur_specifier.tag<<std::endl;
+    std::cout<<"FLOAT: "<<FLOAT<<std::endl;
     
 }
   void extDefVisit_SES_StructType(Node *node) {
