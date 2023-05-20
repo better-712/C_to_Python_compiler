@@ -52,13 +52,11 @@ namespace SPL {
   
   int analyze_Specifier_FunDec_CompSt (Node* tree){
     printf("analyze_Specifier_FunDec_CompSt\n");
+    
     return 0;
   }
   
-  
-  
-  void extDefVisit_SES_PureType(Node *tree) {
-//     Node *extDecList = node->get_nodes(1);
+      //     Node *extDecList = node->get_nodes(1);
 //     string name = getStrValueFromExtDecList(extDecList);
 //     auto _type = snt[std::get<string>(node->get_nodes(0, 0)->value)];
 //     do {
@@ -79,12 +77,57 @@ namespace SPL {
 //         extDecList = extDecList->get_nodes(2);
 //         name = getStrValueFromExtDecList(extDecList);
 //     } while (true);
-    Node *extDecList = tree->children[1];
+  
+  void analyze_VarDec(Node *tree) {
+    printf("analyze_VarDec\n");
+    if(tree->children.size() == 3)//size not sure
+    {
+//       char *id;
+//       int l_id;
+//       id = cgen_VarDec(tree->children[0]);
+//       l_id= strlen(id);
+//       result = (char*)calloc(l_id + 1, sizeof(char));
+//       memcpy(result, id, l_id * sizeof(char));
+      
+    }else if(tree->children.size() == 4)
+    {
+      
+//       //arr
+//       cur_spec.type=ARRAY;
+//       //value
+//       cur_spec.id=in;
+      
+    }else{
+      std::string name=tree->children[0]->value;
+      std::cout<<"name:"<<name<<std::endl;
+//       cur_table
+//       if (symbolTable.count(name) != 0) {
+//             variableRedefined(std::get<int>(node->value), name);
+//       }else {
+//         symbolTable[name] = new Type(name, CATEGORY::ARRAY,
+//                                          getArrayFromVarDec(extDecList->get_nodes(0),
+//                                                             PrimitiveType));
+//       }       
+      
+    }
+  }
+  
+  void analyze_ExtDecList(Node *tree) {
+    printf("analyze_ExtDecList\n");
+    analyze_VarDec(tree->children[0]);
+    if(tree->children.size() == 3){
+      analyze_ExtDecList(tree->children[2]);
+    }
+  }
+  
+  void extDefVisit_SES_PureType(Node *tree) {    
+    //Node *extDecList = tree->children[1];
     record_Spec(tree->children[0]);
-    std::cout<<"cur_specifier.type: "<<cur_specifier.type<<std::endl;
+    analyze_ExtDecList(tree->children[1]);  
+    //std::cout<<"cur_specifier.type: "<<cur_specifier.type<<std::endl;
     eliminate_Spec();
-    std::cout<<"cur_specifier.type: "<<cur_specifier.type<<std::endl;
-    std::cout<<"FLOAT: "<<FLOAT<<std::endl;
+    //std::cout<<"cur_specifier.type: "<<cur_specifier.type<<std::endl;
+    //std::cout<<"FLOAT: "<<FLOAT<<std::endl;
     
 }
   void extDefVisit_SES_StructType(Node *node) {
