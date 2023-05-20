@@ -107,10 +107,10 @@ namespace SPL {
     }
    
       //std::cout<<"name:"<<name<<std::endl;
-    if(cur_table->table.count(name) != 0){
+    if(cur_table->table.count(a->name) != 0){
       std::cout<<"VariableRedefined:"<<name<<std::endl;
     }else
-      cur_table->table[name]=a;
+      cur_table->table[a->name]=a;
   
   }
   
