@@ -6,7 +6,7 @@
 namespace SPL {
   using namespace std;
   
-  struct Type{
+  struct Symbol_Type{
     int type;
     string tag="tag";
     vector<int> parm_type;
