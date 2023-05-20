@@ -71,16 +71,16 @@ namespace SPL {
     a->line_no=line_no;
     a->type=cur_specifier.type;
     a->tag=cur_specifier.tag;
-    //size not sure
+    //only used in function.   to do:must follow by=
     if(tree->children.size() == 3){
       a->name=tree->children[0]->children[0]->value;
-      a->type=ARRAY;
-      a->size=-1;
+      a->symbol_type->type=ARRAY;
+      a->symbol_type->size=-1;
       //printf("size -1\n");
     }else if(tree->children.size() == 4){
       a->name=tree->children[0]->children[0]->value;
-      a->type=ARRAY;
-      a->size=analyze_Int(tree->children[2]);
+      a->symbol_type->type=ARRAY;
+      a->symbol_type->size=analyze_Int(tree->children[2]);
      // printf("size %d\n",a->size);
     }else{
       a->name=tree->children[0]->value;
@@ -88,11 +88,7 @@ namespace SPL {
    
     //std::cout<<"name:"<<name<<std::endl;
     if(cur_table->table.count(a->name) != 0){
-      //undef array 
-      if(cur_table->table[a->name]->type==a->type&&cur_table->table[a->name]->size==-1)
-        cur_table->table[a->name]=a;
-      else
-        std::cout<<"VariableRedefined:"<<a->name<<std::endl;
+      std::cout<<"VariableRedefined:"<<a->name<<std::endl;
     }else
       cur_table->table[a->name]=a;
   
@@ -174,16 +170,17 @@ namespace SPL {
     if(tree->children.size()==5){
       Symbol* a=new Symbol;
       a->name=name;
+      a->symbol_type->tag=name;
       a->line_no=line_no;
+      
+      //enter scope
+      
+      
       cur_table->insert(a);
       
     }else if(tree->children.size()==3)//STRUCT ID
     {
-      
-//       char * DefList;
-//       int l_DefList;
-//       DefList=cgen_DefList(tree->children[3],indent+8);
-//       l_DefList=strlen(DefList);                        
+                           
     }
     
     return result;
