@@ -33,10 +33,6 @@ namespace SPL {
     printf("pop_scope\n");
   }
   
-  int analyze_Int (Node* tree) {
-    return std::stoi(tree->value);
-  }
-  
   void record_Spec(Node* tree){
     //to do for struct
     
@@ -65,6 +61,11 @@ namespace SPL {
   void eliminate_Spec(){
     cur_specifier = Symbol_Type();
   }
+  
+  int analyze_Int (Node* tree) {
+    return std::stoi(tree->value);
+  }
+  
   
   int analyze_Specifier_FunDec_CompSt (Node* tree){
     printf("analyze_Specifier_FunDec_CompSt\n");
@@ -169,9 +170,36 @@ namespace SPL {
     }
     return 0;
   }
-  int analyze_DefList (Node* tree){
+  
+  void analyze_Dec (Node* tree){
+    printf("analyze_Dec\n");
+  }
+  
+  void analyze_DecList (Node* tree){
+    printf("analyze_DecList\n");
+    analyze_Dec(tree->children[0]);
+    if(tree->children.size() == 3){
+      analyze_DecList(tree->children[2]);
+    }
+  }
+  
+  void analyze_Def (Node* tree){
+    printf("analyze_Def\n");
+    //std::cout<<"tree:"<<tree->type<<std::endl;
+    
+    record_Spec(tree->children[0]);
+    DecList = analyze_DecList(tree->children[1]);
+    eliminate_Spec();
+  }
+  
+  void analyze_DefList (Node* tree){
     printf("analyze_DefList\n");
-    std::cout<<"tree:"<<tree->type<<std::endl;
+    //std::cout<<"tree:"<<tree->type<<std::endl;
+    
+    if(tree->type.compare("empty") == 0)return;
+    analyze_Def(tree->children[0]);
+    analyze_DefList(tree->children[1]);
+    return;    
   }
   
   int analyze_StructSpecifier (Node* tree){
@@ -198,7 +226,7 @@ namespace SPL {
       
       cur_table->insert(a);
       
-    }else if(tree->children.size()==3)//STRUCT ID
+    }else if(tree->children.size()==3)//STRUCT ID  to do:record
     {
                            
     }
