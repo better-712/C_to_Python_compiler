@@ -99,7 +99,7 @@ namespace SPL {
       
     }else{
       std::string name=tree->children[0]->value;
-      int line_no=tree->children[1]->line_no;
+      int line_no=tree->children[0]->line_no;
       //std::cout<<"name:"<<name<<std::endl;
       if(cur_table->table.count(name) != 0){
         std::cout<<"VariableRedefined:"<<name<<std::endl;
@@ -107,8 +107,8 @@ namespace SPL {
         Symbol* a=new Symbol;
         a->name=name;
         a->line_no=line_no;
-        a->type=cur_specifier->type;
-        a->tag=cur_specifier->tag;
+        a->type=cur_specifier.type;
+        a->tag=cur_specifier.tag;
         cur_table->table[name]=a;
       }     
       
