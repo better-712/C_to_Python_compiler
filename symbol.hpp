@@ -13,7 +13,7 @@ namespace SPL {
     //only for struct
     string tag="tag";
     int size=0;
-    vector<Symbol> parm_type;
+    vector<Symbol*> parm_type;
   };
   
   
