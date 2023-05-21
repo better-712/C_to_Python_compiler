@@ -1,8 +1,8 @@
 struct people{
 int a;
-int b;
+float b;
 };
 struct person{
 struct people m;
-int n;
+int n=m.b;
 };
