@@ -6,10 +6,24 @@
 #include "symbol.hpp"
 namespace SPL {
   //INT FLOAT CHAR ARRAY  STRUCT
-  extern int INT,FLOAT,CHAR,STRUCT,ARRAY;
+  #define _int 0
+  #define _float 0
+  #define undef 0
   
+  extern int INT,FLOAT,CHAR,STRUCT,ARRAY;
+  int undef=-1;
   Symbol_Table *cur_table=new Symbol_Table;
   Symbol_Type cur_specifier;
+  
+  int op[5][5] = {
+    /*                 int       float    char     struct    array     */
+    /* int    */    { _int,      _float,  undef,   undef,   undef},
+    /* float  */    { _float,    _float,  undef,   undef,   undef},
+    /* char */      { undef,     undef,   undef,   undef,   undef},
+    /* struct   */  { undef,     undef,   undef,   undef,   undef},
+    /* array   */   { undef,     undef,   undef,   undef,   undef},
+    
+};
   
   std::vector<Node *>* list_to_e(Node *node){
         auto *decs = new std::vector<Node *>{};
@@ -86,7 +100,8 @@ namespace SPL {
       return cur_table->table[tree->value]->symbol_type;
     }
     else{
-      std::cout<<"VariableUndefined:"<<a->name<<std::endl;
+      //to do
+      std::cout<<"VariableUndefined:"<<tree->value<<std::endl;
     }
     return res;
   }
@@ -106,6 +121,15 @@ namespace SPL {
         return analyze_FLOAT(tree->children[0]);
     if (tree->children[0]->type.compare("CHAR") == 0)
         return analyze_CHAR(tree->children[0]);
+    if (tree->children.size()==3&&tree->children[0]->type.compare("Exp") == 0&&tree->children[2]->type.compare("Exp") == 0){
+      Symbol_Type res;
+      Symbol_Type exp1=analyze_Exp(tree->children[0]);
+      Symbol_Type exp2=analyze_Exp(tree->children[2]);
+      res.type=op[exp1.type][exp2.type];
+      std::cout<<"res.type:"<<res.type<<std::endl;
+      return res;
+    }
+    
   }
   
   Symbol_Type analyze_VarDec(Node *tree) {
