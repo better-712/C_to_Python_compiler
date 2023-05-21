@@ -8,9 +8,10 @@ namespace SPL {
   
   struct Symbol_Type{
     int type;
+    //only for struct
     string tag="tag";
     int size=0;
-    vector<Symbol_Type> parm_type;
+    vector<Symbol> parm_type;
   };
   
   class Symbol_Table;
