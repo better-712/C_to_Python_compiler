@@ -40,11 +40,11 @@ namespace SPL {
   Symbol find_symbol(std::string name){
     Symbol_Table *level=cur_table;
     do{
-      if(level->table.count(tree->value) != 0){
+      if(level->table.count(name) != 0){
         printf("find symbol\n");
-        return level->table[tree->value];
+        return level->table[name];
       }
-    }while(level.next!=nullptr)
+    }while(level->next!=nullptr);
     
     return nullptr;
   }
