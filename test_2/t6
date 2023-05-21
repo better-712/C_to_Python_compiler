@@ -2,5 +2,5 @@ struct per{
 int a;
 float b;
 char c;
-in d=a.b;
+int d=a.b;
 };
