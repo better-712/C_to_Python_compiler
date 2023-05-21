@@ -39,14 +39,14 @@ namespace SPL {
     }
   Symbol* find_symbol(std::string name){
     Symbol_Table *level=cur_table;
-    do{
+    while(level!=nullptr){
       level->print_table();
       if(level->table.count(name) != 0){
         std::cout<<"find symbol:"<<level->table[name]->name<<std::endl;
         return level->table[name];
       }
       level=level->next;
-    }while(level->next!=nullptr);
+    }
     
     return nullptr;
   }
