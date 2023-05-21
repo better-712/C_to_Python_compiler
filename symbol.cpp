@@ -27,7 +27,7 @@ namespace SPL {
     }
   void Symbol_Table::print_table(){
     for (auto it = table.begin(); it != table.end(); ++it) {
-        std::cout << "name: " << it->first << ", type: " << it->second->symbol_type->type << std::endl;
+        std::cout << "name: " << it->first << ", type: " << it->second->symbol_type.type << std::endl;
     }
   }
 }
