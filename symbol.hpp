@@ -5,6 +5,8 @@
 
 namespace SPL {
   using namespace std;
+  class Symbol_Table;
+  class Symbol;
   
   struct Symbol_Type{
     int type;
@@ -14,7 +16,6 @@ namespace SPL {
     vector<Symbol> parm_type;
   };
   
-  class Symbol_Table;
   
   class Symbol {
     public:
