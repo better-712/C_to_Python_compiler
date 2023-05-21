@@ -311,6 +311,7 @@ namespace SPL {
     if(tree->children.size()==5){
       Symbol* a=new Symbol;
       a->name=name;
+      a->symbol_type.type=STRUCT;
       a->symbol_type.tag=name;
       a->line_no=line_no;
       
