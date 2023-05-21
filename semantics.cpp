@@ -11,7 +11,6 @@ namespace SPL {
   #define undef -1
   
   extern int INT,FLOAT,CHAR,STRUCT,ARRAY;
-  int undef=-1;
   Symbol_Table *cur_table=new Symbol_Table;
   Symbol_Type cur_specifier;
   
