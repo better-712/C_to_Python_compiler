@@ -1,0 +1,8 @@
+struct people{
+int a;
+int b;
+};
+struct person{
+struct people m;
+int n;
+};
