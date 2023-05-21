@@ -37,6 +37,17 @@ namespace SPL {
         }
         return decs;
     }
+  Symbol find_symbol(std::string name){
+    Symbol_Table *level=cur_table;
+    do{
+      if(level->table.count(tree->value) != 0){
+        printf("find symbol\n");
+        return level->table[tree->value];
+      }
+    }while(level.next!=nullptr)
+    
+    return nullptr;
+  }
   
   void enter_scope(){
     Symbol_Table *top=new Symbol_Table;
@@ -99,6 +110,7 @@ namespace SPL {
   Symbol_Type analyze_ID (Node* tree) {
     Symbol_Type res;
     //to do all table
+    Symbol tmp=find_symbol(tree->value);
     if(cur_table->table.count(tree->value) != 0){
       return cur_table->table[tree->value]->symbol_type;
     }
@@ -152,11 +164,11 @@ namespace SPL {
       Symbol_Type exp=analyze_Exp(tree->children[0]);
       
       Symbol_Type ret;
-      for (const auto& element : a->symbol_type->parm_type) {
+      for (const auto& element : exp.parm_type) {
         if(tree->children[2]->value.compare(element->name)==0)
           ret=element->symbol_type;
       }
-      std::cout <<"Dot type: "<< ret->type << std::endl;
+      std::cout <<"Dot type: "<< ret.type << std::endl;
       return ret;
     }
     
