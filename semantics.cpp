@@ -41,7 +41,7 @@ namespace SPL {
     Symbol_Table *level=cur_table;
     do{
       if(level->table.count(name) != 0){
-        printf("find symbol\n");
+        std::cout<<"find symbol:"<<level->table[name]->name<<std::endl;
         return level->table[name];
       }
     }while(level->next!=nullptr);
