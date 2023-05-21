@@ -80,6 +80,16 @@ namespace SPL {
     return res;
   }
   
+  Symbol_Type analyze_ID (Node* tree) {
+    Symbol_Type res;
+    if(cur_table->table.count(tree->value) != 0){
+      return cur_table->table[tree->value]->symbol_type;
+    }
+    else{
+      std::cout<<"VariableUndefined:"<<a->name<<std::endl;
+    }
+    return res;
+  }
   
   int analyze_Specifier_FunDec_CompSt (Node* tree){
     printf("analyze_Specifier_FunDec_CompSt\n");
@@ -90,8 +100,8 @@ namespace SPL {
   Symbol_Type analyze_Exp(Node *tree) {
     if (tree->children[0]->type.compare("INT") == 0)
         return analyze_Int(tree->children[0]);
-//     if (tree->children[0]->type.compare("ID") == 0)
-//         return cgen_ID(tree->children[0]);
+    if (tree->children[0]->type.compare("ID") == 0)
+        return analyze_ID(tree->children[0]);
     if (tree->children[0]->type.compare("FLOAT") == 0)
         return analyze_FLOAT(tree->children[0]);
     if (tree->children[0]->type.compare("CHAR") == 0)
