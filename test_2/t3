@@ -1,4 +1,4 @@
-struct{
+struct per{
 int a=0;
 float b=a;
 };
