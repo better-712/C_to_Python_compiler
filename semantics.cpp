@@ -143,13 +143,21 @@ namespace SPL {
     if (tree->children.size()==2&&tree->children[0]->type.compare("MINUS") == 0){
       return analyze_Exp(tree->children[1]);
     }
-    //Exp LB Exp RB array index
+    //Exp LB Exp RB |array index
     if (tree->children.size()==4&&tree->children[1]->type.compare("LB") == 0&&tree->children[3]->type.compare("RB") == 0){
       
     }
-    //Exp DOT ID struct fun
+    //Exp DOT ID |struct fun
     if (tree->children.size()==3&&tree->children[1]->type.compare("DOT") == 0){
+      Symbol_Type exp=analyze_Exp(tree->children[0]);
       
+      Symbol_Type ret;
+      for (const auto& element : a->symbol_type->parm_type) {
+        if(tree->children[2]->value.compare(element->name)==0)
+          ret=element->symbol_type;
+      }
+      std::cout <<"Dot type: "<< ret->type << std::endl;
+      return ret;
     }
     
   }
@@ -179,10 +187,10 @@ namespace SPL {
       a->name=tree->children[0]->value;
     }
     
-    for (const auto& element : a->symbol_type) {
-        std::cout <<"name: "<< element->name << " ";
-    }
-    std::cout << std::endl;
+//     for (const auto& element : a->symbol_type->parm_type) {
+//         std::cout <<"name: "<< element->name << " ";
+//     }
+//     std::cout << std::endl;
     
     
     //std::cout<<"name:"<<name<<std::endl;
