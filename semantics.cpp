@@ -155,7 +155,7 @@ namespace SPL {
     Symbol* a=new Symbol;
     a->line_no=line_no;
     a->symbol_type.type=cur_specifier.type;
-    a->symbol_type.tag=cur_specifier.tag;
+    
     //only used in function.   to do:must follow by=
     if(tree->children.size() == 3){
       a->name=tree->children[0]->children[0]->value;
@@ -170,6 +170,7 @@ namespace SPL {
     }else{
       a->name=tree->children[0]->value;
     }
+    a->symbol_type.tag=a->name;
    
     //std::cout<<"name:"<<name<<std::endl;
     if(cur_table->table.count(a->name) != 0){
@@ -248,6 +249,8 @@ namespace SPL {
     printf("analyze_Dec\n");
     Symbol_Type var=analyze_VarDec(tree->children[0]);
     Symbol_Type exp=analyze_Exp(tree->children[2]);
+    
+    //to do 
     std::cout<<"var:"<<var.type<<std::endl;
     std::cout<<"exp:"<<exp.type<<std::endl;
   }
@@ -298,11 +301,11 @@ namespace SPL {
       enter_scope();
       
       analyze_DefList(tree->children[3]);
-      int i=0
+      int i=0;
       for (const auto& pair : cur_table->table) {
         a->symbol_type.parm_type.push_back(pair.second->symbol_type);
         
-        std::cout << "type: " << a->symbol_type.parm_type[i].type  << std::endl;
+        std::cout << "type tag: " << a->symbol_type.parm_type[i].tag  << std::endl;
         i++;
       }
       
