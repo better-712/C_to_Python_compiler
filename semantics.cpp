@@ -289,9 +289,9 @@ namespace SPL {
       analyze_DefList(tree->children[3]);
       int i=0;
       for (const auto& pair : cur_table->table) {
-        a->symbol_type.parm_type.push_back(pair.second->symbol_type);
+        a->symbol_type.parm_type.push_back(pair.second);
         
-        std::cout << "type tag: " << a->symbol_type.parm_type[i].tag  << std::endl;
+        std::cout << "type tag: " << a->symbol_type.parm_type[i]->name  << std::endl;
         i++;
       }
       
