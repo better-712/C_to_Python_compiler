@@ -1,0 +1,5 @@
+struct per{
+int a=0;
+int b;
+};
+struct per exp;
