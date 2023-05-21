@@ -1,0 +1,6 @@
+struct per{
+int a;
+float b;
+char c;
+in d=a.b;
+};
