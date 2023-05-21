@@ -62,8 +62,22 @@ namespace SPL {
     cur_specifier = Symbol_Type();
   }
   
-  int analyze_Int (Node* tree) {
-    return std::stoi(tree->value);
+  Symbol_Type analyze_Int (Node* tree) {
+    Symbol_Type res;
+    res.type=INT;
+    return res;
+  }
+  
+  Symbol_Type analyze_FLOAT (Node* tree) {
+    Symbol_Type res;
+    res.type=FLOAT;
+    return res;
+  }
+  
+  Symbol_Type analyze_CHAR (Node* tree) {
+    Symbol_Type res;
+    res.type=CHAR;
+    return res;
   }
   
   
@@ -73,7 +87,16 @@ namespace SPL {
     return 0;
   }
   
-
+  Symbol_Type analyze_Exp(Node *tree) {
+    if (tree->children[0]->type.compare("INT") == 0)
+        return analyze_Int(tree->children[0]);
+//     if (tree->children[0]->type.compare("ID") == 0)
+//         return cgen_ID(tree->children[0]);
+    if (tree->children[0]->type.compare("FLOAT") == 0)
+        return analyze_FLOAT(tree->children[0]);
+    if (tree->children[0]->type.compare("CHAR") == 0)
+        return analyze_CHAR(tree->children[0]);
+  }
   
   void analyze_VarDec(Node *tree) {
     printf("analyze_VarDec\n");
@@ -92,7 +115,7 @@ namespace SPL {
     }else if(tree->children.size() == 4){
       a->name=tree->children[0]->children[0]->value;
       a->symbol_type.type=ARRAY;
-      a->symbol_type.size=analyze_Int(tree->children[2]);
+      a->symbol_type.size=std::stoi(tree->children[2]->value);
      // printf("size %d\n",a->size);
     }else{
       a->name=tree->children[0]->value;
@@ -173,6 +196,9 @@ namespace SPL {
   
   void analyze_Dec (Node* tree){
     printf("analyze_Dec\n");
+    analyze_VarDec(tree->children[0]);
+    Symbol_Type exp=analyze_Exp(tree->children[2]);
+    std::cout<<"exp:"<<exp->type<<std::endl;
   }
   
   void analyze_DecList (Node* tree){
@@ -188,7 +214,7 @@ namespace SPL {
     //std::cout<<"tree:"<<tree->type<<std::endl;
     
     record_Spec(tree->children[0]);
-    DecList = analyze_DecList(tree->children[1]);
+    analyze_DecList(tree->children[1]);
     eliminate_Spec();
   }
   
