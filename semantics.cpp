@@ -98,7 +98,7 @@ namespace SPL {
         return analyze_CHAR(tree->children[0]);
   }
   
-  void analyze_VarDec(Node *tree) {
+  Symbol_Type analyze_VarDec(Node *tree) {
     printf("analyze_VarDec\n");
     
     int line_no=tree->children[0]->line_no;
@@ -126,7 +126,7 @@ namespace SPL {
       std::cout<<"VariableRedefined:"<<a->name<<std::endl;
     }else
       cur_table->table[a->name]=a;
-  
+    return a->symbol_type;
   }
   
   void analyze_ExtDecList(Node *tree) {
@@ -196,9 +196,10 @@ namespace SPL {
   
   void analyze_Dec (Node* tree){
     printf("analyze_Dec\n");
-    analyze_VarDec(tree->children[0]);
+    Symbol_Type var=analyze_VarDec(tree->children[0]);
     Symbol_Type exp=analyze_Exp(tree->children[2]);
-    std::cout<<"exp:"<<exp->type<<std::endl;
+    std::cout<<"var:"<<var.type<<std::endl;
+    std::cout<<"exp:"<<exp.type<<std::endl;
   }
   
   void analyze_DecList (Node* tree){
