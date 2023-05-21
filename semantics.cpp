@@ -299,6 +299,10 @@ namespace SPL {
       
       analyze_DefList(tree->children[3]);
       
+      for (const auto& pair : cur_table->table) {
+        std::cout << "Key: " << pair.first << ", Value: " << pair.second << std::endl;
+      }
+      
       pop_scope();
       
       cur_table->insert(a);
