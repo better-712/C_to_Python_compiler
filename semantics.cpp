@@ -232,13 +232,15 @@ namespace SPL {
   void analyze_Dec (Node* tree){
     printf("analyze_Dec\n");
     Symbol_Type var=analyze_VarDec(tree->children[0]);
-    Symbol_Type exp=analyze_Exp(tree->children[2]);
     
-    std::cout<<"var:"<<var.type<<std::endl;
-    std::cout<<"exp:"<<exp.type<<std::endl;
-    //to do 
-    if(var.type!=exp.type){
-      std::cout<<"type not match:"<<var.type<<std::endl;
+    if(tree->children.size() == 3){
+      Symbol_Type exp=analyze_Exp(tree->children[2]);
+      std::cout<<"var:"<<var.type<<std::endl;
+      std::cout<<"exp:"<<exp.type<<std::endl;
+      //to do 
+      if(var.type!=exp.type){
+        std::cout<<"type not match:"<<var.type<<std::endl;
+      }
     }
     
   }
@@ -293,7 +295,7 @@ namespace SPL {
       for (const auto& pair : cur_table->table) {
         a->symbol_type.parm_type.push_back(pair.second);
         
-        std::cout << "type tag: " << a->symbol_type.parm_type[i]->name  << std::endl;
+        std::cout << "type name: " << a->symbol_type.parm_type[i]->name  << std::endl;
         i++;
       }
       
