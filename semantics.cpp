@@ -6,22 +6,23 @@
 #include "symbol.hpp"
 namespace SPL {
   //INT FLOAT CHAR ARRAY  STRUCT
-  #define _int 0
-  #define _float 0
-  #define undef 0
+  #define _int 1
+  #define _float 2
+  #define undef -1
   
   extern int INT,FLOAT,CHAR,STRUCT,ARRAY;
   int undef=-1;
   Symbol_Table *cur_table=new Symbol_Table;
   Symbol_Type cur_specifier;
   
-  int op[5][5] = {
-    /*                 int       float    char     struct    array     */
-    /* int    */    { _int,      _float,  undef,   undef,   undef},
-    /* float  */    { _float,    _float,  undef,   undef,   undef},
-    /* char */      { undef,     undef,   undef,   undef,   undef},
-    /* struct   */  { undef,     undef,   undef,   undef,   undef},
-    /* array   */   { undef,     undef,   undef,   undef,   undef},
+  int op[6][6] = {
+    /*                 Null     int        float    char     struct    array     */
+    /* Null   */    {  undef,   undef,     undef,   undef,   undef,    undef},
+    /* int    */    {  undef,   _int,      _float,  undef,   undef,   undef},
+    /* float  */    {  undef,   _float,    _float,  undef,   undef,   undef},
+    /* char */      {  undef,   undef,     undef,   undef,   undef,   undef},
+    /* struct   */  {  undef,   undef,     undef,   undef,   undef,   undef},
+    /* array   */   {  undef,   undef,     undef,   undef,   undef,   undef}
     
 };
   
