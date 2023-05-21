@@ -179,7 +179,12 @@ namespace SPL {
       a->name=tree->children[0]->value;
     }
     
-   
+    for (const auto& element : a->symbol_type) {
+        std::cout <<"name: "<< element->name << " ";
+    }
+    std::cout << std::endl;
+    
+    
     //std::cout<<"name:"<<name<<std::endl;
     if(cur_table->table.count(a->name) != 0){
       std::cout<<"VariableRedefined:"<<a->name<<std::endl;
