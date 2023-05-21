@@ -298,9 +298,12 @@ namespace SPL {
       enter_scope();
       
       analyze_DefList(tree->children[3]);
-      
+      int i=0
       for (const auto& pair : cur_table->table) {
-        std::cout << "Key: " << pair.first << ", Value: " << pair.second << std::endl;
+        a->symbol_type.parm_type.push_back(pair.second->symbol_type);
+        
+        std::cout << "type: " << a->symbol_type.parm_type[i].type  << std::endl;
+        i++;
       }
       
       pop_scope();
