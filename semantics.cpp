@@ -161,22 +161,24 @@ namespace SPL {
     Symbol* a=new Symbol;
     a->line_no=line_no;
     a->symbol_type.type=cur_specifier.type;
+    a->symbol_type.parm_type=cur_specifier.parm_type;
+    a->symbol_type.tag=cur_specifier.tag;
     
     //only used in function.   to do:must follow by=
     if(tree->children.size() == 3){
       a->name=tree->children[0]->children[0]->value;
-      a->symbol_type.type=ARRAY;
+//       a->symbol_type.type=ARRAY;
       a->symbol_type.size=-1;
       //printf("size -1\n");
     }else if(tree->children.size() == 4){
       a->name=tree->children[0]->children[0]->value;
-      a->symbol_type.type=ARRAY;
+//       a->symbol_type.type=ARRAY;
       a->symbol_type.size=std::stoi(tree->children[2]->value);
      // printf("size %d\n",a->size);
     }else{
       a->name=tree->children[0]->value;
     }
-    a->symbol_type.tag=a->name;
+    
    
     //std::cout<<"name:"<<name<<std::endl;
     if(cur_table->table.count(a->name) != 0){
