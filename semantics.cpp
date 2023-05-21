@@ -37,7 +37,7 @@ namespace SPL {
         }
         return decs;
     }
-  Symbol find_symbol(std::string name){
+  Symbol* find_symbol(std::string name){
     Symbol_Table *level=cur_table;
     do{
       if(level->table.count(name) != 0){
@@ -110,7 +110,7 @@ namespace SPL {
   Symbol_Type analyze_ID (Node* tree) {
     Symbol_Type res;
     //to do all table
-    Symbol tmp=find_symbol(tree->value);
+    Symbol* tmp=find_symbol(tree->value);
     if(cur_table->table.count(tree->value) != 0){
       return cur_table->table[tree->value]->symbol_type;
     }
