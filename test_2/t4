@@ -1,4 +1,6 @@
 struct per{
 int a=1;
 float b=a*3.7;
+int c=7;
+float d=5.4;
 };
