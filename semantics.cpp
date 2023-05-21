@@ -64,8 +64,8 @@ namespace SPL {
 //todo
       //StructSpecifier
       //STRUCT ID
-      
       cur_specifier.type=STRUCT;
+      cur_specifier=analyze_ID(tree->children[0]->children[1]);
       //cur_spec.id=cgen_ID(tree->children[0]->children[1]);
      // std::cout<<"cur_spec.id:"<<cur_spec.id<<"cur_spec.type:"<<cur_spec.type<<std::endl;
     }
@@ -96,12 +96,16 @@ namespace SPL {
   
   Symbol_Type analyze_ID (Node* tree) {
     Symbol_Type res;
+    //to do all table
     if(cur_table->table.count(tree->value) != 0){
       return cur_table->table[tree->value]->symbol_type;
     }
     else{
       //to do
-      std::cout<<"VariableUndefined:"<<tree->value<<std::endl;
+      if(cur_specifier.type==STRUCT&&cur_specifier.tag.compare("tag")==0)
+        std::cout<<"STRUCTUndefined:"<<tree->value<<std::endl;
+      else
+        std::cout<<"VariableUndefined:"<<tree->value<<std::endl;
     }
     return res;
   }
@@ -137,11 +141,11 @@ namespace SPL {
     if (tree->children.size()==2&&tree->children[0]->type.compare("MINUS") == 0){
       return analyze_Exp(tree->children[1]);
     }
-    //Exp LB Exp RB
+    //Exp LB Exp RB array index
     if (tree->children.size()==4&&tree->children[1]->type.compare("LB") == 0&&tree->children[3]->type.compare("RB") == 0){
       
     }
-    //Exp DOT ID
+    //Exp DOT ID struct fun
     if (tree->children.size()==3&&tree->children[1]->type.compare("DOT") == 0){
       
     }
@@ -199,36 +203,12 @@ namespace SPL {
     
 }
   void extDefVisit_SES_StructType(Node *node) {
-//     string structName = std::get<string>(node->get_nodes(0, 0, 1)->value);
-//     Node *extDefList = node->get_nodes(1);
-//     string variableName = getStrValueFromExtDecList(extDefList);
-//     extDefVisit_SS(node);
-//     if (symbolTable.count(structName) == 0) {
-//         structNoDefinition(std::get<int>(node->value),structName);
-//         // but this do not need to print, it use to happen is extDefVisit_SS;
-//         // do not match there
-//         //structRedefined(std::get<int>(node->value), structName);
-//     } else {
-//         do {
-//             if (symbolTable.count(variableName) != 0) {
-//                 variableRedefined(std::get<int>(node->value), variableName);
-//             }
-//             if (extDefList->get_nodes(0)->nodes.size() == 1) {
-//                 //Struct with variable definition
-//                 symbolTable[variableName] = symbolTable[structName];
-//             } else {
-//                 //Struct with variable definition - with Array
-//                 symbolTable[variableName] = new Type(variableName, CATEGORY::ARRAY,
-//                                                      getArrayFromVarDec(extDefList->get_nodes(0),
-//                                                                         symbolTable[structName]));
-//             }
-//             if (extDefList->nodes.size() == 1) {
-//                 return;
-//             }
-//             extDefList = extDefList->get_nodes(2);
-//             variableName = getStrValueFromExtDecList(extDefList);
-//         } while (true);
-//     }
+    
+    record_Spec(tree->children[0]);
+    analyze_ExtDecList(tree->children[1]);  
+    //std::cout<<"cur_specifier.type: "<<cur_specifier.type<<std::endl;
+    eliminate_Spec();
+
 }
 
   
@@ -250,9 +230,13 @@ namespace SPL {
     Symbol_Type var=analyze_VarDec(tree->children[0]);
     Symbol_Type exp=analyze_Exp(tree->children[2]);
     
-    //to do 
     std::cout<<"var:"<<var.type<<std::endl;
     std::cout<<"exp:"<<exp.type<<std::endl;
+    //to do 
+    if(var.type!=exp.type){
+      std::cout<<"type not match:"<<a->name<<std::endl;
+    }
+    
   }
   
   void analyze_DecList (Node* tree){
