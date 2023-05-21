@@ -129,6 +129,22 @@ namespace SPL {
       std::cout<<"res.type:"<<res.type<<std::endl;
       return res;
     }
+    //LP Exp RP
+    if (tree->children.size()==3&&tree->children[0]->type.compare("LP") == 0&&tree->children[2]->type.compare("RP") == 0){
+       return analyze_Exp(tree->children[1]);    
+    }
+    //MINUS Exp
+    if (tree->children.size()==2&&tree->children[0]->type.compare("MINUS") == 0){
+      return analyze_Exp(tree->children[1]);
+    }
+    //Exp LB Exp RB
+    if (tree->children.size()==4&&tree->children[1]->type.compare("LB") == 0&&tree->children[3]->type.compare("RB") == 0){
+      
+    }
+    //Exp DOT ID
+    if (tree->children.size()==3&&tree->children[1]->type.compare("DOT") == 0){
+      
+    }
     
   }
   
