@@ -25,6 +25,8 @@ namespace SPL {
     
 };
   
+  Symbol_Type analyze_ID (Node* tree);
+  
   std::vector<Node *>* list_to_e(Node *node){
         auto *decs = new std::vector<Node *>{};
         decs->push_back(node->children.front());
@@ -202,7 +204,7 @@ namespace SPL {
     //std::cout<<"FLOAT: "<<FLOAT<<std::endl;
     
 }
-  void extDefVisit_SES_StructType(Node *node) {
+  void extDefVisit_SES_StructType(Node *tree) {
     
     record_Spec(tree->children[0]);
     analyze_ExtDecList(tree->children[1]);  
@@ -234,7 +236,7 @@ namespace SPL {
     std::cout<<"exp:"<<exp.type<<std::endl;
     //to do 
     if(var.type!=exp.type){
-      std::cout<<"type not match:"<<a->name<<std::endl;
+      std::cout<<"type not match:"<<var.type<<std::endl;
     }
     
   }
