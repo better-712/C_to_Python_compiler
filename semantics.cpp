@@ -113,8 +113,8 @@ namespace SPL {
     Symbol_Type res;
     //to do all table
     Symbol* tmp=find_symbol(tree->value);
-    if(cur_table->table.count(tree->value) != 0){
-      return cur_table->table[tree->value]->symbol_type;
+    if(tmp!= nullptr){
+      return tmp->symbol_type;
     }
     else{
       //to do
