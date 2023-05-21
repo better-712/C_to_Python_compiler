@@ -36,6 +36,8 @@ namespace SPL {
     
         Symbol* find_symbol(std::string name);
     
+        void print_table();
+    
 
         Symbol_Table * next;
     
