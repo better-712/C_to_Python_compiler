@@ -131,7 +131,7 @@ namespace SPL {
   Symbol_Type analyze_Exp(Node *tree) {
     if (tree->children[0]->type.compare("INT") == 0)
         return analyze_Int(tree->children[0]);
-    if (tree->children[0]->type.compare("ID") == 0)
+    if (tree->children[0]->type.compare("ID") == 0&&tree->children.size()==1)
         return analyze_ID(tree->children[0]);
     if (tree->children[0]->type.compare("FLOAT") == 0)
         return analyze_FLOAT(tree->children[0]);
@@ -207,7 +207,7 @@ namespace SPL {
       std::cout <<"size: "<< size << std::endl;
       
       std::vector<Node *>* exp_list=list_to_e(tree->children[2]);
-      std::cout <<"list size: "<< exp_list->size << std::endl;
+      std::cout <<"list size: "<< exp_list->size() << std::endl;
 //       for(int i=0;i<exp_list.size();i++){
 //          std::cout <<"arg type: "<< analyze_Exp(exp_list[i]).type << std::endl;
 //       }
