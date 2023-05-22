@@ -166,12 +166,12 @@ namespace SPL {
     if (tree->children.size()==4&&tree->children[1]->type.compare("LB") == 0&&tree->children[3]->type.compare("RB") == 0){
       Symbol_Type exp=analyze_Exp(tree->children[0]);
       Symbol_Type index=analyze_Exp(tree->children[2]);
-      int size=exp->size;
-      int index=index->value;
-      if(index==-10000){
+      int si=exp->size;
+      int in=index->value;
+      if(in==-10000){
         printf("indexing by non-integer\n");
-      }else if(index<0||index>size){
-        printf("indexing out of bound%d:\n",index);
+      }else if(in<0||in>si){
+        printf("indexing out of bound%d:\n",in);
       }
       return exp;
     }
