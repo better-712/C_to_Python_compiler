@@ -129,7 +129,8 @@ namespace SPL {
   }
   void analyze_Args(Node *tree) {
     printf("analyze_Args\n");
-    analyze_Exp(tree->children[0]);
+    Symbol_Type type=analyze_ID(tree->children[0]->children[0])
+    //analyze_Exp(tree->children[0]);
     if(tree->children.size()==3)
       analyze_Args(tree->children[2]);
   }
