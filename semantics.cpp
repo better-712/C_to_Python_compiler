@@ -201,6 +201,18 @@ namespace SPL {
     }
     //ID LP RP
     //ID LP ARGS RP
+    if (tree->children.size()==4&&tree->children[0]->type.compare("ID") == 0){
+      Symbol_Type id=analyze_ID(tree->children[0]);
+      int size=id.arg_type.size();
+      std::cout <<"size: "<< size << std::endl;
+      
+      std::vector<Node *>* exp_list=list_to_e(tree->children[2]);
+      
+      for(int i=0;i<exp_list.size();i++){
+         std::cout <<"arg type: "<< analyze_Exp(exp_list[i]).type << std::endl;
+      }
+      //invalid argument number for function, expect 0, got 5
+    }
     
   }
   
