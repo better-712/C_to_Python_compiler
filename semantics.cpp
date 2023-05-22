@@ -127,11 +127,6 @@ namespace SPL {
     return res;
   }
   
-  int analyze_Specifier_FunDec_CompSt (Node* tree){
-    printf("analyze_Specifier_FunDec_CompSt\n");
-    
-    return 0;
-  }
   
   Symbol_Type analyze_Exp(Node *tree) {
     if (tree->children[0]->type.compare("INT") == 0)
@@ -204,6 +199,8 @@ namespace SPL {
       std::cout <<"Dot type: "<< ret.type << std::endl;
       return ret;
     }
+    //ID LP RP
+    //ID LP ARGS RP
     
   }
   
@@ -368,6 +365,54 @@ namespace SPL {
     }
     
     return result;
+  }
+  
+  void analyze_VarList (Node* tree){
+    printf("analyze_VarList\n");
+    
+  }
+  
+  void analyze_FunDec (Node* tree){
+    printf("analyze_FunDec\n");
+    //ID LP VarList RP |ID LP RP
+    std::string name=tree->children[0]->value;
+    int line_no=tree->children[0]->line_no;
+    //std::cout<<"name:"<<name<<std::endl;
+    
+    //VarList : ParamDec COMMA VarList
+    if(tree->children.size()==4){
+      Symbol* a=new Symbol;
+      a->name=name;
+      a->symbol_type.type=cur_specifier.type;
+      a->symbol_type.parm_type=cur_specifier.parm_type;
+      a->symbol_type.tag=cur_specifier.tag;
+      a->line_no=line_no;
+      
+      enter_scope();
+      
+      analyze_VarList(tree->children[2]);
+      int i=0;
+      for (const auto& pair : cur_table->table) {
+        a->symbol_type.arg_type.push_back(pair.second);
+        
+        std::cout << "arg_type name: " << a->symbol_type.arg_type[i]->name  << std::endl;
+        i++;
+      }
+      
+      
+      cur_table->next->insert(a);
+    
+  }
+  
+  int analyze_Specifier_FunDec_CompSt (Node* tree){
+    printf("analyze_Specifier_FunDec_CompSt\n");
+    record_Spec(tree->children[0]);
+    
+    FunDec = analyze_FunDec(tree->children[1]);
+   
+    CompSt = analyze_CompSt(tree->children[2],indent+INDENT_LEV);
+    pop_scope();
+    return 0;
   }
   
   int analyze_ExtDef (Node* tree){
