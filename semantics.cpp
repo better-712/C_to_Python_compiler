@@ -164,9 +164,16 @@ namespace SPL {
     }
     //Exp LB Exp RB |array index
     if (tree->children.size()==4&&tree->children[1]->type.compare("LB") == 0&&tree->children[3]->type.compare("RB") == 0){
-      int size=tree->children[0]
-      if(
-      return analyze_Exp(tree->children[0]);
+      Symbol_Type exp=analyze_Exp(tree->children[0]);
+      Symbol_Type index=analyze_Exp(tree->children[2]);
+      int size=exp->size;
+      int index=index->value;
+      if(index==-10000){
+        printf("indexing by non-integer\n");
+      }else if(index<0||index>size){
+        printf("indexing out of bound%d:\n",index);
+      }
+      return exp;
     }
     //Exp DOT ID |struct fun
     if (tree->children.size()==3&&tree->children[1]->type.compare("DOT") == 0){
