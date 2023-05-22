@@ -187,7 +187,7 @@ namespace SPL {
       int in=index.value;
       if(in==-10000){
         printf("indexing by non-integer\n");
-      }else if(in<0||in>si){
+      }else if(in<0||in>si-1){
         printf("indexing out of bound%d:\n",in);
       }
       return exp;
