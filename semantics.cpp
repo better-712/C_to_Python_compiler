@@ -213,13 +213,15 @@ namespace SPL {
       int size=id.arg_type.size();
       std::cout <<"size: "<< size << std::endl;
       
-      analyze_Args(tree->children[2]);
-//       std::vector<Node *>* exp_list=list_to_e(tree->children[2]);
-//       std::cout <<"list size: "<< exp_list->size() << std::endl;
+      //analyze_Args(tree->children[2]);
+      //to do
+      std::vector<Node *>* exp_list=list_to_e(tree->children[2]);
+      std::cout <<"list size: "<< exp_list->size() << std::endl;
       
-//       for(int i=0;i<exp_list.size();i++){
-//          std::cout <<"arg type: "<< analyze_Exp(exp_list[i]).type << std::endl;
-//       }
+      for(int i=0;i<exp_list->size();i++){
+         std::cout <<"arg type: "<< analyze_Exp((*exp_list)[i]).type << std::endl;
+      }
+      
       
       //invalid argument number for function, expect 0, got 5
     }
