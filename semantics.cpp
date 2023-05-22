@@ -372,6 +372,11 @@ namespace SPL {
     
   }
   
+  void analyze_CompSt (Node* tree){
+    printf("analyze_CompSt\n");
+        
+  }
+  
   void analyze_FunDec (Node* tree){
     printf("analyze_FunDec\n");
     //ID LP VarList RP |ID LP RP
@@ -409,9 +414,9 @@ namespace SPL {
     printf("analyze_Specifier_FunDec_CompSt\n");
     record_Spec(tree->children[0]);
     
-    FunDec = analyze_FunDec(tree->children[1]);
+    analyze_FunDec(tree->children[1]);
    
-    CompSt = analyze_CompSt(tree->children[2],indent+INDENT_LEV);
+    analyze_CompSt(tree->children[2]);
     pop_scope();
     return 0;
   }
