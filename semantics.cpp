@@ -94,7 +94,7 @@ namespace SPL {
   Symbol_Type analyze_Int (Node* tree) {
     Symbol_Type res;
     res.type=INT;
-    res.value=atoi(tree->value);
+    res.value=stoi(tree->value);
     return res;
   }
   
@@ -166,8 +166,8 @@ namespace SPL {
     if (tree->children.size()==4&&tree->children[1]->type.compare("LB") == 0&&tree->children[3]->type.compare("RB") == 0){
       Symbol_Type exp=analyze_Exp(tree->children[0]);
       Symbol_Type index=analyze_Exp(tree->children[2]);
-      int si=exp->size;
-      int in=index->value;
+      int si=exp.size;
+      int in=index.value;
       if(in==-10000){
         printf("indexing by non-integer\n");
       }else if(in<0||in>si){
