@@ -415,9 +415,18 @@ namespace SPL {
       analyze_VarList(tree->children[2]);
   }
   
+  void analyze_StmtList (Node* tree){
+    printf("analyze_StmtList\n");
+  }
+  
   void analyze_CompSt (Node* tree){
     printf("analyze_CompSt\n");
-        
+    
+    analyze_DefList(tree->children[1]);
+    
+    analyze_StmtList(tree->children[2],indent);
+    
+    
   }
   
   void analyze_FunDec (Node* tree){
