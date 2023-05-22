@@ -151,9 +151,21 @@ namespace SPL {
         std::cout<<"exp1.value:"<<exp1.value<<std::endl;
         std::cout<<"exp2.value:"<<exp2.value<<std::endl;
         if(tree->children[1]->type.compare("PLUS")==0)
-          std::cout<<"result:"<<exp1.value+exp2.value<<std::endl;
+          res.value=exp1.value+exp2.value;
+        if(tree->children[1]->type.compare("MINUS")==0)
+          res.value=exp1.value-exp2.value;
+        if(tree->children[1]->type.compare("MUL")==0)
+          res.value=exp1.value*exp2.value;
+        if(tree->children[1]->type.compare("DIV")==0){
+          if(exp2.value==0)//to do
+             printf("divider can not be 0\n");
+          res.value=exp1.value/exp2.value;
+        }
+        
+//           std::cout<<"result:"<<exp1.value+exp2.value<<std::endl;
       }
-      std::cout<<"res.type:"<<res.type<<std::endl;
+      std::cout<<"result:"<<res.value<<std::endl;
+      //std::cout<<"res.type:"<<res.type<<std::endl;
       return res;
     }
     //LP Exp RP
@@ -162,7 +174,9 @@ namespace SPL {
     }
     //MINUS Exp
     if (tree->children.size()==2&&tree->children[0]->type.compare("MINUS") == 0){
-      return analyze_Exp(tree->children[1]);
+      Symbol_Type exp=analyze_Exp(tree->children[1]);
+      exp.value=-exp.value;
+      return exp;
     }
     //Exp LB Exp RB |array index
     if (tree->children.size()==4&&tree->children[1]->type.compare("LB") == 0&&tree->children[3]->type.compare("RB") == 0){
