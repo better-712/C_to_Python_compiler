@@ -28,9 +28,9 @@ namespace SPL {
   Symbol_Type analyze_ID (Node* tree);
   
   std::vector<Node *> list_to_e(Node *node){
-        auto decs = new std::vector<Node *>{};
+        std::vector<Node *> decs;
         decs.push_back(node->children.front());
-        Node *list=node.children.back();
+        Node *list=node->children.back();
         while(list->type.compare(node->type) == 0){
             decs.push_back(list->children.front());
             list=list->children.back();
