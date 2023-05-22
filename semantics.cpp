@@ -380,15 +380,15 @@ namespace SPL {
     //std::cout<<"name:"<<name<<std::endl;
     
     //VarList : ParamDec COMMA VarList
-    if(tree->children.size()==4){
-      Symbol* a=new Symbol;
-      a->name=name;
-      a->symbol_type.type=cur_specifier.type;
-      a->symbol_type.parm_type=cur_specifier.parm_type;
-      a->symbol_type.tag=cur_specifier.tag;
-      a->line_no=line_no;
+    Symbol* a=new Symbol;
+    a->name=name;
+    a->symbol_type.type=cur_specifier.type;
+    a->symbol_type.parm_type=cur_specifier.parm_type;
+    a->symbol_type.tag=cur_specifier.tag;
+    a->line_no=line_no;
       
-      enter_scope();
+    enter_scope();
+    if(tree->children.size()==4){
       
       analyze_VarList(tree->children[2]);
       int i=0;
@@ -398,9 +398,10 @@ namespace SPL {
         std::cout << "arg_type name: " << a->symbol_type.arg_type[i]->name  << std::endl;
         i++;
       }
+    }else{
       
-      
-      cur_table->next->insert(a);
+    }
+    cur_table->next->insert(a);
     
   }
   
