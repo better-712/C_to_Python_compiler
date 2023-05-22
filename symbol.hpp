@@ -16,6 +16,7 @@ namespace SPL {
     int is_fun=0;
     int value=-10000;
     vector<Symbol*> parm_type;
+    vector<Symbol*> arg_type;
   };
   
   
