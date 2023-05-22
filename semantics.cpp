@@ -217,11 +217,13 @@ namespace SPL {
       //to do
       std::vector<Node *>* exp_list=list_to_e(tree->children[2]);
       std::cout <<"list size: "<< exp_list->size() << std::endl;
-      
+      if(size!=exp_list->size())
+        printf("wrong fun param number\n");
       for(int i=0;i<exp_list->size();i++){
          std::cout <<"arg type: "<< analyze_Exp((*exp_list)[i]).type << std::endl;
+         std::cout <<"par type: "<< id.arg_type[i].type << std::endl;
       }
-      
+      return id;
       
       //invalid argument number for function, expect 0, got 5
     }
