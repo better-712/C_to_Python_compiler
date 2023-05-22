@@ -367,9 +367,20 @@ namespace SPL {
     return result;
   }
   
+  void analyze_ParamDec (Node* tree){
+    
+    record_Spec(tree->children[0]);
+    analyze_VarDec(tree->children[1]);
+    
+  }
+  
   void analyze_VarList (Node* tree){
     printf("analyze_VarList\n");
+        
+    analyze_ParamDec(tree->children[0]);
     
+    if(tree->children.size() == 3)
+      analyze_VarList(tree->children[2]);
   }
   
   void analyze_CompSt (Node* tree){
@@ -403,9 +414,8 @@ namespace SPL {
         std::cout << "arg_type name: " << a->symbol_type.arg_type[i]->name  << std::endl;
         i++;
       }
-    }else{
-      
     }
+    
     cur_table->next->insert(a);
     
   }
