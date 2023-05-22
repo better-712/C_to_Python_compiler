@@ -1,0 +1,7 @@
+struct per{
+int a=2+3;
+int b=2/3;
+int c=4-6;
+int d=2*3;
+int e=-2;
+};
