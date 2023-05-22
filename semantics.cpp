@@ -424,7 +424,7 @@ namespace SPL {
     
     analyze_DefList(tree->children[1]);
     
-    analyze_StmtList(tree->children[2],indent);
+    analyze_StmtList(tree->children[2]);
     
     
   }
