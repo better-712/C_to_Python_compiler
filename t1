@@ -1,4 +1,6 @@
-struct age{
-int a[5];
-int b;
+int main(int a,int b){}
+struct per{
+int m;
+int n;
+int l=main(m,n);
 };
