@@ -180,6 +180,8 @@ namespace SPL {
       memcpy(result+l_exp+1, id, l_id * sizeof(char));
       return result;
     }
+    //ID LP RP
+    //ID LP ARGS RP
     
     return (char*)"cgen_Exp";
   }
