@@ -94,6 +94,7 @@ namespace SPL {
   Symbol_Type analyze_Int (Node* tree) {
     Symbol_Type res;
     res.type=INT;
+    res.value=atoi(tree->value);
     return res;
   }
   
@@ -146,6 +147,10 @@ namespace SPL {
       Symbol_Type exp1=analyze_Exp(tree->children[0]);
       Symbol_Type exp2=analyze_Exp(tree->children[2]);
       res.type=op[exp1.type][exp2.type];
+      if(res.type==1){
+        std::cout<<"exp1.value:"<<exp1.value<<std::endl;
+        std::cout<<"exp2.value:"<<exp1.value<<std::endl;
+      }
       std::cout<<"res.type:"<<res.type<<std::endl;
       return res;
     }
@@ -159,7 +164,9 @@ namespace SPL {
     }
     //Exp LB Exp RB |array index
     if (tree->children.size()==4&&tree->children[1]->type.compare("LB") == 0&&tree->children[3]->type.compare("RB") == 0){
-      
+      int size=tree->children[0]
+      if(
+      return analyze_Exp(tree->children[0]);
     }
     //Exp DOT ID |struct fun
     if (tree->children.size()==3&&tree->children[1]->type.compare("DOT") == 0){
