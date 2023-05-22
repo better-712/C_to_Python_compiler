@@ -221,7 +221,7 @@ namespace SPL {
         printf("wrong fun param number\n");
       for(int i=0;i<exp_list->size();i++){
          std::cout <<"arg type: "<< analyze_Exp((*exp_list)[i]).type << std::endl;
-         std::cout <<"par type: "<< id.arg_type[i].type << std::endl;
+         std::cout <<"par type: "<< id.arg_type[i]->type << std::endl;
       }
       return id;
       
