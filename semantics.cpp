@@ -149,7 +149,9 @@ namespace SPL {
       res.type=op[exp1.type][exp2.type];
       if(res.type==1){
         std::cout<<"exp1.value:"<<exp1.value<<std::endl;
-        std::cout<<"exp2.value:"<<exp1.value<<std::endl;
+        std::cout<<"exp2.value:"<<exp2.value<<std::endl;
+        if(tree->children[1]->type.compare("PLUS")==0)
+          std::cout<<"result:"<<exp1.value+exp2.value<<std::endl;
       }
       std::cout<<"res.type:"<<res.type<<std::endl;
       return res;
@@ -164,6 +166,7 @@ namespace SPL {
     }
     //Exp LB Exp RB |array index
     if (tree->children.size()==4&&tree->children[1]->type.compare("LB") == 0&&tree->children[3]->type.compare("RB") == 0){
+      //to do a[3]
       Symbol_Type exp=analyze_Exp(tree->children[0]);
       Symbol_Type index=analyze_Exp(tree->children[2]);
       int si=exp.size;
