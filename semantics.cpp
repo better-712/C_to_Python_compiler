@@ -27,15 +27,15 @@ namespace SPL {
   
   Symbol_Type analyze_ID (Node* tree);
   
-  std::vector<Node *> list_to_e(Node *node){
-        std::vector<Node *> decs;
-        decs.push_back(node->children.front());
-        Node *list=node->children.back();
-        while(list->type.compare(node->type) == 0){
-            decs.push_back(list->children.front());
-            list=list->children.back();
-        }
-        return decs;
+   std::vector<Node *>* list_to_e(Node *node){
+         auto *decs = new std::vector<Node *>{};
+         decs->push_back(node->children.front());
+         Node *list=node->children.back();
+         while(list->type.compare(node->type) == 0){
+             decs->push_back(list->children.front());
+             list=list->children.back();
+         }
+         return decs;
     }
   Symbol* find_symbol(std::string name){
     Symbol_Table *level=cur_table;
@@ -206,11 +206,11 @@ namespace SPL {
       int size=id.arg_type.size();
       std::cout <<"size: "<< size << std::endl;
       
-      std::vector<Node *> exp_list=list_to_e(tree->children[2]);
-      
-      for(int i=0;i<exp_list.size();i++){
-         std::cout <<"arg type: "<< analyze_Exp(exp_list[i]).type << std::endl;
-      }
+      std::vector<Node *>* exp_list=list_to_e(tree->children[2]);
+      std::cout <<"list size: "<< exp_list->size << std::endl;
+//       for(int i=0;i<exp_list.size();i++){
+//          std::cout <<"arg type: "<< analyze_Exp(exp_list[i]).type << std::endl;
+//       }
       
       //invalid argument number for function, expect 0, got 5
     }
