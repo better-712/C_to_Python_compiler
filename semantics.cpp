@@ -26,6 +26,7 @@ namespace SPL {
 };
   
   Symbol_Type analyze_ID (Node* tree);
+  Symbol_Type analyze_Exp(Node *tree);
   
    std::vector<Node *>* list_to_e(Node *node){
          auto *decs = new std::vector<Node *>{};
@@ -126,7 +127,12 @@ namespace SPL {
     }
     return res;
   }
-  
+  void analyze_Args(Node *tree) {
+    printf("analyze_Args\n");
+    analyze_Exp(tree->children[0]);
+    if(tree->children.size()==3)
+      analyze_Args(tree->children[2]);
+  }
   
   Symbol_Type analyze_Exp(Node *tree) {
     if (tree->children[0]->type.compare("INT") == 0)
@@ -206,8 +212,10 @@ namespace SPL {
       int size=id.arg_type.size();
       std::cout <<"size: "<< size << std::endl;
       
-      std::vector<Node *>* exp_list=list_to_e(tree->children[2]);
-      std::cout <<"list size: "<< exp_list->size() << std::endl;
+      analyze_Args(tree->children[2]);
+//       std::vector<Node *>* exp_list=list_to_e(tree->children[2]);
+//       std::cout <<"list size: "<< exp_list->size() << std::endl;
+      
 //       for(int i=0;i<exp_list.size();i++){
 //          std::cout <<"arg type: "<< analyze_Exp(exp_list[i]).type << std::endl;
 //       }
