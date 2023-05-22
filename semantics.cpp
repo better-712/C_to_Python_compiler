@@ -13,6 +13,7 @@ namespace SPL {
   extern int INT,FLOAT,CHAR,STRUCT,ARRAY;
   Symbol_Table *cur_table=new Symbol_Table;
   Symbol_Type cur_specifier;
+  vector<Symbol*> arg_type_global;
   
   int op[6][6] = {
     /*                 Null     int        float    char     struct    array     */
@@ -220,7 +221,7 @@ namespace SPL {
       if(size!=exp_list->size())
         printf("wrong fun param number\n");
       for(int i=0;i<exp_list->size();i++){
-         Symbol_Type exp=analyze_Exp((*exp_list)[size-i-1]);
+         Symbol_Type exp=analyze_Exp((*exp_list)[i]);
          std::cout <<"exp type: "<< exp.type << std::endl;
          std::cout <<"arg type: "<< id.arg_type[i]->symbol_type.type << std::endl;
          if(exp.type!=id.arg_type[i]->symbol_type.type)
@@ -233,7 +234,7 @@ namespace SPL {
     
   }
   
-  Symbol_Type analyze_VarDec(Node *tree) {
+  Symbol* analyze_VarDec(Node *tree) {
     printf("analyze_VarDec\n");
     
     int line_no=tree->children[0]->line_no;
@@ -269,7 +270,7 @@ namespace SPL {
       std::cout<<"VariableRedefined:"<<a->name<<std::endl;
     }else
       cur_table->table[a->name]=a;
-    return a->symbol_type;
+    return a;
   }
   
   void analyze_ExtDecList(Node *tree) {
@@ -315,7 +316,7 @@ namespace SPL {
   
   void analyze_Dec (Node* tree){
     printf("analyze_Dec\n");
-    Symbol_Type var=analyze_VarDec(tree->children[0]);
+    Symbol_Type var=analyze_VarDec(tree->children[0])->symbol_type;
     
     if(tree->children.size() == 3){
       Symbol_Type exp=analyze_Exp(tree->children[2]);
@@ -399,7 +400,9 @@ namespace SPL {
   void analyze_ParamDec (Node* tree){
     
     record_Spec(tree->children[0]);
-    analyze_VarDec(tree->children[1]);
+    
+    Symbol* var=analyze_VarDec(tree->children[1]);
+    arg_type_global.push_back(var);
     
   }
   
@@ -436,13 +439,15 @@ namespace SPL {
     if(tree->children.size()==4){
       
       analyze_VarList(tree->children[2]);
-      int i=0;
-      for (const auto& pair : cur_table->table) {
-        a->symbol_type.arg_type.push_back(pair.second);
+      a->symbol_type.arg_type=arg_type_global;
+      arg_type_global.clear();
+//       int i=0;
+//       for (const auto& pair : cur_table->table) {
+//         a->symbol_type.arg_type.push_back(pair.second);
         
-        std::cout << "arg_type name: " << a->symbol_type.arg_type[i]->name  << std::endl;
-        i++;
-      }
+//         std::cout << "arg_type name: " << a->symbol_type.arg_type[i]->name  << std::endl;
+//         i++;
+//       }
     }
     
     cur_table->next->insert(a);
