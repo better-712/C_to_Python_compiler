@@ -205,6 +205,7 @@ namespace SPL {
     //Exp DOT ID |struct fun
     if (tree->children.size()==3&&tree->children[1]->type.compare("DOT") == 0){
       Symbol_Type exp=analyze_Exp(tree->children[0]);
+      if(exp.type==-1)break;
       
       Symbol_Type ret;
       for (const auto& element : exp.parm_type) {
