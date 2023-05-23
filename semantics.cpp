@@ -153,7 +153,7 @@ namespace SPL {
       Symbol_Type exp_lift=analyze_Exp(tree->children[0]);
       Symbol_Type exp_right=analyze_Exp(tree->children[2]);
       if(exp_lift.type==exp_right.type){
-        exp_lift.value=xp_right.value;
+        exp_lift.value=exp_right.value;
       }else{
         printf("unmatch type on assignment\n");
       }
