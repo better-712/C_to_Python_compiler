@@ -28,6 +28,7 @@ namespace SPL {
   
   Symbol_Type analyze_ID (Node* tree);
   Symbol_Type analyze_Exp(Node *tree);
+  void analyze_CompSt (Node* tree);
   
    std::vector<Node *>* list_to_e(Node *node){
          auto *decs = new std::vector<Node *>{};
@@ -454,7 +455,7 @@ namespace SPL {
     
     analyze_StmtList(tree->children[1]);
     
-    return result;
+    return ;
   }
   
   void analyze_CompSt (Node* tree){
