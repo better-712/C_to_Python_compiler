@@ -12,7 +12,7 @@ namespace SPL {
     int type;
     //only for struct
     string tag="tag";
-    int size=0;
+    int size=-1;
     int is_fun=0;
     int value=-10000;
     vector<Symbol*> parm_type;
