@@ -227,12 +227,14 @@ namespace SPL {
       std::cout <<"list size: "<< exp_list->size() << std::endl;
       if(size!=exp_list->size())
         printf("wrong fun param number\n");
-      for(int i=0;i<exp_list->size();i++){
+      else{
+        for(int i=0;i<exp_list->size();i++){
          Symbol_Type exp=analyze_Exp((*exp_list)[i]);
          std::cout <<"exp type: "<< exp.type << std::endl;
          std::cout <<"arg type: "<< id.arg_type[i]->symbol_type.type << std::endl;
          if(exp.type!=id.arg_type[i]->symbol_type.type)
           printf("fun par unmatch\n");
+        }
       }
       return id;
       
