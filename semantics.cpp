@@ -205,7 +205,7 @@ namespace SPL {
     //Exp DOT ID |struct fun
     if (tree->children.size()==3&&tree->children[1]->type.compare("DOT") == 0){
       Symbol_Type exp=analyze_Exp(tree->children[0]);
-      if(exp.type==-1)break;
+      
       
       Symbol_Type ret;
       for (const auto& element : exp.parm_type) {
@@ -219,6 +219,7 @@ namespace SPL {
     //ID LP ARGS RP
     if (tree->children.size()==4&&tree->children[0]->type.compare("ID") == 0){
       Symbol_Type id=analyze_ID(tree->children[0]);
+      if(id.type==-1)return id;;
       int size=id.arg_type.size();
       std::cout <<"size: "<< size << std::endl;
       
