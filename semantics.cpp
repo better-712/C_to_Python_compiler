@@ -430,8 +430,31 @@ namespace SPL {
       analyze_VarList(tree->children[2]);
   }
   
+  void analyze_Stmt (Node* tree){
+    if(tree->children[0]->type.compare("CompSt") == 0)
+       return analyze_CompSt(tree->children[0]);
+    
+    if(tree->children[0]->type.compare("RETURN") == 0){
+       //cgen_Return
+       printf("RETURN\n");
+       
+       Symbol_Type exp=analyze_Exp(tree->children[1]);
+       
+       return ;
+     }
+    
+  }
+  
   void analyze_StmtList (Node* tree){
     printf("analyze_StmtList\n");
+    if(tree->type.compare("empty") == 0)
+      return ;
+   
+    analyze_Stmt(tree->children[0]);
+    
+    analyze_StmtList(tree->children[1]);
+    
+    return result;
   }
   
   void analyze_CompSt (Node* tree){
