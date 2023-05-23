@@ -445,6 +445,11 @@ namespace SPL {
   }
   
   void analyze_Stmt (Node* tree){
+    if(tree->children[0]->type.compare("Exp") == 0){
+       analyze_Exp(tree->children[0]);
+       return;
+     }
+    
     if(tree->children[0]->type.compare("CompSt") == 0)
        return analyze_CompSt(tree->children[0]);
     
