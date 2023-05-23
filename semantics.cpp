@@ -323,14 +323,20 @@ namespace SPL {
   
   void analyze_Dec (Node* tree){
     printf("analyze_Dec\n");
-    Symbol_Type var=analyze_VarDec(tree->children[0])->symbol_type;
+    Symbol* s=analyze_VarDec(tree->children[0]);
+    Symbol_Type var=s->symbol_type;
+    std::string name =s->name
     
     if(tree->children.size() == 3){
       Symbol_Type exp=analyze_Exp(tree->children[2]);
       
-     //to assign
       std::cout<<"var:"<<var.type<<std::endl;
       std::cout<<"exp:"<<exp.type<<std::endl;
+      //to assign
+      if(var.type==exp.type&&exp.type==1)
+        cur_table->table[name]->symbol_type.value=exp.value;
+      
+      
       //to do 
       if(var.type!=exp.type){
         std::cout<<"type not match:"<<var.type<<std::endl;
