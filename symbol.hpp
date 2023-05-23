@@ -9,7 +9,7 @@ namespace SPL {
   class Symbol;
   
   struct Symbol_Type{
-    int type;
+    int type=-1;
     //only for struct
     string tag="tag";
     int size=-1;
