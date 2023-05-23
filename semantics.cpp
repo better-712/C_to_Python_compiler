@@ -71,7 +71,10 @@ namespace SPL {
       
       //cur_specifier.id=(char*)(tree->children[0]->value).c_str();
       if(tree->children[0]->value.compare("int")==0)
+      {
         cur_specifier.type=INT;
+        cur_specifier.value=0;
+      }
       if(tree->children[0]->value.compare("float")==0)
         cur_specifier.type=FLOAT;
       if(tree->children[0]->value.compare("char")==0)
@@ -188,6 +191,7 @@ namespace SPL {
       Symbol_Type index=analyze_Exp(tree->children[2]);
       int si=exp.size;
       int in=index.value;
+      printf("indexing number:%d\n",in);
       if(in==-10000){
         printf("indexing by non-integer\n");
       }else if(in<0||in>si-1){
@@ -241,6 +245,7 @@ namespace SPL {
     Symbol* a=new Symbol;
     a->line_no=line_no;
     a->symbol_type.type=cur_specifier.type;
+    a->symbol_type.value=cur_specifier.value;
     a->symbol_type.parm_type=cur_specifier.parm_type;
     a->symbol_type.tag=cur_specifier.tag;
     
@@ -320,6 +325,8 @@ namespace SPL {
     
     if(tree->children.size() == 3){
       Symbol_Type exp=analyze_Exp(tree->children[2]);
+      
+     //to assign
       std::cout<<"var:"<<var.type<<std::endl;
       std::cout<<"exp:"<<exp.type<<std::endl;
       //to do 
