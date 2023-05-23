@@ -194,7 +194,7 @@ namespace SPL {
       printf("indexing number:%d\n",in);
       if(si==-1)
         printf("Subscripted value is not an array\n");
-      if(in==-10000){
+      else if(in==-10000){
         printf("indexing by non-integer\n");
       }else if(in<0||in>si-1){
         printf("indexing out of bound%d:\n",in);
