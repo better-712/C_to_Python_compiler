@@ -192,6 +192,8 @@ namespace SPL {
       int si=exp.size;
       int in=index.value;
       printf("indexing number:%d\n",in);
+      if(si==-1)
+        printf("Subscripted value is not an array\n");
       if(in==-10000){
         printf("indexing by non-integer\n");
       }else if(in<0||in>si-1){
