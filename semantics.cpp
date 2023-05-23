@@ -259,7 +259,7 @@ namespace SPL {
       a->name=tree->children[0]->children[0]->value;
 //       a->symbol_type.type=ARRAY;
       a->symbol_type.size=std::stoi(tree->children[2]->value);
-     // printf("size %d\n",a->size);
+      printf("size %d\n",a->symbol_type.size);
     }else{
       a->name=tree->children[0]->value;
     }
