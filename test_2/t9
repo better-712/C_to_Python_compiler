@@ -1,0 +1,6 @@
+int a[3];
+int b;
+int main(int a){
+int c=2;
+int d=a[c];
+}
