@@ -325,7 +325,7 @@ namespace SPL {
     printf("analyze_Dec\n");
     Symbol* s=analyze_VarDec(tree->children[0]);
     Symbol_Type var=s->symbol_type;
-    std::string name =s->name
+    std::string name =s->name;
     
     if(tree->children.size() == 3){
       Symbol_Type exp=analyze_Exp(tree->children[2]);
