@@ -149,7 +149,16 @@ namespace SPL {
         return analyze_FLOAT(tree->children[0]);
     if (tree->children[0]->type.compare("CHAR") == 0)
         return analyze_CHAR(tree->children[0]);
-    if (tree->children.size()==3&&tree->children[0]->type.compare("Exp") == 0&&tree->children[2]->type.compare("Exp") == 0){
+    if (tree->children.size()==3&&tree->children[1]->type.compare("ASSIGN") == 0){
+      Symbol_Type exp_lift=analyze_Exp(tree->children[0]);
+      Symbol_Type exp_right=analyze_Exp(tree->children[2]);
+      if(exp_lift.type==exp_right.type){
+        exp_lift.value=xp_right.value;
+      }else{
+        printf("unmatch type on assignment\n");
+      }
+    }
+    else if (tree->children.size()==3&&tree->children[0]->type.compare("Exp") == 0&&tree->children[2]->type.compare("Exp") == 0){
       Symbol_Type res;
       Symbol_Type exp1=analyze_Exp(tree->children[0]);
       Symbol_Type exp2=analyze_Exp(tree->children[2]);
