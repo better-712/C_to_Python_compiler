@@ -1,0 +1,7 @@
+def main():
+    sum=0
+    number=9
+    while number>0:
+        sum=sum+i
+        number=number-1
+    return sum
