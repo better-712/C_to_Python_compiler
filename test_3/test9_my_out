@@ -1,0 +1,5 @@
+def calculate():
+    low=0
+    high=9
+    mid=(low+high)/2
+    return mid
