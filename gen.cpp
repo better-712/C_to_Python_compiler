@@ -697,7 +697,7 @@ namespace SPL {
     char *DefList,*StmtList,*result;
     int l_DefList,l_StmtList;
     
-    if(tree->type.compare("SEMI") == 0||l_DefList+l_StmtList==0){
+    if(tree->type.compare("SEMI") == 0){
       result = (char*)calloc(indent+7, sizeof(char));
       result[0] = '\n';
       memset(result+1, ' ', indent * sizeof(char));
@@ -710,6 +710,13 @@ namespace SPL {
     StmtList=cgen_StmtList(tree->children[2],indent);
     l_StmtList=strlen(StmtList);
     
+    if(l_DefList+l_StmtList==0){
+      result = (char*)calloc(indent+7, sizeof(char));
+      result[0] = '\n';
+      memset(result+1, ' ', indent * sizeof(char));
+      memcpy(result+1+indent, "pass\n", 5 * sizeof(char));
+      return result;
+    }
     
     result = (char*)calloc(l_DefList + 5 +l_StmtList, sizeof(char));
     
