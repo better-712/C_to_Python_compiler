@@ -1,0 +1,11 @@
+def main():
+  a = 0
+  
+  res = 0
+  if a>5:
+    res=1
+  elif a==5:
+    res=0
+  else:
+    res = -1
+  return res
