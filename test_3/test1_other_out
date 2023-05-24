@@ -1,0 +1,13 @@
+class GlobalMembers(object):
+
+    @staticmethod
+    def main():
+        a = None
+        res = None
+        if a>5:
+            res = 1
+        elif a == 5:
+            res = 0
+        else:
+            res = -1
+        return res
