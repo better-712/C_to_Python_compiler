@@ -1,0 +1,8 @@
+class Person(object):
+    def __init__(self):
+        self.age=22
+        self.weight=0
+p1=Person()
+def func():
+    p1.weight=76.4
+    return pa.age
