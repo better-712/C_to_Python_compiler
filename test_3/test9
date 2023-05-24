@@ -1,0 +1,6 @@
+float calculate() {
+    int low = 0;
+    int high = 8;
+    float mid = (low + high) / 2;
+    return mid;
+}
