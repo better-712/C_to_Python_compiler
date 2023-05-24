@@ -1,0 +1,10 @@
+struct Person{
+    int age=22;
+    float weight;
+};
+struct Person p1;
+int func(){
+    p1.weight=76.4;
+    return p1.age;
+}
+
