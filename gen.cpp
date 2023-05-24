@@ -186,11 +186,12 @@ namespace SPL {
       l_exp1=strlen(exp1);
       exp2=cgen_Exp(tree->children[2]);
       l_exp2=strlen(exp2);
-      result = (char*)calloc(l_exp1 + 3 + l_exp2, sizeof(char));
+      result = (char*)calloc(l_exp1 + 4 + l_exp2, sizeof(char));
       memcpy(result, exp1, l_exp1 * sizeof(char));
       result[l_exp1]='[';
       memcpy(result+l_exp1+1, exp2, l_exp2 * sizeof(char));
       result[l_exp1+1+l_exp2]=']';
+      result[l_exp1+2+l_exp2]=' ';
       return result;
     }
     //Exp DOT ID
@@ -234,6 +235,7 @@ namespace SPL {
       result[l_id]='(';
       memcpy(result+l_id+1, args, l_args * sizeof(char));
       result[l_id+l_args+1]=')';
+      result[l_id+l_args+2]=' ';
       return result;
     }
     return (char*)"cgen_Exp";
