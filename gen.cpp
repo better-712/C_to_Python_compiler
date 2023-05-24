@@ -19,6 +19,7 @@ namespace SPL {
   int self=0;
   
   char* cgen_CompSt(Node* tree, int indent);
+  char* cgen_Exp(Node* tree);
   
   int INDENT_LEV=4;
   std::vector<Node *>* list_to_ele(Node *node){
@@ -104,27 +105,27 @@ namespace SPL {
   }
  
   char* cgen_Args(Node* tree){
-    char *ID,*Args, *result;
-    int l_ID,l_Args;
-    ID = Args = result = NULL;
-    l_ID = l_Args = 0;
+    char *exp,*Args, *result;
+    int l_exp,l_Args;
+    exp = Args = result = NULL;
+    l_exp = l_Args = 0;
     
-    ID = cgen_ID(tree->children[0]);
-    l_ID = strlen(ID);
+    exp = cgen_Exp(tree->children[0]);
+    l_exp = strlen(exp);
     if(tree->children.size() == 3){
       Args= cgen_Args(tree->children[2]);
       l_Args = strlen(Args);
     }
     
     if (l_Args > 0)
-      result = (char*)calloc(l_ID + 2 + l_Args, sizeof(char));
+      result = (char*)calloc(l_exp + 2 + l_Args, sizeof(char));
     else
-      result = (char*)calloc(l_ID, sizeof(char));
+      result = (char*)calloc(l_exp, sizeof(char));
     
-    memcpy(result, ID, l_ID * sizeof(char));
+    memcpy(result, exp, l_exp * sizeof(char));
     if (l_Args > 0){
-        result[l_ID] = ',';
-        memcpy(result + l_ID + 1, Args, l_Args * sizeof(char));
+        result[l_exp] = ',';
+        memcpy(result + l_exp + 1, Args, l_Args * sizeof(char));
     }
     
     return result;
