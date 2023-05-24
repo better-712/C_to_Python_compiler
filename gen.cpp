@@ -161,7 +161,7 @@ namespace SPL {
       int l_exp;
       exp=cgen_Exp(tree->children[1]);
       l_exp=strlen(exp);
-      result = (char*)calloc(l_exp + 2 , sizeof(char));
+      result = (char*)calloc(l_exp + 3 , sizeof(char));
       result[0]='(';
       memcpy(result+1, exp, l_exp * sizeof(char));
       result[l_exp+1]=')';
@@ -173,7 +173,7 @@ namespace SPL {
       int l_exp;
       exp=cgen_Exp(tree->children[1]);
       l_exp=strlen(exp);
-      result = (char*)calloc(l_exp + 1 , sizeof(char));
+      result = (char*)calloc(l_exp + 2 , sizeof(char));
       result[0]='-';
       memcpy(result+1, exp, l_exp * sizeof(char));
       return result;
@@ -186,7 +186,7 @@ namespace SPL {
       l_exp1=strlen(exp1);
       exp2=cgen_Exp(tree->children[2]);
       l_exp2=strlen(exp2);
-      result = (char*)calloc(l_exp1 + 2 + l_exp2, sizeof(char));
+      result = (char*)calloc(l_exp1 + 3 + l_exp2, sizeof(char));
       memcpy(result, exp1, l_exp1 * sizeof(char));
       result[l_exp1]='[';
       memcpy(result+l_exp1+1, exp2, l_exp2 * sizeof(char));
