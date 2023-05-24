@@ -1,0 +1,10 @@
+def fun2():
+    pass
+   
+def fun3(a,b):
+    return a+b
+    
+def main():
+    a=3
+    b=2
+    sum=fun3(a,b)
