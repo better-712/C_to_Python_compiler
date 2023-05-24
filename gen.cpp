@@ -122,7 +122,7 @@ namespace SPL {
       result = (char*)calloc(l_ID, sizeof(char));
     
     memcpy(result, ID, l_ID * sizeof(char));
-    if (l_VarList > 0){
+    if (l_Args > 0){
         result[l_ID] = ',';
         memcpy(result + l_ID + 1, Args, l_Args * sizeof(char));
     }
