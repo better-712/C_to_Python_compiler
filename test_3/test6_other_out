@@ -1,0 +1,14 @@
+class per(object):
+
+    def __init__(self):
+        #instance fields found by C++ to Python Converter:
+        self.age = 0
+        self.weight = 0
+        
+class GlobalMembers(object):
+    array = [0 for _ in range(5)]
+    @staticmethod
+    def main():
+        value = array[3]
+        p1 = per()
+        p1.age = 22
