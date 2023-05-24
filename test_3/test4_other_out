@@ -1,0 +1,13 @@
+class Person(object):
+
+    def __init__(self):
+        #instance fields found by C++ to Python Converter:
+        self.age = 22
+        self.weight = 0
+        
+class GlobalMembers(object):
+    p1 = Person()
+    @staticmethod
+    def func(self):
+        p1.weight = 76.4
+        return p1.age
