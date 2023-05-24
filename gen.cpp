@@ -120,7 +120,7 @@ namespace SPL {
     if (l_Args > 0)
       result = (char*)calloc(l_exp + 2 + l_Args, sizeof(char));
     else
-      result = (char*)calloc(l_exp, sizeof(char));
+      result = (char*)calloc(l_exp+1, sizeof(char));
     
     memcpy(result, exp, l_exp * sizeof(char));
     if (l_Args > 0){
