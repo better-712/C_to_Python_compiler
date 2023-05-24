@@ -103,11 +103,14 @@ namespace SPL {
     cur_spec.id=(char*)"un_def";
   }
  
+  char* cgen_Args(Node* tree){
+    return (char*)"cgen_Args";
+  }
   
   char* cgen_Exp(Node* tree){
     if (tree->children[0]->type.compare("INT") == 0)
         return cgen_Int(tree->children[0]);
-    if (tree->children[0]->type.compare("ID") == 0)
+    if (tree->children[0]->type.compare("ID") == 0&&tree->children.size()==1)
         return cgen_ID(tree->children[0]);
     if (tree->children[0]->type.compare("FLOAT") == 0)
         return cgen_FLOAT(tree->children[0]);
@@ -181,8 +184,34 @@ namespace SPL {
       return result;
     }
     //ID LP RP
+    if (tree->children.size()==3&&tree->children[0]->type.compare("ID") == 0){
+      char *id,*result;
+      int l_id;
+      
+      id=cgen_ID(tree->children[0]);
+      l_id=strlen(id);
+      result = (char*)calloc(l_id + 4, sizeof(char));
+      memcpy(result, id, l_id * sizeof(char));
+      result[l_exp]='(';
+      result[l_exp+1]=')';
+      return result;
+    }
     //ID LP ARGS RP
-    
+    if (tree->children.size()==4&&tree->children[0]->type.compare("ID") == 0){
+      char *id,*args,*result;
+      int l_id,l_args;
+      
+      id=cgen_ID(tree->children[0]);
+      l_id=strlen(id);
+      args=cgen_Args(tree->children[2]);
+      l_args=strlen(args);
+      result = (char*)calloc(l_id +l_args+ 4, sizeof(char));
+      memcpy(result, id, l_id * sizeof(char));
+      result[l_exp]='(';
+      memcpy(result+l_exp+1, args, l_args * sizeof(char));
+      result[l_exp+l_args+1]=')';
+      return result;
+    }
     return (char*)"cgen_Exp";
   }
   
