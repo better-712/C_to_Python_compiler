@@ -1,0 +1,11 @@
+int array [5];
+struct per{
+    int age;
+    float weight;
+};
+int main(){
+    int value=array[3];
+    struct per p1;
+    p1.age=22;
+    return 0;
+}
