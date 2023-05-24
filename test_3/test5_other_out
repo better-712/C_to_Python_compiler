@@ -1,0 +1,21 @@
+class Person(object):
+
+    def __init__(self):
+        #instance fields found by C++ to Python Converter:
+        self.age = 22
+        self.weight = 0
+        
+class GlobalMembers(object):
+//C++ TO PYTHON CONVERTER TODO TASK: The implementation of the following method could not be found:
+    //fun1()
+    @staticmethod
+    def fun2(self):
+        pass
+    @staticmethod
+    def fun3(self, a, b):
+        return a+b
+    @staticmethod
+    def main():
+        a = 3
+        b = 2
+        sum = fun3(a, b)
