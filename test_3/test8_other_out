@@ -1,0 +1,16 @@
+class GlobalMembers(object):
+
+    @staticmethod
+    def binary_search(self, arr, size, target):
+        low = 0
+        high = size - 1
+
+        while low <= high:
+            mid = math.trunc((low + high) / float(2))
+            if arr[mid] == target:
+                return mid
+            elif arr[mid] < target:
+                low = mid + 1
+            else:
+                high = mid - 1
+        return -1
