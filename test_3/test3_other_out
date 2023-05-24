@@ -1,0 +1,9 @@
+class GlobalMembers(object):
+
+    @staticmethod
+    def main():
+        count = 0
+        i = None
+        for i in range(0, 9):
+            count = count+i
+            i = i+1
