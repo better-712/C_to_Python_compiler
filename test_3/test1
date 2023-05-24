@@ -7,4 +7,5 @@ int main(){
         res=0;
     else
         res=-1;
+    return res;
 }
