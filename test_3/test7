@@ -1,0 +1,5 @@
+struct un_def;
+int main(){
+    struct un_def exp;
+    return 0;
+}
