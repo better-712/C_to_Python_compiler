@@ -1,0 +1,5 @@
+class GlobalMembers(object):
+
+    @staticmethod
+    def main():
+        exp = un_def()
