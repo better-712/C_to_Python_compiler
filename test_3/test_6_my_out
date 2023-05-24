@@ -1,0 +1,14 @@
+array=[0]*5
+
+class per(object):
+    def __init__(self):
+        self.age=0
+        self.weight=0.0
+        
+        
+def main():
+    value=array[3]
+    p1=per()
+    
+    p1.age=22
+    return 0
