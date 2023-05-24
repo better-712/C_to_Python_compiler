@@ -149,10 +149,11 @@ namespace SPL {
       l_op=strlen(op);
       exp2=cgen_Exp(tree->children[2]);
       l_exp2=strlen(exp2);
-      result = (char*)calloc(l_exp1 + l_op + l_exp2, sizeof(char));
+      result = (char*)calloc(l_exp1 + l_op + l_exp2+2, sizeof(char));
       memcpy(result, exp1, l_exp1 * sizeof(char));
       memcpy(result+l_exp1, op, l_op * sizeof(char));
       memcpy(result+l_exp1+l_op, exp2, l_exp2 * sizeof(char));
+      result[l_exp1+l_op+l_exp2]=' ';
       return result;
     }
     //LP Exp RP
