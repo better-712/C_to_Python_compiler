@@ -1,1 +1,22 @@
 
+\begin{table}[ht]
+\centering
+\begin{tabular}{ll}
+\toprule
+C语言元素       & Python中的对应 \\
+\midrule
+变量声明和赋值     & 变量声明和赋值 \\
+数据类型         & Python也有各种数据类型 \\
+数组            & Python的列表或NumPy数组 \\
+结构体和联合体    & Python的类或命名元组 \\
+指针            & 没有直接对应，可以使用自定义类来模拟指针行为 \\
+函数            & 函数定义和调用 \\
+条件语句（if-else） & 条件语句（if-else） \\
+循环语句（for、while） & 循环语句（for、while） \\
+输入和输出       & 输入和输出函数 \\
+动态内存分配和释放 & Python的自动垃圾回收机制 \\
+文件操作         & 文件操作函数 \\
+\bottomrule
+\end{tabular}
+\caption{C语言和Python对应关系}
+\end{table}
