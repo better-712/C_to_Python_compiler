@@ -104,7 +104,30 @@ namespace SPL {
   }
  
   char* cgen_Args(Node* tree){
-    return (char*)"cgen_Args";
+    char *ID,*Args, *result;
+    int l_ID,l_Args;
+    ID = Args = result = NULL;
+    l_ID = l_Args = 0;
+    
+    ID = cgen_ID(tree->children[0]);
+    l_ID = strlen(ID);
+    if(tree->children.size() == 3){
+      Args= cgen_Args(tree->children[2]);
+      l_Args = strlen(Args);
+    }
+    
+    if (l_Args > 0)
+      result = (char*)calloc(l_ID + 2 + l_Args, sizeof(char));
+    else
+      result = (char*)calloc(l_ID, sizeof(char));
+    
+    memcpy(result, ID, l_ID * sizeof(char));
+    if (l_VarList > 0){
+        result[l_ID] = ',';
+        memcpy(result + l_ID + 1, Args, l_Args * sizeof(char));
+    }
+    
+    return result;
   }
   
   char* cgen_Exp(Node* tree){
