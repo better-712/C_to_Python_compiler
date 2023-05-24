@@ -1,0 +1,7 @@
+class un_def:
+    pass
+    
+def main():
+    exp=un_def()
+    
+    return 0
