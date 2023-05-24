@@ -1,0 +1,8 @@
+class GlobalMembers(object):
+
+    @staticmethod
+    def calculate(self):
+        low = 0
+        high = 9
+        mid = math.trunc((low + high) / float(2))
+        return mid
