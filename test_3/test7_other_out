@@ -1,3 +1,6 @@
+class un_def(object):
+    pass
+    
 class GlobalMembers(object):
 
     @staticmethod
