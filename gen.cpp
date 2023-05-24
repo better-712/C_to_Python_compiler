@@ -192,8 +192,8 @@ namespace SPL {
       l_id=strlen(id);
       result = (char*)calloc(l_id + 4, sizeof(char));
       memcpy(result, id, l_id * sizeof(char));
-      result[l_exp]='(';
-      result[l_exp+1]=')';
+      result[l_id]='(';
+      result[l_id+1]=')';
       return result;
     }
     //ID LP ARGS RP
@@ -207,9 +207,9 @@ namespace SPL {
       l_args=strlen(args);
       result = (char*)calloc(l_id +l_args+ 4, sizeof(char));
       memcpy(result, id, l_id * sizeof(char));
-      result[l_exp]='(';
-      memcpy(result+l_exp+1, args, l_args * sizeof(char));
-      result[l_exp+l_args+1]=')';
+      result[l_id]='(';
+      memcpy(result+l_id+1, args, l_args * sizeof(char));
+      result[l_id+l_args+1]=')';
       return result;
     }
     return (char*)"cgen_Exp";
