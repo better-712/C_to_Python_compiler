@@ -223,6 +223,9 @@ namespace SPL {
         if(tree->children[2]->value.compare(element->name)==0)
           ret=element->symbol_type;
       }
+      if(exp.type==4&&ret.type==-1){
+        std::cout <<"No such member: "<< tree->children[2]->value << std::endl;
+      }
       //std::cout <<"Dot type: "<< ret.type << std::endl;
       return ret;
     }
