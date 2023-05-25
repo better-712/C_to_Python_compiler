@@ -203,7 +203,7 @@ namespace SPL {
       int in=index.value;
      // printf("indexing number:%d\n",in);
       if(si==-1)
-        printf("Subscripted value is not an array\n");
+        printf("Subscripted value is not an array at line:%d\n",tree->children[1]->line_no);
       else if(in==-10000){
         printf("indexing by non-integer\n");
       }else if(in<0||in>si-1){
@@ -215,8 +215,10 @@ namespace SPL {
     if (tree->children.size()==3&&tree->children[1]->type.compare("DOT") == 0){
       Symbol_Type exp=analyze_Exp(tree->children[0]);
       
-      
       Symbol_Type ret;
+      if(exp.type!=4){
+        std::cout <<"accessing with non-struct variable at line: "<<tree->children[2]->line_no << std::endl;
+      }
       for (const auto& element : exp.parm_type) {
         if(tree->children[2]->value.compare(element->name)==0)
           ret=element->symbol_type;
@@ -237,14 +239,14 @@ namespace SPL {
       std::vector<Node *>* exp_list=list_to_e(tree->children[2]);
       //std::cout <<"list size: "<< exp_list->size() << std::endl;
       if(size!=exp_list->size())
-        printf("wrong fun param number\n");
+        printf("function arg number unmatch,expect:%d got%d\n",size,exp_list->size());
       else{
         for(int i=0;i<exp_list->size();i++){
          Symbol_Type exp=analyze_Exp((*exp_list)[i]);
        //  std::cout <<"exp type: "<< exp.type << std::endl;
         // std::cout <<"arg type: "<< id.arg_type[i]->symbol_type.type << std::endl;
          if(exp.type!=id.arg_type[i]->symbol_type.type)
-          printf("fun par unmatch\n");
+          printf("fun parm type unmatch at line:%d\n",tree->children[0]->line_no);
         }
       }
       return id;
