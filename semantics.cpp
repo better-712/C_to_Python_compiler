@@ -230,19 +230,19 @@ namespace SPL {
       Symbol_Type id=analyze_ID(tree->children[0]);
       if(id.type==-1)return id;;
       int size=id.arg_type.size();
-      std::cout <<"size: "<< size << std::endl;
+      //std::cout <<"size: "<< size << std::endl;
       
       //analyze_Args(tree->children[2]);
       //to do
       std::vector<Node *>* exp_list=list_to_e(tree->children[2]);
-      std::cout <<"list size: "<< exp_list->size() << std::endl;
+      //std::cout <<"list size: "<< exp_list->size() << std::endl;
       if(size!=exp_list->size())
         printf("wrong fun param number\n");
       else{
         for(int i=0;i<exp_list->size();i++){
          Symbol_Type exp=analyze_Exp((*exp_list)[i]);
-         std::cout <<"exp type: "<< exp.type << std::endl;
-         std::cout <<"arg type: "<< id.arg_type[i]->symbol_type.type << std::endl;
+       //  std::cout <<"exp type: "<< exp.type << std::endl;
+        // std::cout <<"arg type: "<< id.arg_type[i]->symbol_type.type << std::endl;
          if(exp.type!=id.arg_type[i]->symbol_type.type)
           printf("fun par unmatch\n");
         }
@@ -344,8 +344,8 @@ namespace SPL {
     if(tree->children.size() == 3){
       Symbol_Type exp=analyze_Exp(tree->children[2]);
       
-      std::cout<<"var:"<<var.type<<std::endl;
-      std::cout<<"exp:"<<exp.type<<std::endl;
+      //std::cout<<"var:"<<var.type<<std::endl;
+      //std::cout<<"exp:"<<exp.type<<std::endl;
       //to assign
       if(var.type==exp.type&&exp.type==1)
         cur_table->table[name]->symbol_type.value=exp.value;
@@ -410,7 +410,7 @@ namespace SPL {
       for (const auto& pair : cur_table->table) {
         a->symbol_type.parm_type.push_back(pair.second);
         
-        std::cout << "type name: " << a->symbol_type.parm_type[i]->name  << std::endl;
+        //std::cout << "type name: " << a->symbol_type.parm_type[i]->name  << std::endl;
         i++;
       }
       
@@ -455,10 +455,11 @@ namespace SPL {
     
     if(tree->children[0]->type.compare("RETURN") == 0){
        //cgen_Return
-       printf("RETURN\n");
+      // printf("RETURN\n");
        
        Symbol_Type exp=analyze_Exp(tree->children[1]);
        
+      
        return ;
      }
     
