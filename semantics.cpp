@@ -353,7 +353,7 @@ namespace SPL {
       
       //to do 
       if(var.type!=exp.type){
-        std::cout<<"type not match:"<<var.type<<std::endl;
+        std::cout<<"type not match at line:"<<s->line_no<<std::endl;
       }
     }
     
