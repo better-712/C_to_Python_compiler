@@ -15,6 +15,8 @@ namespace SPL {
   Symbol_Type cur_specifier;
   vector<Symbol*> arg_type_global;
   
+  int is_fun=0;
+  
   int op[6][6] = {
     /*                 Null     int        float    char     struct    array     */
     /* Null   */    {  undef,   undef,     undef,   undef,   undef,    undef},
@@ -125,6 +127,8 @@ namespace SPL {
     }
     else{
       //to do
+      if(is_fun==1)
+        std::cout<<"Function Undefined:"<<tree->value<<std::endl;
       if(cur_specifier.type==STRUCT&&cur_specifier.tag.compare("tag")==0)
         std::cout<<"STRUCTUndefined:"<<tree->value<<std::endl;
       else
@@ -232,7 +236,9 @@ namespace SPL {
     //ID LP RP
     //ID LP ARGS RP
     if (tree->children.size()==4&&tree->children[0]->type.compare("ID") == 0){
+      int is_fun=1;
       Symbol_Type id=analyze_ID(tree->children[0]);
+      int is_fun=0;
       if(id.type==-1)return id;;
       int size=id.arg_type.size();
       //std::cout <<"size: "<< size << std::endl;
