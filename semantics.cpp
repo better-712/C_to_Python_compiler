@@ -239,7 +239,7 @@ namespace SPL {
       std::vector<Node *>* exp_list=list_to_e(tree->children[2]);
       //std::cout <<"list size: "<< exp_list->size() << std::endl;
       if(size!=exp_list->size())
-        printf("function arg number unmatch,expect:%d got%d\n",size,exp_list->size());
+        std::cout <<"function arg number unmatch,expect:"<< size<<" got "<<exp_list->size()<< std::endl;
       else{
         for(int i=0;i<exp_list->size();i++){
          Symbol_Type exp=analyze_Exp((*exp_list)[i]);
