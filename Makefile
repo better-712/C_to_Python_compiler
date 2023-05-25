@@ -1,7 +1,7 @@
 
 SRCS = main.cpp scanner.yy.cpp parser.tab.cpp spl_driver.cpp ast.cpp gen.cpp semantics.cpp symbol.cpp
 
-splc: $(SRCS)
+ctop: $(SRCS)
 	g++ -g -std=c++17 $(SRCS) -o $@
 
 scanner.yy.cpp: scanner.l
