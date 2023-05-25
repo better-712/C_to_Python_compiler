@@ -45,7 +45,7 @@ namespace SPL {
     while(level!=nullptr){
       level->print_table();
       if(level->table.count(name) != 0){
-        std::cout<<"find symbol:"<<level->table[name]->name<<std::endl;
+        //std::cout<<"find symbol:"<<level->table[name]->name<<std::endl;
         return level->table[name];
       }
       level=level->next;
@@ -58,11 +58,11 @@ namespace SPL {
     Symbol_Table *top=new Symbol_Table;
     top->next=cur_table;
     cur_table=top;
-    printf("enter_scope\n");
+    //printf("enter_scope\n");
   }
   void pop_scope(){
     cur_table=cur_table->next;
-    printf("pop_scope\n");
+    //printf("pop_scope\n");
   }
   
   void record_Spec(Node* tree){
@@ -155,7 +155,7 @@ namespace SPL {
       if(exp_lift.type==exp_right.type){
         exp_lift.value=exp_right.value;
       }else{
-        printf("unmatch type on assignment\n");
+        printf("unmatch type on assignment at line:%d\n",tree->children[1]->line_no);
       }
     }
     else if (tree->children.size()==3&&tree->children[0]->type.compare("Exp") == 0&&tree->children[2]->type.compare("Exp") == 0){
@@ -164,8 +164,8 @@ namespace SPL {
       Symbol_Type exp2=analyze_Exp(tree->children[2]);
       res.type=op[exp1.type][exp2.type];
       if(res.type==1){
-        std::cout<<"exp1.value:"<<exp1.value<<std::endl;
-        std::cout<<"exp2.value:"<<exp2.value<<std::endl;
+        //std::cout<<"exp1.value:"<<exp1.value<<std::endl;
+        //std::cout<<"exp2.value:"<<exp2.value<<std::endl;
         if(tree->children[1]->type.compare("PLUS")==0)
           res.value=exp1.value+exp2.value;
         if(tree->children[1]->type.compare("MINUS")==0)
@@ -180,7 +180,7 @@ namespace SPL {
         
 //           std::cout<<"result:"<<exp1.value+exp2.value<<std::endl;
       }
-      std::cout<<"result:"<<res.value<<std::endl;
+      //std::cout<<"result:"<<res.value<<std::endl;
       //std::cout<<"res.type:"<<res.type<<std::endl;
       return res;
     }
@@ -201,7 +201,7 @@ namespace SPL {
       Symbol_Type index=analyze_Exp(tree->children[2]);
       int si=exp.size;
       int in=index.value;
-      printf("indexing number:%d\n",in);
+     // printf("indexing number:%d\n",in);
       if(si==-1)
         printf("Subscripted value is not an array\n");
       else if(in==-10000){
@@ -221,7 +221,7 @@ namespace SPL {
         if(tree->children[2]->value.compare(element->name)==0)
           ret=element->symbol_type;
       }
-      std::cout <<"Dot type: "<< ret.type << std::endl;
+      //std::cout <<"Dot type: "<< ret.type << std::endl;
       return ret;
     }
     //ID LP RP
@@ -255,7 +255,7 @@ namespace SPL {
   }
   
   Symbol* analyze_VarDec(Node *tree) {
-    printf("analyze_VarDec\n");
+   // printf("analyze_VarDec\n");
     
     int line_no=tree->children[0]->line_no;
     Symbol* a=new Symbol;
@@ -275,7 +275,7 @@ namespace SPL {
       a->name=tree->children[0]->children[0]->value;
 //       a->symbol_type.type=ARRAY;
       a->symbol_type.size=std::stoi(tree->children[2]->value);
-      printf("size %d\n",a->symbol_type.size);
+    //  printf("size %d\n",a->symbol_type.size);
     }else{
       a->name=tree->children[0]->value;
     }
@@ -295,7 +295,7 @@ namespace SPL {
   }
   
   void analyze_ExtDecList(Node *tree) {
-    printf("analyze_ExtDecList\n");
+   // printf("analyze_ExtDecList\n");
     analyze_VarDec(tree->children[0]);
     if(tree->children.size() == 3){
       analyze_ExtDecList(tree->children[2]);
@@ -323,7 +323,7 @@ namespace SPL {
 
   
   int analyze_Specifier_ExtDecList_SEMI (Node* tree){
-    printf("analyze_Specifier_ExtDecList_SEMI\n");
+   // printf("analyze_Specifier_ExtDecList_SEMI\n");
     if (tree->children[0]->children[0]->type.compare("TYPE") == 0) {
         // global puretype variables
         extDefVisit_SES_PureType(tree);
@@ -336,7 +336,7 @@ namespace SPL {
   }
   
   void analyze_Dec (Node* tree){
-    printf("analyze_Dec\n");
+  //  printf("analyze_Dec\n");
     Symbol* s=analyze_VarDec(tree->children[0]);
     Symbol_Type var=s->symbol_type;
     std::string name =s->name;
@@ -360,7 +360,7 @@ namespace SPL {
   }
   
   void analyze_DecList (Node* tree){
-    printf("analyze_DecList\n");
+  //  printf("analyze_DecList\n");
     analyze_Dec(tree->children[0]);
     if(tree->children.size() == 3){
       analyze_DecList(tree->children[2]);
@@ -368,7 +368,7 @@ namespace SPL {
   }
   
   void analyze_Def (Node* tree){
-    printf("analyze_Def\n");
+   // printf("analyze_Def\n");
     //std::cout<<"tree:"<<tree->type<<std::endl;
     
     record_Spec(tree->children[0]);
@@ -377,7 +377,7 @@ namespace SPL {
   }
   
   void analyze_DefList (Node* tree){
-    printf("analyze_DefList\n");
+   // printf("analyze_DefList\n");
     //std::cout<<"tree:"<<tree->type<<std::endl;
     
     if(tree->type.compare("empty") == 0)return;
@@ -387,7 +387,7 @@ namespace SPL {
   }
   
   int analyze_StructSpecifier (Node* tree){
-    printf("analyze_StructSpecifier\n");
+   // printf("analyze_StructSpecifier\n");
     int result=0;
     
     std::string name=tree->children[1]->value;
@@ -436,7 +436,7 @@ namespace SPL {
   }
   
   void analyze_VarList (Node* tree){
-    printf("analyze_VarList\n");
+   // printf("analyze_VarList\n");
         
     analyze_ParamDec(tree->children[0]);
     
@@ -465,7 +465,7 @@ namespace SPL {
   }
   
   void analyze_StmtList (Node* tree){
-    printf("analyze_StmtList\n");
+   // printf("analyze_StmtList\n");
     if(tree->type.compare("empty") == 0)
       return ;
    
@@ -477,7 +477,7 @@ namespace SPL {
   }
   
   void analyze_CompSt (Node* tree){
-    printf("analyze_CompSt\n");
+  //  printf("analyze_CompSt\n");
     
     analyze_DefList(tree->children[1]);
     
@@ -487,7 +487,7 @@ namespace SPL {
   }
   
   void analyze_FunDec (Node* tree){
-    printf("analyze_FunDec\n");
+   // printf("analyze_FunDec\n");
     //ID LP VarList RP |ID LP RP
     std::string name=tree->children[0]->value;
     int line_no=tree->children[0]->line_no;
@@ -521,7 +521,7 @@ namespace SPL {
   }
   
   int analyze_Specifier_FunDec_CompSt (Node* tree){
-    printf("analyze_Specifier_FunDec_CompSt\n");
+  //  printf("analyze_Specifier_FunDec_CompSt\n");
     record_Spec(tree->children[0]);
     
     analyze_FunDec(tree->children[1]);
@@ -558,7 +558,7 @@ namespace SPL {
         
     }
     
-    printf("analyze_Program\n");
+  //  printf("analyze_Program\n");
     return result;   
   }
   
