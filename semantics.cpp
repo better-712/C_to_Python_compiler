@@ -129,7 +129,7 @@ namespace SPL {
       //to do
       if(is_fun==1)
         std::cout<<"Function Undefined:"<<tree->value<<std::endl;
-      if(cur_specifier.type==STRUCT&&cur_specifier.tag.compare("tag")==0)
+      else if(cur_specifier.type==STRUCT&&cur_specifier.tag.compare("tag")==0)
         std::cout<<"STRUCTUndefined:"<<tree->value<<std::endl;
       else
         std::cout<<"VariableUndefined:"<<tree->value<<std::endl;
