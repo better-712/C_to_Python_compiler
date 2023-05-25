@@ -236,9 +236,9 @@ namespace SPL {
     //ID LP RP
     //ID LP ARGS RP
     if (tree->children.size()==4&&tree->children[0]->type.compare("ID") == 0){
-      int is_fun=1;
+      is_fun=1;
       Symbol_Type id=analyze_ID(tree->children[0]);
-      int is_fun=0;
+      is_fun=0;
       if(id.type==-1)return id;;
       int size=id.arg_type.size();
       //std::cout <<"size: "<< size << std::endl;
