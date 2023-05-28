@@ -17,9 +17,9 @@ using std::cout, std::endl;
 int main(const int argc, const char **argv) {
     SPL::SPL_Driver driver;
     driver.parse(argv[1]);
-//     int is_error=SPL::semantic_analyze(driver.get_root());
-//     printf("semantic_analyze finish\n");
-    
+    auto start = std::chrono::high_resolution_clock::now();
+
+   
     if(!driver.get_errors()->empty())
         driver.print_errors();
 //         SPL::print_ast(driver.get_root());
@@ -33,4 +33,12 @@ int main(const int argc, const char **argv) {
         printf("\n");
         SPL::code_gen(driver.get_root());
     }
+     // 结束计时
+    auto end = std::chrono::high_resolution_clock::now();
+
+    // 计算耗时（以毫秒为单位）
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+
+    // 输出运行时间
+    std::cout << "程序运行时间：" << duration << "毫秒" << std::endl;
 }
