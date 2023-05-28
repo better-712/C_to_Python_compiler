@@ -21,7 +21,9 @@ int main(const int argc, const char **argv) {
     driver.parse(argv[1]);
     auto start = std::chrono::high_resolution_clock::now();
 
+    //SPL::semantic_analyze(driver.get_root());
    
+    
     if(!driver.get_errors()->empty())
         driver.print_errors();
 //         SPL::print_ast(driver.get_root());
