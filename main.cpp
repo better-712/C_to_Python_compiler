@@ -42,5 +42,5 @@ int main(const int argc, const char **argv) {
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
 
     // 输出运行时间
-    std::cout << "程序运行时间：" << duration << "毫秒" << std::endl;
+    std::cout << "run time：" << duration << " ms" << std::endl;
 }
