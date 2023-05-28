@@ -7,11 +7,13 @@
 #include <cstring>
 #include <fstream>
 #include <sstream>
+#include <chrono>
 
 #include "spl_driver.hpp"
 #include "gen.hpp"
 #include "semantics.hpp"
 #include <stdio.h>
+
 using std::cout, std::endl;
 
 int main(const int argc, const char **argv) {
