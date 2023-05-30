@@ -8,6 +8,8 @@
 #include <fstream>
 #include <sstream>
 #include <chrono>
+#include <sys/resource.h>
+#include <sys/time.h>
 
 #include "spl_driver.hpp"
 #include "gen.hpp"
