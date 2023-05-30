@@ -19,7 +19,7 @@ using std::cout, std::endl;
 int main(const int argc, const char **argv) {
     SPL::SPL_Driver driver;
     driver.parse(argv[1]);
-    auto start = std::chrono::high_resolution_clock::now();
+    
 
     //SPL::semantic_analyze(driver.get_root());
    
@@ -37,12 +37,13 @@ int main(const int argc, const char **argv) {
         printf("\n");
         SPL::code_gen(driver.get_root());
     }
-     // 结束计时
-    auto end = std::chrono::high_resolution_clock::now();
-
-    // 计算耗时（以毫秒为单位）
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-
-    // 输出运行时间
-    std::cout << "run time：" << duration << " ms" << std::endl;
+     struct rusage usage;
+    
+    getrusage(RUSAGE_SELF, &usage);
+    long int memory_usage = usage.ru_maxrss;
+    printf("Memory usage: %ld KB\n", memory_usage/1024);
+    struct timeval user_time = usage.ru_utime;
+    struct timeval sys_time = usage.ru_stime;
+    printf("User CPU time: %d seconds %d microseconds\n", (int)user_time.tv_sec, (int)user_time.tv_usec);
+    return 0;
 }
