@@ -46,6 +46,7 @@ int main(const int argc, const char **argv) {
     printf("Memory usage: %ld KB\n", memory_usage/1024);
     struct timeval user_time = usage.ru_utime;
     struct timeval sys_time = usage.ru_stime;
+    std::cout << "Maximum resident set size: " << usage.ru_maxrss << " kilobytes" << std::endl;
     printf("User CPU time: %d seconds %d microseconds\n", (int)user_time.tv_sec, (int)user_time.tv_usec);
     return 0;
 }
