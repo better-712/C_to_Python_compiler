@@ -43,10 +43,10 @@ int main(const int argc, const char **argv) {
     
     getrusage(RUSAGE_SELF, &usage);
     long int memory_usage = usage.ru_maxrss;
-    printf("Memory usage: %ld KB\n", memory_usage/1024);
+    printf("Memory usage: %ld MB\n", memory_usage/1024);
     struct timeval user_time = usage.ru_utime;
     struct timeval sys_time = usage.ru_stime;
     std::cout << "Maximum resident set size: " << usage.ru_maxrss << " kilobytes" << std::endl;
-    printf("User CPU time: %d seconds %d microseconds\n", (int)user_time.tv_sec, (int)user_time.tv_usec);
+    std::cout << "User CPU time:"<<user_time.tv_sec<<" seconds "<<user_time.tv_usec<<" microseconds\n"<<std::endl;
     return 0;
 }
