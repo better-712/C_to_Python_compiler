@@ -48,5 +48,6 @@ int main(const int argc, const char **argv) {
     struct timeval sys_time = usage.ru_stime;
     std::cout << "Maximum resident set size: " << usage.ru_maxrss << " kilobytes" << std::endl;
     std::cout << "User CPU time:"<<user_time.tv_sec<<" seconds "<<user_time.tv_usec<<" microseconds\n"<<std::endl;
+    std::cout << "User CPU time:"<<sys_time.tv_sec<<" seconds "<<sys_time.tv_usec<<" microseconds\n"<<std::endl;
     return 0;
 }
