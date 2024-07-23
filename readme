@@ -1,1 +1,1 @@
-A C to Python translator which support ANSI C standard.
+This project has developed a C to Python translator that supports the ANSI C standard, which takes C code files as input and, after checking for syntax correctness, translates them into Python code files as output. The translator we implemented supports basic data types, struct structures, functions, and loop structures, and tries to keep the generated python code logic the same as the original C code.
